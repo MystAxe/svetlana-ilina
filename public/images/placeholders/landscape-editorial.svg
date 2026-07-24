@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="title description">
+  <title id="title">Горизонтальный плейсхолдер фотографии</title>
+  <desc id="description">Абстрактная редакционная композиция для замены оригинальной фотографией.</desc>
+  <rect width="1400" height="900" fill="#FFF4F3"/>
+  <rect x="0" y="0" width="1400" height="82" fill="#FFFFFF"/>
+  <rect x="1110" y="82" width="290" height="818" fill="#C1121F"/>
+  <circle cx="512" cy="356" r="164" fill="#FFFFFF"/>
+  <path d="M184 818C207 609 324 496 512 496C702 496 819 609 842 818H184Z" fill="#111111"/>
+  <path d="M418 545C451 568 483 580 514 580C546 580 579 568 610 545V818H418V545Z" fill="#C1121F"/>
+  <rect x="842" y="82" width="268" height="736" fill="#FFFFFF"/>
+  <rect x="898" y="162" width="156" height="14" fill="#111111"/>
+  <rect x="898" y="198" width="104" height="10" fill="#C1121F"/>
+  <rect x="842" y="818" width="558" height="82" fill="#111111"/>
+</svg>

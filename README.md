@@ -1,0 +1,77 @@
+# Светлана Ильина — браузерный прототип
+
+Автономный Vite-прототип главной, страницы «Формула тела» и теста. На текущей итерации визуально переработана только главная: editorial wellness-композиция проверяет иерархию, UX, конверсионный путь и адаптивность до финального дизайна. WordPress-установка не изменяется.
+
+## Запуск
+
+Требуется Node.js 22.12+ или 24+.
+
+```bash
+npm.cmd install
+npm.cmd run dev
+```
+
+Маршруты:
+
+- `/` — новая editorial-главная;
+- `/formula-tela/` — существующий структурный прототип услуги;
+- `/test/` — существующий интерактивный тест.
+
+Проверка типов и production-сборка:
+
+```bash
+npm.cmd run check
+npm.cmd run build
+npm.cmd run preview
+```
+
+В PowerShell используется `npm.cmd`, поскольку локальная execution policy может блокировать wrapper `npm.ps1`. В других shell подходит обычный `npm`.
+
+## Стек и зависимости
+
+- Vite — dev-сервер и multi-page production-сборка.
+- Tailwind CSS 4 + официальный Vite-плагин — utility CSS и semantic brand tokens.
+- TypeScript — типы контента, состояния теста и adapter-контракта.
+- `@fontsource-variable/manrope` — локальная доставка Manrope без запросов к внешним font-сервисам. Source Serif 4 подключен локальным variable WOFF2 и используется только для крупной display-типографики. Обе гарнитуры распространяются по SIL Open Font License 1.1; лицензия Source Serif 4 лежит рядом с font-файлом в `public`.
+
+UI runtime и JavaScript-фреймворков нет. React, Bootstrap, Elementor, Flowbite и Preline не подключены. Иконки не требуют отдельной зависимости.
+
+## Визуальная система этой итерации
+
+- Canvas `#FFFFFF`, основной текст `#111111`, сильный текст `#090909`.
+- Акцент `#C1121F`, hover `#A90F18`, мягкий фон `#FFF4F3`.
+- Source Serif 4 используется только для H1/H2, главных цитат и крупных смысловых метрик; Manrope — для текста, интерфейса, фактов, малых номеров и вторичных заголовков.
+- Запрещенные Tailwind-палитры, синий prototype-акцент, gradients, glassmorphism, тяжелые shadows и UI-kit cards не используются.
+- Локальные SVG placeholders честно подписаны. `EditorialPicture` уже принимает AVIF/WebP `srcset`, fallback, `sizes`, размеры и crop; реальные изображения пока не подставлены.
+
+## Границы работы
+
+- `/formula-tela/` и `/test/` не редизайнились: на них распространились только глобальные brand tokens, шрифты, header и footer.
+- Quiz reducer, scoring, validation, mock-data и adapter-контракт не менялись.
+- `NoopQuizSubmissionAdapter` ничего не отправляет и не сохраняет; REST и WordPress отсутствуют.
+- Рабочая цена, длительность наставничества, кейс `−13 кг`, фото, стаж и регалии явно помечены как требующие подтверждения.
+- Это браузерный прототип визуальной структуры, а не финальный дизайн и не custom classic WordPress theme.
+
+## Архитектура теста
+
+`src/quiz` содержит типы, reducer, validation, scoring и controller. UI-компоненты в `src/components/quiz` только отображают состояние. `QuizSubmissionAdapter` описывает будущий транспорт, а `NoopQuizSubmissionAdapter` возвращает локальный статус `not-sent` без сети, хранилища и логирования.
+
+Payload adapter-а конструктивно не содержит сырые ответы: только контакт, result key, whitelist UTM, landing path и consent timestamp. После показа результата контакт удаляется из состояния вкладки.
+
+Клавиатура теста:
+
+- `Tab` / `Shift+Tab` — переход между элементами;
+- стрелки и `Space` — нативная работа radio group;
+- `Enter` — следующий шаг;
+- цифры `1–4` — выбор варианта, когда фокус находится на заголовке вопроса;
+- «Назад» сохраняет выбранные ответы.
+
+## Документация
+
+- [План файлов](docs/FILE_PLAN.md)
+- [Карта компонентов](docs/COMPONENT_MAP.md)
+- [UX-обоснование](docs/UX_NOTES.md)
+- [Открытые вопросы](docs/OPEN_QUESTIONS.md)
+- [QA](docs/QA.md)
+
+Главный фактически найденный источник требований: `../docs/svetlana-ilina-project-brief.md`. Файл `../docs/PROJECT_BRIEF.md`, указанный в первоначальной задаче, в workspace отсутствует.

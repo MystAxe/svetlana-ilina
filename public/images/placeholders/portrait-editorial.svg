@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1200" viewBox="0 0 960 1200" role="img" aria-labelledby="title description">
+  <title id="title">Вертикальный плейсхолдер портрета</title>
+  <desc id="description">Абстрактная редакционная композиция для замены оригинальным портретом.</desc>
+  <rect width="960" height="1200" fill="#FFF4F3"/>
+  <rect x="0" y="0" width="112" height="1200" fill="#C1121F"/>
+  <rect x="112" y="0" width="848" height="96" fill="#FFFFFF"/>
+  <circle cx="546" cy="376" r="176" fill="#FFFFFF"/>
+  <path d="M324 1032C334 747 420 612 576 612C731 612 817 747 828 1032H324Z" fill="#111111"/>
+  <path d="M430 663C477 698 526 716 577 716C630 716 679 698 724 663V1032H430V663Z" fill="#C1121F"/>
+  <rect x="112" y="1032" width="848" height="168" fill="#FFFFFF"/>
+  <rect x="160" y="1080" width="308" height="16" fill="#111111"/>
+  <rect x="160" y="1116" width="180" height="10" fill="#C1121F"/>
+</svg>
