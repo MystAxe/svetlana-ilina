@@ -31,7 +31,7 @@ export function Hero({
       ${Container({
         content: `
           <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-7">
+            <div class="lg:col-span-7" data-motion-item>
               <p class="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-brand">${escapeHtml(eyebrow)}</p>
               <h1 class="max-w-4xl font-display text-4xl leading-[1.08] tracking-[-0.035em] text-ink-strong sm:text-5xl lg:text-6xl" id="hero-title">${escapeHtml(title)}</h1>
               <p class="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">${escapeHtml(text)}</p>
@@ -41,7 +41,7 @@ export function Hero({
                 ${secondaryAction ? Button({ label: secondaryAction.label, href: secondaryAction.href, variant: 'secondary', className: 'w-full sm:w-auto' }) : ''}
               </div>
             </div>
-            <figure class="lg:col-span-5">
+            <figure class="lg:col-span-5" data-motion-item>
               <div class="image-placeholder flex aspect-[4/5] min-h-80 items-center justify-center rounded-panel border border-dashed border-line-strong bg-canvas p-8 text-center" role="img" aria-label="${escapeHtml(placeholderLabel)}">
                 <div>
                   <span class="mx-auto flex min-h-11 min-w-11 items-center justify-center text-3xl" aria-hidden="true">□</span>

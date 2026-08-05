@@ -15,7 +15,7 @@ export function RecognitionList({ id, eyebrow, title, text, items, closing }: Re
   const itemMarkup = items
     .map(
       (item, index) => `
-        <li class="flex min-h-24 gap-4 rounded-panel border border-line p-5 sm:p-6">
+        <li class="flex min-h-24 gap-4 rounded-panel border border-line p-5 sm:p-6" data-motion-item>
           <span class="flex h-8 min-w-8 items-center justify-center rounded-full border border-brand text-sm font-bold text-brand" aria-hidden="true">${index + 1}</span>
           <p class="mb-0 self-center leading-7 text-ink">${escapeHtml(item)}</p>
         </li>

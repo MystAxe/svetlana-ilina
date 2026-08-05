@@ -3,7 +3,7 @@ import { ProgressBar } from '../components/quiz/ProgressBar';
 import { QuizQuestion } from '../components/quiz/QuizQuestion';
 import { QuizResult } from '../components/quiz/QuizResult';
 import { Button } from '../components/ui/Button';
-import { escapeHtml, getRequiredElement } from '../lib/dom';
+import { applyBasePaths, escapeHtml, getRequiredElement } from '../lib/dom';
 import { scoreQuiz, validateQuizDefinition } from './scoring';
 import { initialQuizState, quizReducer } from './state';
 import type { ContactErrors } from './validation';
@@ -104,7 +104,7 @@ export class QuizController {
 
   mount(): void {
     this.root.addEventListener('keydown', (event) => this.handleShortcuts(event));
-    this.render();
+    this.render(false);
   }
 
   private dispatch(action: Parameters<typeof quizReducer>[1]): void {
@@ -113,6 +113,7 @@ export class QuizController {
 
   private render(focusHeading = true): void {
     const { phase } = this.state;
+    this.root.dataset.motion = focusHeading ? 'enter' : 'static';
 
     if (phase.name === 'intro') {
       this.root.innerHTML = introView(this.definition);
@@ -144,6 +145,8 @@ export class QuizController {
         this.render();
       });
     }
+
+    applyBasePaths(this.root);
 
     if (focusHeading) {
       window.requestAnimationFrame(() => this.root.querySelector<HTMLElement>('[data-screen-heading]')?.focus());

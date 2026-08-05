@@ -25,7 +25,7 @@ function renderAboutFacts(data: AboutEditorialProps): string {
       const statusClass = needsReview ? 'border-brand text-brand' : 'border-line-strong text-ink-soft';
 
       return `
-        <div class="border-t ${ruleClass} py-5" data-verification="${escapeHtml(fact.verification)}">
+        <div class="border-t-2 ${ruleClass} bg-canvas p-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
           <dt class="text-sm leading-6 text-ink-soft">${escapeHtml(fact.label)}</dt>
           <dd class="mt-2 flex flex-col items-start gap-3">
             <span class="text-2xl font-semibold leading-tight text-ink-strong">${escapeHtml(fact.value)}</span>
@@ -43,32 +43,34 @@ export function AboutEditorial(data: AboutEditorialProps): string {
       ${Container({
         content: `
           <div class="grid gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-20">
-            <div class="min-w-0 lg:order-2 lg:col-span-5">
-              ${EditorialPicture({
-                image: data.portrait,
-                sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
-              })}
-              <dl class="mt-10">
+            <div class="min-w-0 lg:order-2 lg:col-span-5" data-motion-group data-motion-offset="1">
+              <div data-motion-item>
+                ${EditorialPicture({
+                  image: data.portrait,
+                  sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+                })}
+              </div>
+              <dl class="mt-6 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-1" data-motion-group data-motion-offset="1">
                 ${renderAboutFacts(data)}
               </dl>
             </div>
 
-            <div class="min-w-0 lg:order-1 lg:col-span-7 lg:pt-6">
-              <p class="mb-0 text-xs font-bold uppercase tracking-[0.18em] text-brand">${escapeHtml(data.eyebrow)}</p>
-              <h2 class="mt-5 font-display text-section font-normal text-ink-strong" id="home-about-title">${escapeHtml(data.name)}</h2>
-              <p class="mt-5 max-w-2xl text-subhead font-medium text-ink">${escapeHtml(data.title)}</p>
+            <div class="min-w-0 lg:order-1 lg:col-span-7 lg:pt-6" data-motion-group>
+              <p class="mb-0 text-xs font-bold uppercase tracking-[0.18em] text-brand" data-motion-item>${escapeHtml(data.eyebrow)}</p>
+              <h2 class="home-display-heading mt-5 text-ink-strong" id="home-about-title" data-motion-item>${escapeHtml(data.name)}</h2>
+              <p class="mt-5 max-w-2xl text-subhead font-medium text-ink" data-motion-item>${escapeHtml(data.title)}</p>
 
-              <div class="mt-8 max-w-2xl space-y-5">
+              <div class="mt-8 max-w-2xl space-y-5" data-motion-item>
                 ${data.paragraphs
                   .map((paragraph) => `<p class="mb-0 text-lead text-ink-soft">${escapeHtml(paragraph)}</p>`)
                   .join('')}
               </div>
 
-              <blockquote class="mt-10 max-w-3xl border-l-2 border-brand pl-6 sm:pl-8">
-                <p class="mb-0 font-display text-subhead font-normal text-ink-strong">${escapeHtml(data.quote)}</p>
+              <blockquote class="mt-10 max-w-3xl border border-brand bg-brand-soft p-6 sm:p-8" data-motion-item>
+                <p class="mb-0 text-xl font-semibold leading-8 text-ink-strong sm:text-2xl">${escapeHtml(data.quote)}</p>
               </blockquote>
 
-              <div class="mt-9">${TextLink(data.action)}</div>
+              <div class="mt-9" data-motion-item>${TextLink(data.action)}</div>
             </div>
           </div>
         `,

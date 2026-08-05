@@ -1,7 +1,6 @@
 import { AboutEditorial } from '../components/home/AboutEditorial';
 import { AudienceQuotes } from '../components/home/AudienceQuotes';
 import { BlogEditorial } from '../components/home/BlogEditorial';
-import { CaseFeature } from '../components/home/CaseFeature';
 import { FormulaFeature } from '../components/home/FormulaFeature';
 import { HomeFinalCTA } from '../components/home/HomeFinalCTA';
 import { HomeHero } from '../components/home/HomeHero';
@@ -9,13 +8,13 @@ import { MentorshipFeature } from '../components/home/MentorshipFeature';
 import { MethodEditorial } from '../components/home/MethodEditorial';
 import { ProblemEditorial } from '../components/home/ProblemEditorial';
 import { TestFeature } from '../components/home/TestFeature';
+import { TransformationStoryFeature } from '../components/home/TransformationStoryFeature';
 import { PageShell } from '../components/layout/PageShell';
 import { FAQ } from '../components/sections/FAQ';
 import {
   aboutEditorial,
   audienceQuotes,
   blogEditorial,
-  caseFeature,
   formulaFeature,
   homeFaq,
   homeFinalCta,
@@ -25,6 +24,7 @@ import {
   problemEditorial,
   testFeature,
 } from '../data/home';
+import { polinaStory } from '../data/stories';
 
 export function homePage(): string {
   const mainContent = [
@@ -34,7 +34,7 @@ export function homePage(): string {
     MethodEditorial(methodEditorial),
     TestFeature(testFeature),
     FormulaFeature(formulaFeature),
-    CaseFeature(caseFeature),
+    TransformationStoryFeature({ story: polinaStory }),
     AboutEditorial(aboutEditorial),
     MentorshipFeature(mentorshipFeature),
     BlogEditorial(blogEditorial),

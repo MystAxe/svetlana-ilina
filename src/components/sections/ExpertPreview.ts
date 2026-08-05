@@ -8,7 +8,7 @@ interface ExpertPreviewProps {
 
 export function ExpertPreview({ text, note }: ExpertPreviewProps): string {
   return `
-    <article class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+    <article class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12" data-motion-item>
       <div class="image-placeholder flex min-h-64 min-w-0 items-center justify-center rounded-panel border border-dashed border-line-strong p-8 text-center sm:aspect-[4/3] lg:col-span-5" aria-label="Место для оригинального портрета Светланы">
         <p class="mb-0 max-w-xs text-sm font-semibold text-ink-soft">Оригинальный портрет без текста и графики</p>
       </div>

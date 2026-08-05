@@ -15,7 +15,7 @@ export function Pillars({ items }: PillarsProps): string {
   const itemMarkup = items
     .map(
       (item, index) => `
-        <li class="relative border-t border-line-strong pt-5">
+        <li class="relative border-t border-line-strong pt-5" data-motion-item>
           <p class="mb-4 text-sm font-bold text-brand">0${index + 1}</p>
           <h3 class="text-xl font-bold leading-7 text-ink-strong">${escapeHtml(item.title)}</h3>
           <p class="mt-3 text-sm leading-6 text-ink-soft">${escapeHtml(item.text)}</p>

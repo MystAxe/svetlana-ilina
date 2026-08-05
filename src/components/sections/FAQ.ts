@@ -1,6 +1,5 @@
 import { escapeHtml } from '../../lib/dom';
 import { Container } from '../ui/Container';
-import { SectionHeading } from '../ui/SectionHeading';
 
 export interface FAQItem {
   question: string;
@@ -15,6 +14,16 @@ interface FAQProps {
   variant?: 'default' | 'editorial';
 }
 
+function DefaultHeading(id: string, title: string, text: string | undefined): string {
+  return `
+    <div class="max-w-3xl">
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand" data-motion-item>FAQ</p>
+      <h2 id="${escapeHtml(id)}-title" class="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.025em] text-ink-strong" data-motion-item>${escapeHtml(title)}</h2>
+      ${text ? `<p class="mt-5 max-w-2xl text-base leading-7 text-ink-soft sm:text-lg sm:leading-8" data-motion-item>${escapeHtml(text)}</p>` : ''}
+    </div>
+  `;
+}
+
 export function FAQ({ items, id = 'faq', title = 'Частые вопросы', text, variant = 'default' }: FAQProps): string {
   const isEditorial = variant === 'editorial';
   const headingColumnClass = isEditorial ? 'lg:col-span-5' : 'lg:col-span-4';
@@ -24,23 +33,23 @@ export function FAQ({ items, id = 'faq', title = 'Частые вопросы', 
     .map((item) => {
       if (!isEditorial) {
         return `
-          <details class="group">
+          <details class="faq-item group" data-motion-item>
             <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 text-base font-bold marker:content-none">
               <span>${escapeHtml(item.question)}</span>
-              <span class="text-2xl font-normal text-brand group-open:rotate-45" aria-hidden="true">+</span>
+              <span class="faq-icon text-2xl font-normal text-brand group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
-            <p class="max-w-2xl pb-5 pr-10 text-sm leading-7 text-ink-soft">${escapeHtml(item.answer)}</p>
+            <p class="faq-answer max-w-2xl pb-5 pr-10 text-sm leading-7 text-ink-soft">${escapeHtml(item.answer)}</p>
           </details>
         `;
       }
 
       return `
-        <details class="group">
+        <details class="faq-item group" data-motion-item>
           <summary class="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-6 text-lg font-semibold leading-7 marker:content-none sm:text-xl">
             <span>${escapeHtml(item.question)}</span>
-            <span class="shrink-0 text-3xl font-normal leading-none text-brand transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            <span class="faq-icon shrink-0 text-3xl font-normal leading-none text-brand group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="max-w-2xl pb-7 pr-10 text-body text-ink-soft">${escapeHtml(item.answer)}</p>
+          <p class="faq-answer max-w-2xl pb-7 pr-10 text-body text-ink-soft">${escapeHtml(item.answer)}</p>
         </details>
       `;
     })
@@ -51,14 +60,14 @@ export function FAQ({ items, id = 'faq', title = 'Частые вопросы', 
       ${Container({
         content: `
           <div class="grid ${gridGapClass} lg:grid-cols-12 lg:gap-12">
-            <div class="${headingColumnClass}">
+            <div class="${headingColumnClass}" data-motion-group>
               ${
                 isEditorial
-                  ? `<p class="home-kicker">FAQ</p><h2 class="home-title" id="${escapeHtml(id)}-title">${escapeHtml(title)}</h2>${text ? `<p class="home-lead mt-6">${escapeHtml(text)}</p>` : ''}`
-                  : SectionHeading({ id: `${id}-title`, eyebrow: 'FAQ', title, text })
+                  ? `<p class="home-kicker" data-motion-item>FAQ</p><h2 class="home-title" id="${escapeHtml(id)}-title" data-motion-item>${escapeHtml(title)}</h2>${text ? `<p class="home-lead mt-6" data-motion-item>${escapeHtml(text)}</p>` : ''}`
+                  : DefaultHeading(id, title, text)
               }
             </div>
-            <div class="divide-y divide-line border-y border-line ${questionsColumnClass}">
+            <div class="divide-y divide-line border-y border-line ${questionsColumnClass}" data-motion-group data-motion-offset="1">
               ${questions}
             </div>
           </div>

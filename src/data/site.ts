@@ -11,18 +11,21 @@ export const siteIdentity = {
 export const primaryNavigation: NavigationItem[] = [
   { label: 'Подход', href: '/#method' },
   { label: 'Формула тела', href: '/formula-tela/' },
-  { label: 'О Светлане', href: '/#expert' },
-  { label: 'Блог', href: '/#blog' },
-  { label: 'FAQ', href: '/#faq' },
+  { label: 'Истории перемен', href: '/istorii-peremen/' },
+  { label: 'Наставничество', href: '/nastavnichestvo/' },
+  { label: 'О Светлане', href: '/o-svetlane/' },
+  { label: 'Блог', href: '/blog/' },
 ];
 
 export const footerNavigation: NavigationItem[] = [
   { label: 'Главная', href: '/' },
   { label: 'Формула тела', href: '/formula-tela/' },
+  { label: 'Истории перемен', href: '/istorii-peremen/' },
   { label: 'Бесплатный тест', href: '/test/' },
   { label: 'Наставничество', href: '/nastavnichestvo/' },
   { label: 'О Светлане', href: '/o-svetlane/' },
   { label: 'Блог', href: '/blog/' },
+  { label: 'Контакты', href: '/contacts/' },
 ];
 
 export const legalNavigation: NavigationItem[] = [

@@ -3,6 +3,7 @@ import { NoopQuizSubmissionAdapter } from '../adapters/NoopQuizSubmissionAdapter
 import { initMobileMenu } from '../components/layout/MobileMenu';
 import { quizDefinition } from '../data/quiz';
 import { getRequiredElement, mountApp } from '../lib/dom';
+import { initSiteMotion } from '../lib/motion';
 import { quizPage } from '../pages/quizPage';
 import { QuizController } from '../quiz/controller';
 
@@ -21,3 +22,5 @@ try {
     </div>
   `;
 }
+
+initSiteMotion();

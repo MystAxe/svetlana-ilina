@@ -9,8 +9,8 @@
 | Button | `src/components/ui/Button.ts` | Primary, secondary, quiet и inverse actions |
 | TextLink | `src/components/ui/TextLink.ts` | Вторичное действие с touch target 44 px |
 | Header | `src/components/layout/Header.ts` | Белый global header, desktop-nav, red CTA |
-| MobileMenu | `src/components/layout/MobileMenu.ts` | Drawer, `aria-expanded`, Escape и focus trap |
-| FAQ | `src/components/sections/FAQ.ts` | Нативные `details/summary`; default и home-editorial variants |
+| MobileMenu | `src/components/layout/MobileMenu.ts` | Плавный drawer, `aria-expanded`, inert-фон, Escape и focus trap |
+| FAQ | `src/components/sections/FAQ.ts` | Нативные `details/summary`; плавное появление ответа, default и home-editorial variants |
 | Footer | `src/components/layout/Footer.ts` | Асимметричный black footer, navigation, legal disclaimer |
 
 ## Главная
@@ -27,13 +27,37 @@
 | AboutEditorial | Портрет, история, цитата и факты со статусами подтверждения |
 | MentorshipFeature | Black-секция: 8–10 недель, путь клиента, CTA без оплаты |
 | BlogEditorial | Один ведущий материал и два компактных |
+| TransformationStoryFeature | Превью истории Полины: проблема, поворотное решение, голос клиентки и подтверждаемые изменения |
 | HomeFinalCTA | Отдельная финальная конверсионная композиция |
 
 Все перечисленные файлы находятся в `src/components/home/`. Контент передается из `src/data/home.ts`; внутри компонентов copy не смешивается с layout, кроме служебных accessibility-подписей.
 
+## Истории перемен
+
+| Компонент | Назначение |
+|---|---|
+| StoryFilters | Фильтр архива по узнаваемой проблеме; `aria-pressed`, live-status и URL-параметр |
+| StoryVideo | Доступный видеоблок с постером, нативными контролами и подписью к фрагменту |
+| storiesArchivePage | H1, problem-first фильтр, список подходящих историй и следующий шаг |
+| polinaStoryPage | 12 смысловых экранов истории Полины с одним H1 и последовательной H2-иерархией |
+
+Контент и будущая CPT-модель находятся в `src/data/stories.ts`. Публично слово «кейс» не используется; для WordPress сохраняется внутренний CPT `case` с таксономией `case_problem`.
+
 ## Существующие структурные компоненты
 
-`Hero`, `RecognitionList`, `CasePreview`, `ExpertPreview`, `LeadForm` и другие компоненты из `src/components/sections/` сохранены для `/formula-tela/`; новая главная их не переиспользует, чтобы визуальный редизайн не распространился на услугу.
+`Hero`, `RecognitionList`, `StoryPreview`, `ExpertPreview`, `LeadForm` и другие компоненты из `src/components/sections/` сохранены для `/formula-tela/`; новая главная их не переиспользует, чтобы визуальный редизайн не распространился на услугу.
+
+## Остальные страницы
+
+`staticPage` выбирает данные по текущему pathname и использует четыре осмысленных представления:
+
+- standard — наставничество, «О Светлане», контакты;
+- blog index — список реальных маршрутов статей;
+- article — читаемая статья с информационным disclaimer;
+- legal — тёмный первый экран и явный статус неутверждённого документа;
+- thank-you — самостоятельное состояние после будущей отправки формы.
+
+Контент хранится в `src/data/staticPages.ts`; неизвестный pathname получает локальное 404-состояние, а не пустой экран.
 
 ## Тест
 
@@ -44,4 +68,4 @@
 | QuizOption | Нативный radio option с keyboard support |
 | QuizResult | Недиагностический mock-result и CTA |
 
-`PageShell` — технический компоновщик landmarks; `QuizController` — application layer, а не визуальный компонент.
+`PageShell` — технический компоновщик landmarks; `QuizController` — application layer, а не визуальный компонент. `src/lib/motion.ts` наблюдает независимые смысловые группы и запускает короткий stagger их непосредственных элементов; фон и геометрия секции при этом остаются стабильными. При reduced motion всё сразу переводится в конечное состояние.

@@ -94,7 +94,7 @@ function renderFact(fact: EditorialFact): string {
     : '';
 
   return `
-    <div class="flex min-w-0 flex-col border-t border-line pt-4" data-verification="${escapeHtml(fact.verification)}">
+    <div class="home-hero__fact flex min-w-0 flex-col border border-line bg-canvas px-4 py-5 sm:px-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
       <dt class="order-2 mt-1 text-xs leading-5 text-ink-soft">${escapeHtml(fact.label)}</dt>
       <dd class="order-1 m-0 text-xl font-semibold leading-tight text-ink-strong sm:text-2xl">
         ${escapeHtml(fact.value)}
@@ -120,32 +120,33 @@ export function HomeHero({
       ${Container({
         className: 'py-12 sm:py-16 lg:py-10',
         content: `
-          <div class="grid items-center gap-12 lg:min-h-[calc(88svh-4.5rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-10 xl:gap-16">
-            <div class="min-w-0 lg:pr-4">
-              <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-brand">
+          <div class="grid items-center gap-12 lg:min-h-[42rem] lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.88fr)] lg:gap-10 xl:gap-16">
+            <div class="min-w-0 lg:pr-4" data-motion-group>
+              <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-brand" data-motion-item>
                 <span class="h-px w-10 bg-brand" aria-hidden="true"></span>
                 ${escapeHtml(eyebrow)}
               </p>
-              <h1 class="max-w-[15ch] font-display text-hero font-normal text-ink-strong" id="home-hero-title">
+              <h1 class="home-hero__title max-w-[15ch] font-display text-hero text-ink-strong" id="home-hero-title" data-motion-item>
                 ${title}
               </h1>
-              <p class="mt-7 max-w-2xl text-lead text-ink-soft">${escapeHtml(text)}</p>
-              <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <p class="mt-7 max-w-2xl text-lead text-ink-soft" data-motion-item>${escapeHtml(text)}</p>
+              <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6" data-motion-item>
                 ${Button({ ...primaryAction, className: 'w-full sm:w-auto' })}
                 ${TextLink(secondaryAction)}
               </div>
-              <dl class="mt-10 grid gap-5 sm:grid-cols-3 lg:mt-14">
+              <dl class="home-hero__facts mt-10 grid gap-2 sm:grid-cols-3 lg:mt-12" data-motion-group data-motion-offset="3">
                 ${facts.map(renderFact).join('')}
               </dl>
             </div>
-            <div class="home-hero__media relative min-w-0">
-              <span class="absolute left-5 top-0 z-10 hidden text-2xl font-semibold leading-none text-brand lg:block" aria-hidden="true">01</span>
-              ${EditorialPicture({
-                image: portrait,
-                eager: true,
-                className: 'mx-auto max-w-[36rem] lg:max-w-none lg:pl-5 lg:pt-9',
-                sizes: '(min-width: 1280px) 35rem, (min-width: 1024px) 44vw, (min-width: 640px) 36rem, 100vw',
-              })}
+            <div class="home-hero__media relative min-w-0" data-motion-group data-motion-offset="2">
+              <div data-motion-item data-motion-kind="media">
+                ${EditorialPicture({
+                  image: portrait,
+                  eager: true,
+                  className: 'mx-auto max-w-[32rem] lg:max-w-none lg:pl-5 lg:pt-5',
+                  sizes: '(min-width: 1280px) 35rem, (min-width: 1024px) 44vw, (min-width: 640px) 36rem, 100vw',
+                })}
+              </div>
             </div>
           </div>
         `,

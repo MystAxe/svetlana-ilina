@@ -4,7 +4,11 @@ import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
 
 function isCurrent(href: string, activePath: string): boolean {
-  return href !== '/' && !href.includes('#') && href === activePath;
+  return (
+    href !== '/' &&
+    !href.includes('#') &&
+    (href === activePath || (href.endsWith('/') && activePath.startsWith(href)))
+  );
 }
 
 export function Header(activePath: string): string {
@@ -14,7 +18,7 @@ export function Header(activePath: string): string {
 
       return `
         <li>
-          <a class="inline-flex min-h-11 min-w-11 items-center justify-center border-b px-1 text-sm font-semibold transition-colors ${
+          <a class="nav-link inline-flex min-h-11 min-w-11 items-center justify-center border-b px-1 text-sm font-semibold ${
             current
               ? 'border-brand text-ink'
               : 'border-transparent text-ink-soft hover:border-line-strong hover:text-ink'
@@ -25,7 +29,7 @@ export function Header(activePath: string): string {
     .join('');
 
   return `
-    <header class="sticky top-0 z-40 border-b border-line bg-canvas" data-site-header>
+    <header class="site-header sticky top-0 z-40 border-b bg-canvas" data-site-header>
       ${Container({
         content: `
           <div class="flex min-h-16 items-center justify-between gap-4 xl:min-h-18">
@@ -35,18 +39,18 @@ export function Header(activePath: string): string {
             </a>
 
             <nav class="hidden xl:block" aria-label="Основная навигация">
-              <ul class="flex items-center gap-5">${navigation}</ul>
+              <ul class="flex items-center gap-3">${navigation}</ul>
             </nav>
 
             <div class="hidden xl:block">
               ${Button({ label: 'Пройти тест', href: '/test/', className: 'min-h-11 px-5 py-2' })}
             </div>
 
-            <button class="inline-flex min-h-11 min-w-11 items-center justify-center border border-line-strong bg-canvas text-ink xl:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню" data-menu-open>
+            <button class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center border border-line-strong bg-canvas text-ink xl:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню" data-menu-open>
               <span class="flex w-5 flex-col gap-1.5" aria-hidden="true">
-                <span class="h-px w-full bg-ink"></span>
-                <span class="h-px w-full bg-ink"></span>
-                <span class="h-px w-full bg-ink"></span>
+                <span class="menu-toggle__line h-px w-full bg-ink"></span>
+                <span class="menu-toggle__line h-px w-full bg-ink"></span>
+                <span class="menu-toggle__line h-px w-full bg-ink"></span>
               </span>
             </button>
           </div>

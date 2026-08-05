@@ -1,6 +1,6 @@
 import { escapeHtml } from '../../lib/dom';
 
-type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'inverse';
+type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'inverse' | 'inverse-outline';
 
 interface ButtonProps {
   label: string;
@@ -18,6 +18,7 @@ const variants: Record<ButtonVariant, string> = {
   secondary: 'border-line-strong bg-canvas text-ink hover:border-ink hover:bg-ink hover:text-canvas',
   quiet: 'border-transparent bg-transparent text-ink hover:border-line-strong hover:bg-brand-soft',
   inverse: 'border-canvas bg-canvas text-ink hover:border-brand hover:bg-brand-soft',
+  'inverse-outline': 'border-canvas bg-transparent text-canvas hover:border-canvas hover:bg-canvas hover:text-ink',
 };
 
 export function Button({
@@ -30,7 +31,7 @@ export function Button({
   attributes = '',
   disabled = false,
 }: ButtonProps): string {
-  const classes = `inline-flex min-h-13 min-w-11 items-center justify-center rounded-control border px-5 py-3 text-center text-sm font-bold leading-5 transition-colors duration-200 ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-45 ${className}`;
+  const classes = `ui-button inline-flex min-h-13 min-w-11 items-center justify-center rounded-control border px-5 py-3 text-center text-sm font-bold leading-5 ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-45 ${className}`;
   const idAttribute = id ? ` id="${escapeHtml(id)}"` : '';
 
   if (href) {
