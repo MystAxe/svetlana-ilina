@@ -17,6 +17,7 @@ const routes = [
   '/istorii-peremen/',
   '/istorii-peremen/polina/',
   '/istorii-peremen/sveta/',
+  '/istorii-peremen/vika/',
   '/nastavnichestvo/',
   '/o-svetlane/',
   '/blog/',

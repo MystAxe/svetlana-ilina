@@ -1,6 +1,14 @@
 import type { EditorialImage } from './home';
 
-export type StoryProblemId = 'no-energy' | 'weight-stalled' | 'willpower' | 'starting-over' | 'self-conscious';
+export type StoryProblemId =
+  | 'no-energy'
+  | 'weight-stalled'
+  | 'willpower'
+  | 'starting-over'
+  | 'self-conscious'
+  | 'life-on-hold'
+  | 'diet-cycle'
+  | 'health-concerns';
 
 export interface StoryProblem {
   id: StoryProblemId;
@@ -87,12 +95,48 @@ export const svetaAfterSide: EditorialImage = {
   rights: 'confirmed',
 };
 
+export const vikaBeforeFront: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-before-front.jpg',
+  sizes: '(min-width: 1024px) 44vw, 100vw',
+  width: 960,
+  height: 1280,
+  alt: 'Вика до начала работы, вид спереди',
+  placeholderLabel: 'Вика до начала работы · вид спереди',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const vikaBeforeBack: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-before-back.jpg',
+  sizes: vikaBeforeFront.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Вика до начала работы, вид со спины',
+  placeholderLabel: 'Вика до начала работы · вид со спины',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const vikaAfterFrame: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-wardrobe-poster.jpg',
+  sizes: vikaBeforeFront.sizes,
+  width: 720,
+  height: 1280,
+  alt: 'Вика после перемен рассказывает о новом гардеробе',
+  placeholderLabel: 'Вика после перемен · кадр из видео',
+  crop: 'portrait-close',
+  rights: 'confirmed',
+};
+
 export const storyProblems: StoryProblem[] = [
   { id: 'no-energy', label: 'Нет энергии на тренировки' },
   { id: 'weight-stalled', label: 'Я стараюсь, но вес стоит' },
   { id: 'willpower', label: 'Кажется, что не хватает силы воли' },
   { id: 'starting-over', label: 'Устала начинать снова' },
   { id: 'self-conscious', label: 'Хочется спрятаться за одеждой' },
+  { id: 'life-on-hold', label: 'Откладываю жизнь «до похудения»' },
+  { id: 'diet-cycle', label: 'Устала от временных диет' },
+  { id: 'health-concerns', label: 'Боюсь, что без таблеток не справиться' },
 ];
 
 export const polinaStory: TransformationStorySummary = {
@@ -123,7 +167,22 @@ export const svetaStory: TransformationStorySummary = {
   resultHighlights: ['−35 кг', 'Новый гардероб', 'Отпуск впервые за пять лет', 'Появилось уважение к себе'],
 };
 
-export const transformationStories: TransformationStorySummary[] = [polinaStory, svetaStory];
+export const vikaStory: TransformationStorySummary = {
+  slug: 'vika',
+  href: '/istorii-peremen/vika/',
+  person: 'Вика',
+  personGenitive: 'Вики',
+  title: '«Я всё откладывала жизнь на потом.»',
+  summary:
+    'Вика ждала, когда сначала изменится вес, и только потом разрешала себе красивую одежду, кафе, фотографии и отдых.',
+  decision: 'Это не диета. Это новый образ жизни.',
+  quote: '«Мне было всего 34…»',
+  problems: ['life-on-hold', 'diet-cycle', 'health-concerns', 'no-energy'],
+  image: vikaAfterFrame,
+  resultHighlights: ['−23 кг', 'Размер одежды 42–44', 'Больше энергии', 'Снова хочется жить активно'],
+};
+
+export const transformationStories: TransformationStorySummary[] = [polinaStory, svetaStory, vikaStory];
 
 export const storiesArchive = {
   eyebrow: 'Истории клиентов',

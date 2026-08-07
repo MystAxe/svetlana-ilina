@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
         stories: 'istorii-peremen/index.html',
         polinaStory: 'istorii-peremen/polina/index.html',
         svetaStory: 'istorii-peremen/sveta/index.html',
+        vikaStory: 'istorii-peremen/vika/index.html',
         mentorship: 'nastavnichestvo/index.html',
         about: 'o-svetlane/index.html',
         blog: 'blog/index.html',
