@@ -1,4 +1,4 @@
-import { vikaAfterFrame, vikaBeforeBack, vikaBeforeFront, vikaStory } from './stories';
+import { vikaStory } from './stories';
 
 export const vikaStoryPage = {
   personLabel: 'История Вики',
@@ -13,7 +13,8 @@ export const vikaStoryPage = {
       'Потом поеду отдыхать.',
     ],
     closing: 'И незаметно это «потом» длилось уже несколько лет.',
-    image: vikaAfterFrame,
+    mediaLabel: 'Фото Вики после результата',
+    mediaDescription: 'Фотография будет добавлена после передачи подтверждённого материала.',
   },
   start: {
     eyebrow: '02 · С чего всё началось',
@@ -23,17 +24,14 @@ export const vikaStoryPage = {
       '«Ты выглядишь старше своего возраста.»',
       'На тот момент мне было всего 34. И именно тогда я впервые поняла, что дело уже не только в лишнем весе.',
     ],
-    images: [vikaBeforeFront, vikaBeforeBack],
+    mediaLabel: 'Фото Вики до начала работы',
+    mediaDescription: 'Фотографии будут добавлены после передачи подтверждённых материалов.',
   },
   firstVoice: {
     eyebrow: '03 · Голос Вики',
     title: '«Я пришла и даже не сняла шапку…»',
     label: 'Видео №1 · 27 секунд',
     description: 'Фрагмент о шапке, шарфе и состоянии Вики в начале пути.',
-    video: {
-      src: '/media/stories/vika/vika-hat-scarf.mp4',
-      poster: '/media/stories/vika/vika-hat-scarf-poster.jpg',
-    },
   },
   attempts: {
     eyebrow: '04 · Почему раньше ничего не менялось',
@@ -74,15 +72,12 @@ export const vikaStoryPage = {
     title: '«Снова захотелось выбирать одежду для себя.»',
     label: 'Видео №2 · 46 секунд',
     description: 'Фрагмент о новом гардеробе и удовольствии от перемен.',
-    video: {
-      src: '/media/stories/vika/vika-wardrobe.mp4',
-      poster: '/media/stories/vika/vika-wardrobe-poster.jpg',
-    },
   },
   lifeChanged: {
     eyebrow: '08 · Когда жизнь начала меняться',
     title: 'Изменились не только цифры на весах.',
-    images: [vikaAfterFrame, vikaBeforeFront, vikaBeforeBack],
+    mediaLabel: 'Фото Вики после результата',
+    mediaDescription: 'Фотография будет добавлена после передачи подтверждённого материала.',
     items: [
       'Размер одежды уменьшился на несколько размеров',
       'Теперь в магазине спокойно выбираю 42–44 размер',

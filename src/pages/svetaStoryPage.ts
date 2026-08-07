@@ -1,5 +1,6 @@
 import { EditorialPicture } from '../components/home/HomeHero';
 import { PageShell } from '../components/layout/PageShell';
+import { StoryVideo } from '../components/stories/StoryVideo';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
 import { TextLink } from '../components/ui/TextLink';
@@ -86,11 +87,18 @@ function RecognitionStart(): string {
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-12 xl:gap-16">
             <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
-              ${PendingMedia({
-                label: 'Фото до начала работы',
-                description: data.recognitionStart.pendingPhoto,
-                kind: 'photo',
-              })}
+              <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                ${data.recognitionStart.images
+                  .map((image) =>
+                    EditorialPicture({
+                      image,
+                      className: 'min-w-0',
+                      imageClassName: 'aspect-[3/4]',
+                      sizes: '(min-width: 1280px) 19rem, (min-width: 640px) 45vw, 100vw',
+                    }),
+                  )
+                  .join('')}
+              </div>
             </div>
             <div class="min-w-0 lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.recognitionStart.eyebrow)}</p>
@@ -124,12 +132,7 @@ function FirstVoice(): string {
               <h2 class="max-w-[13ch] font-display text-section font-semibold leading-tight text-canvas" id="sveta-first-voice-title" data-motion-item>${escapeHtml(data.firstVoice.title)}</h2>
             </div>
             <div class="lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${PendingMedia({
-                label: data.firstVoice.label,
-                description: data.firstVoice.description,
-                kind: 'video',
-                variant: 'dark',
-              })}
+              ${StoryVideo({ ...data.firstVoice.video, label: data.firstVoice.label, description: data.firstVoice.description, variant: 'dark' })}
             </div>
           </div>
         `,
@@ -222,11 +225,7 @@ function SecondVoice(): string {
         content: `
           <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <div class="lg:col-span-7" data-motion-group>
-              ${PendingMedia({
-                label: data.secondVoice.label,
-                description: data.secondVoice.description,
-                kind: 'video',
-              })}
+              ${StoryVideo({ ...data.secondVoice.video, label: data.secondVoice.label, description: data.secondVoice.description, variant: 'light' })}
             </div>
             <div class="lg:col-span-5" data-motion-group data-motion-offset="1">
               <p class="home-kicker" data-motion-item>${escapeHtml(data.secondVoice.eyebrow)}</p>

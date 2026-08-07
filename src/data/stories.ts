@@ -95,6 +95,28 @@ export const svetaAfterSide: EditorialImage = {
   rights: 'confirmed',
 };
 
+export const svetaBeforeFront: EditorialImage = {
+  fallbackSrc: '/media/stories/sveta/sveta-before-front.jpg',
+  sizes: svetaAfterFront.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Света до начала работы, вид спереди',
+  placeholderLabel: 'Света до начала работы · вид спереди',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const svetaBeforeBack: EditorialImage = {
+  fallbackSrc: '/media/stories/sveta/sveta-before-back.jpg',
+  sizes: svetaAfterFront.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Света до начала работы, вид со спины',
+  placeholderLabel: 'Света до начала работы · вид со спины',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
 export const vikaBeforeFront: EditorialImage = {
   fallbackSrc: '/media/stories/vika/vika-before-front.jpg',
   sizes: '(min-width: 1024px) 44vw, 100vw',

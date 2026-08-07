@@ -1,4 +1,4 @@
-import { svetaAfterBack, svetaAfterFront, svetaAfterSide, svetaStory } from './stories';
+import { svetaAfterBack, svetaAfterFront, svetaAfterSide, svetaBeforeBack, svetaBeforeFront, svetaStory } from './stories';
 
 export const svetaStoryPage = {
   personLabel: 'История Светы',
@@ -19,13 +19,17 @@ export const svetaStoryPage = {
       'Хотелось стать незаметной.',
     ],
     closing: 'Я перестала чувствовать себя красивой.',
-    pendingPhoto: 'Фото Светы до начала работы будет добавлено после передачи подтверждённого оригинала.',
+    images: [svetaBeforeFront, svetaBeforeBack],
   },
   firstVoice: {
     eyebrow: '03 · Голос Светы',
     title: '«Я пришла и даже не сняла шапку…»',
     label: 'Видео · около 20 секунд',
     description: 'Фрагмент о шапке, шарфе и состоянии Светы в начале пути.',
+    video: {
+      src: '/media/stories/sveta/sveta-hat-scarf.mp4',
+      poster: '/media/stories/sveta/sveta-hat-scarf-poster.jpg',
+    },
   },
   attempts: {
     eyebrow: '04 · Почему ничего не получалось',
@@ -67,6 +71,10 @@ export const svetaStoryPage = {
     title: '«Я кайфую. Покупаю одежду. Собираюсь в отпуск.»',
     label: 'Видео · самый счастливый фрагмент',
     description: 'Фрагмент о новом гардеробе, удовольствии от перемен и подготовке к отпуску.',
+    video: {
+      src: '/media/stories/sveta/sveta-wardrobe.mp4',
+      poster: '/media/stories/sveta/sveta-wardrobe-poster.jpg',
+    },
   },
   results: {
     eyebrow: '08 · И только теперь…',

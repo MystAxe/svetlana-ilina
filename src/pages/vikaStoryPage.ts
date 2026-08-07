@@ -1,11 +1,8 @@
-import { EditorialPicture } from '../components/home/HomeHero';
 import { PageShell } from '../components/layout/PageShell';
-import { StoryVideo } from '../components/stories/StoryVideo';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
 import { TextLink } from '../components/ui/TextLink';
 import { vikaStoryPage as data } from '../data/vikaStory';
-import type { EditorialImage } from '../data/home';
 import { escapeHtml } from '../lib/dom';
 
 function paragraphs(items: readonly string[], className = 'mb-5 text-lead text-ink-soft last:mb-0'): string {
@@ -32,19 +29,29 @@ function checklist(items: readonly string[], dark = false): string {
   `;
 }
 
-function gallery(images: readonly EditorialImage[], className = 'grid gap-4 sm:grid-cols-2'): string {
+interface PendingMediaProps {
+  label: string;
+  description: string;
+  kind: 'photo' | 'video';
+  variant?: 'light' | 'dark';
+}
+
+function PendingMedia({ label, description, kind, variant = 'light' }: PendingMediaProps): string {
+  const dark = variant === 'dark';
+  const surface = dark ? 'border-canvas/30 bg-canvas/5 text-canvas' : 'border-line-strong bg-brand-soft text-ink';
+  const muted = dark ? 'text-canvas/70' : 'text-ink-soft';
+  const ratio = kind === 'photo' ? 'aspect-[4/5]' : 'aspect-video';
+
   return `
-    <div class="${className}" data-motion-group data-motion-offset="1">
-      ${images
-        .map(
-          (image, index) => `
-            <div class="${index === 0 && images.length === 3 ? 'sm:col-span-2' : ''}" data-motion-item data-motion-kind="media">
-              ${EditorialPicture({ image, showLabel: true })}
-            </div>
-          `,
-        )
-        .join('')}
-    </div>
+    <figure class="m-0 border p-5 sm:p-7 ${surface}" data-motion-item>
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <span class="inline-flex min-h-10 items-center border ${dark ? 'border-canvas/35' : 'border-brand'} px-3 text-xs font-bold uppercase tracking-[0.14em]">${escapeHtml(label)}</span>
+        <span class="text-xs font-bold uppercase tracking-[0.14em] ${muted}">Материал не опубликован</span>
+      </div>
+      <div class="grid ${ratio} place-items-center border border-dashed ${dark ? 'border-canvas/35 bg-ink' : 'border-line-strong bg-canvas'} p-6 text-center" role="img" aria-label="${escapeHtml(label)}">
+        <p class="mb-0 max-w-md text-sm font-semibold leading-6 ${muted}">${escapeHtml(description)}</p>
+      </div>
+    </figure>
   `;
 }
 
@@ -68,13 +75,10 @@ function Hero(): string {
             </div>
             <div class="min-w-0 lg:col-span-6" data-motion-group data-motion-offset="1">
               <div class="h-full" data-motion-item data-motion-kind="media">
-                ${EditorialPicture({
-                  image: data.hero.image,
-                  eager: true,
-                  className: 'h-full',
-                  imageClassName: 'min-h-[28rem] lg:min-h-full',
-                  sizes: '(min-width: 1280px) 40rem, (min-width: 1024px) 50vw, 100vw',
-                  showLabel: false,
+                ${PendingMedia({
+                  label: data.hero.mediaLabel,
+                  description: data.hero.mediaDescription,
+                  kind: 'photo',
                 })}
               </div>
             </div>
@@ -91,7 +95,7 @@ function Start(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-12 xl:gap-16">
-            <div class="min-w-0 lg:col-span-5">${gallery(data.start.images, 'grid gap-4 sm:grid-cols-2 lg:grid-cols-1')}</div>
+            <div class="min-w-0 lg:col-span-5">${PendingMedia({ label: data.start.mediaLabel, description: data.start.mediaDescription, kind: 'photo' })}</div>
             <div class="min-w-0 lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.start.eyebrow)}</p>
               <h2 class="home-title" id="vika-start-title" data-motion-item>${escapeHtml(data.start.title)}</h2>
@@ -117,7 +121,7 @@ function FirstVoice(): string {
               <h2 class="max-w-[14ch] font-display text-section font-semibold leading-tight text-canvas" id="vika-first-voice-title" data-motion-item>${escapeHtml(data.firstVoice.title)}</h2>
             </div>
             <div class="lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${StoryVideo({ ...data.firstVoice.video, label: data.firstVoice.label, description: data.firstVoice.description, variant: 'dark' })}
+              ${PendingMedia({ label: data.firstVoice.label, description: data.firstVoice.description, kind: 'video', variant: 'dark' })}
             </div>
           </div>
         `,
@@ -216,7 +220,7 @@ function SecondVoice(): string {
         content: `
           <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <div class="lg:col-span-7" data-motion-group>
-              ${StoryVideo({ ...data.secondVoice.video, label: data.secondVoice.label, description: data.secondVoice.description, variant: 'light' })}
+              ${PendingMedia({ label: data.secondVoice.label, description: data.secondVoice.description, kind: 'video' })}
             </div>
             <div class="lg:col-span-5" data-motion-group data-motion-offset="1">
               <p class="home-kicker" data-motion-item>${escapeHtml(data.secondVoice.eyebrow)}</p>
@@ -235,7 +239,7 @@ function LifeChanged(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5">${gallery(data.lifeChanged.images)}</div>
+            <div class="lg:col-span-5">${PendingMedia({ label: data.lifeChanged.mediaLabel, description: data.lifeChanged.mediaDescription, kind: 'photo' })}</div>
             <div class="lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.lifeChanged.eyebrow)}</p>
               <h2 class="home-title" id="vika-life-title" data-motion-item>${escapeHtml(data.lifeChanged.title)}</h2>
