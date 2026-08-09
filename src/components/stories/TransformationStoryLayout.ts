@@ -255,10 +255,24 @@ interface StoryCtaProps {
   title: string;
   text: string;
   action: StoryAction;
+  secondaryAction?: StoryAction;
   note: string;
 }
 
-export function StoryCTA({ slug, eyebrow, title, text, action, note }: StoryCtaProps): string {
+const defaultStorySecondaryAction: StoryAction = {
+  label: '\u041f\u0440\u043e\u0439\u0442\u0438 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0439 \u0442\u0435\u0441\u0442',
+  href: '/test/',
+};
+
+export function StoryCTA({
+  slug,
+  eyebrow,
+  title,
+  text,
+  action,
+  secondaryAction = defaultStorySecondaryAction,
+  note,
+}: StoryCtaProps): string {
   const titleId = `${slug}-cta-title`;
 
   return `
@@ -273,7 +287,10 @@ export function StoryCTA({ slug, eyebrow, title, text, action, note }: StoryCtaP
               <p class="mt-6 max-w-2xl text-lead text-canvas" data-motion-item>${escapeHtml(text)}</p>
             </div>
             <div class="border-t border-canvas/35 pt-7 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1" data-motion-group data-motion-offset="1">
-              <div data-motion-item>${Button({ ...action, variant: 'inverse', className: 'w-full' })}</div>
+              <div class="flex flex-col gap-3">
+                <div data-motion-item>${Button({ ...action, variant: 'inverse', className: 'w-full' })}</div>
+                <div data-motion-item>${Button({ ...secondaryAction, variant: 'inverse-outline', className: 'w-full' })}</div>
+              </div>
               <p class="mt-5 text-sm font-semibold leading-6 text-canvas" data-motion-item>${escapeHtml(note)}</p>
             </div>
           </div>
