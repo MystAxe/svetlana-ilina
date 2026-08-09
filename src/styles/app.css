@@ -245,12 +245,20 @@
 
   .site-header {
     border-color: var(--color-line);
-    transition: border-color var(--motion-fast) var(--ease-standard);
+    background: var(--color-canvas);
+    transition:
+      border-color var(--motion-fast) var(--ease-standard),
+      background-color var(--motion-fast) var(--ease-standard),
+      box-shadow var(--motion-base) var(--ease-standard);
     view-transition-name: site-header;
   }
 
   .site-header.is-scrolled {
     border-color: var(--color-line-strong);
+    background: rgb(255 255 255 / 0.86);
+    box-shadow: 0 0.75rem 2.5rem rgb(17 17 17 / 0.07);
+    -webkit-backdrop-filter: blur(0.875rem) saturate(130%);
+    backdrop-filter: blur(0.875rem) saturate(130%);
   }
 
   .menu-toggle {
@@ -386,6 +394,10 @@
     isolation: isolate;
   }
 
+  .home-hero__media .editorial-picture,
+  .story-hero-media .editorial-picture {
+    box-shadow: 0 1.25rem 3.5rem rgb(17 17 17 / 0.08);
+  }
   .test-feature__preview {
     isolation: isolate;
     position: relative;

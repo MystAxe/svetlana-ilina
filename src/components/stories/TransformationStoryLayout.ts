@@ -56,12 +56,13 @@ export function TransformationStoryHero({
       : EditorialPicture({
           image: media,
           eager: true,
-          sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+          sizes: '(min-width: 1280px) 34rem, (min-width: 1024px) 39vw, 100vw',
           showLabel: showMediaLabel,
+          labelVariant: 'overlay',
         });
 
   return `
-    <section class="border-b border-line bg-canvas" aria-labelledby="${escapeHtml(titleId)}">
+    <section class="overflow-hidden border-b border-line bg-canvas" aria-labelledby="${escapeHtml(titleId)}">
       ${Container({
         className: 'py-[clamp(3.5rem,7vw,7rem)]',
         content: `
@@ -85,7 +86,7 @@ export function TransformationStoryHero({
                   : ''
               }
             </div>
-            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
+            <div class="story-hero-media min-w-0 lg:col-span-5 xl:-mr-8" data-motion-group data-motion-offset="1">
               <div data-motion-item data-motion-kind="media">${mediaHtml}</div>
             </div>
           </div>

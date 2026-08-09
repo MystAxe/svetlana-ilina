@@ -6,6 +6,7 @@ import { TextLink } from '../ui/TextLink';
 
 type ImageLoading = 'eager' | 'lazy';
 type FetchPriority = 'high' | 'low' | 'auto';
+type LabelVariant = 'below' | 'overlay';
 
 export interface EditorialPictureProps {
   image: EditorialImage;
@@ -16,6 +17,7 @@ export interface EditorialPictureProps {
   loading?: ImageLoading;
   fetchPriority?: FetchPriority;
   showLabel?: boolean;
+  labelVariant?: LabelVariant;
 }
 
 const cropClasses: Record<EditorialImage['crop'], string> = {
@@ -34,6 +36,7 @@ export function EditorialPicture({
   loading,
   fetchPriority,
   showLabel = true,
+  labelVariant = 'below',
 }: EditorialPictureProps): string {
   const resolvedLoading = loading ?? (eager ? 'eager' : 'lazy');
   const resolvedFetchPriority = fetchPriority ?? (eager ? 'high' : 'auto');
@@ -45,10 +48,14 @@ export function EditorialPicture({
     ? `<source type="image/webp" srcset="${escapeHtml(image.webpSrcSet)}" sizes="${escapeHtml(resolvedSizes)}" />`
     : '';
   const fallbackSrcSet = image.fallbackSrcSet ? ` srcset="${escapeHtml(image.fallbackSrcSet)}"` : '';
+  const labelClassName =
+    labelVariant === 'overlay'
+      ? 'absolute bottom-3 left-3 z-10 max-w-[calc(100%-1.5rem)] rounded-control border border-canvas/25 bg-ink/80 px-3 py-2 text-xs font-semibold leading-5 text-canvas shadow-sm backdrop-blur-md'
+      : 'mt-3 border-l border-brand pl-3 text-xs leading-5 text-ink-soft';
 
   return `
-    <figure class="m-0 min-w-0 ${escapeHtml(className)}">
-      <picture class="editorial-picture block overflow-hidden border border-line bg-canvas">
+    <figure class="relative m-0 min-w-0 ${escapeHtml(className)}">
+      <picture class="editorial-picture block overflow-hidden rounded-panel border border-line bg-canvas">
         ${avifSource}
         ${webpSource}
         <img
@@ -66,7 +73,7 @@ export function EditorialPicture({
       </picture>
       ${
         showLabel
-          ? `<figcaption class="mt-3 border-l border-brand pl-3 text-xs leading-5 text-ink-soft">${escapeHtml(image.placeholderLabel)}</figcaption>`
+          ? `<figcaption class="${labelClassName}">${escapeHtml(image.placeholderLabel)}</figcaption>`
           : ''
       }
     </figure>
@@ -94,7 +101,7 @@ function renderFact(fact: EditorialFact): string {
     : '';
 
   return `
-    <div class="home-hero__fact flex min-w-0 flex-col border border-line bg-canvas px-4 py-5 sm:px-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
+    <div class="home-hero__fact flex min-w-0 flex-col rounded-control border border-line bg-canvas px-4 py-5 sm:px-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
       <dt class="order-2 mt-1 text-xs leading-5 text-ink-soft">${escapeHtml(fact.label)}</dt>
       <dd class="order-1 m-0 text-xl font-semibold leading-tight text-ink-strong sm:text-2xl">
         ${escapeHtml(fact.value)}
@@ -145,6 +152,7 @@ export function HomeHero({
                   eager: true,
                   className: 'mx-auto max-w-[32rem] lg:max-w-none lg:pl-5 lg:pt-5',
                   sizes: '(min-width: 1280px) 35rem, (min-width: 1024px) 44vw, (min-width: 640px) 36rem, 100vw',
+                  labelVariant: 'overlay',
                 })}
               </div>
             </div>

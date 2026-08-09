@@ -29,7 +29,7 @@ export function Header(activePath: string): string {
     .join('');
 
   return `
-    <header class="site-header sticky top-0 z-40 border-b bg-canvas" data-site-header>
+    <header class="site-header sticky top-0 z-40 border-b" data-site-header>
       ${Container({
         content: `
           <div class="flex min-h-16 items-center justify-between gap-4 xl:min-h-18">
