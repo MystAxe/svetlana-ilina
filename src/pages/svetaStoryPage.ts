@@ -44,12 +44,12 @@ function PendingMedia({ label, description, kind, variant = 'light' }: PendingMe
 
 function StoryHero(): string {
   return `
-    <section class="sveta-story-hero border-b border-line bg-canvas" aria-labelledby="sveta-story-title">
+    <section class="border-b border-line bg-canvas" aria-labelledby="sveta-story-title">
       ${Container({
-        className: 'py-8 sm:py-10 lg:py-0',
+        className: 'py-[clamp(3.5rem,7vw,7rem)]',
         content: `
-          <div class="grid gap-10 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-12 lg:items-stretch lg:gap-12">
-            <div class="flex min-w-0 flex-col justify-center lg:col-span-5 lg:py-16" data-motion-group>
+          <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-16">
+            <div class="min-w-0 lg:col-span-7" data-motion-group>
               <div data-motion-item>
                 ${TextLink({ label: 'Все истории перемен', href: '/istorii-peremen/', className: 'border-line-strong text-ink-soft' })}
               </div>
@@ -61,14 +61,12 @@ function StoryHero(): string {
                 ${Button({ label: 'Посмотреть историю ↓', href: '#sveta-recognition-start', variant: 'secondary', className: 'w-full sm:w-auto' })}
               </div>
             </div>
-            <div class="min-w-0 lg:col-span-7" data-motion-group data-motion-offset="1">
-              <div class="h-full" data-motion-item data-motion-kind="media">
+            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
+              <div data-motion-item data-motion-kind="media">
                 ${EditorialPicture({
                   image: data.hero.image,
                   eager: true,
-                  className: 'sveta-story-hero__media h-full',
-                  imageClassName: 'sveta-story-hero__image min-h-[28rem] lg:min-h-full',
-                  sizes: '(min-width: 1280px) 45rem, (min-width: 1024px) 56vw, 100vw',
+                  sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
                   showLabel: false,
                 })}
               </div>
