@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && node scripts/prepare-sites-build.mjs",
-    "build:github-pages": "tsc --noEmit && vite build --mode github-pages",
-    "build:wordpress": "npm run build && node scripts/sync-wordpress-theme.mjs",
+    "build": "npm run build:static",
+    "build:static": "tsc --noEmit && vite build && node scripts/verify-static-build.mjs",
+    "build:sites": "npm run build:static && node scripts/prepare-sites-build.mjs",
+    "build:github-pages": "tsc --noEmit && vite build --mode github-pages && node scripts/verify-static-build.mjs --base=/svetlana-ilina/",
+    "build:wordpress": "npm run build:static && node scripts/sync-wordpress-theme.mjs",
     "check": "tsc --noEmit",
     "preview": "vite preview"
   },

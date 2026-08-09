@@ -1,9 +1,14 @@
 import { EditorialPicture } from '../components/home/HomeHero';
-import { PageShell } from '../components/layout/PageShell';
 import { StoryVideo } from '../components/stories/StoryVideo';
-import { Button } from '../components/ui/Button';
+import {
+  StoryCTA,
+  StoryExpertComment,
+  StoryJourney,
+  StoryRecognition,
+  TransformationStoryHero,
+  TransformationStoryPage,
+} from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
-import { TextLink } from '../components/ui/TextLink';
 import { polinaStoryPage as data } from '../data/stories';
 import { escapeHtml } from '../lib/dom';
 
@@ -12,40 +17,19 @@ function paragraphs(items: readonly string[], className: string): string {
 }
 
 function StoryHero(): string {
-  return `
-    <section class="border-b border-line bg-canvas" aria-labelledby="polina-story-title">
-      ${Container({
-        className: 'py-[clamp(3.5rem,7vw,7rem)]',
-        content: `
-          <div class="mb-8" data-motion-item>
-            ${TextLink({ label: 'Все истории перемен', href: '/istorii-peremen/', className: 'border-line-strong text-ink-soft' })}
-          </div>
-          <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-16">
-            <div class="min-w-0 lg:col-span-7" data-motion-group>
-              <p class="mb-0 text-xs font-bold uppercase tracking-[0.18em] text-brand" data-motion-item>${escapeHtml(data.personLabel)}</p>
-              <p class="mt-6 mb-0 text-xs font-bold uppercase tracking-[0.15em] text-ink-soft" data-motion-item>${escapeHtml(data.hero.eyebrow)}</p>
-              <h1 class="mt-5 max-w-[13ch] font-display text-hero font-semibold text-ink-strong" id="polina-story-title" data-motion-item>${escapeHtml(data.hero.title)}</h1>
-              <div class="mt-8 max-w-2xl" data-motion-group data-motion-offset="1">
-                ${paragraphs(data.hero.paragraphs, 'mb-4 text-lead text-ink-soft last:mb-0')}
-              </div>
-              <p class="mt-8 inline-flex border border-brand bg-brand-soft px-4 py-3 text-xs font-bold uppercase leading-5 tracking-[0.11em] text-brand" data-motion-item>
-                ${escapeHtml(data.publicationNote)}
-              </p>
-            </div>
-            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
-              <div data-motion-item data-motion-kind="media">
-                ${EditorialPicture({
-                  image: data.hero.image,
-                  eager: true,
-                  sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
-                })}
-              </div>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return TransformationStoryHero({
+    slug: 'polina',
+    personLabel: data.personLabel,
+    eyebrow: data.hero.eyebrow,
+    title: data.hero.title,
+    bodyHtml: `
+      <div class="mt-8 max-w-2xl" data-motion-group data-motion-offset="1">
+        ${paragraphs(data.hero.paragraphs, 'mb-4 text-lead text-ink-soft last:mb-0')}
+      </div>
+    `,
+    media: data.hero.image,
+    notice: data.publicationNote,
+  });
 }
 
 function LifeBefore(): string {
@@ -168,32 +152,13 @@ function Findings(): string {
 }
 
 function Journey(): string {
-  return `
-    <section class="theme-dark home-section bg-ink-strong text-canvas" aria-labelledby="polina-journey-title">
-      ${Container({
-        content: `
-          <div class="grid min-w-0 gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="min-w-0 lg:col-span-5" data-motion-group>
-              <p class="mb-4 text-xs font-bold uppercase tracking-[0.17em] text-brand-soft" data-motion-item>${escapeHtml(data.journey.eyebrow)}</p>
-              <h2 class="story-journey__title home-display-heading max-w-[15ch] text-canvas" id="polina-journey-title" data-motion-item>${escapeHtml(data.journey.title)}</h2>
-            </div>
-            <ol class="story-journey m-0 min-w-0 list-none border-t border-canvas/25 p-0 lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${data.journey.steps
-                .map(
-                  (step, index) => `
-                    <li class="grid min-h-28 grid-cols-[3rem_1fr] items-center gap-5 border-b border-canvas/25 py-5" data-motion-item>
-                      <span class="text-2xl font-semibold text-brand-soft" aria-hidden="true">${index === data.journey.steps.length - 1 ? '✓' : '↓'}</span>
-                      <span class="min-w-0 text-lg font-semibold leading-8 text-canvas">${escapeHtml(step)}</span>
-                    </li>
-                  `,
-                )
-                .join('')}
-            </ol>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryJourney({
+    slug: 'polina',
+    eyebrow: data.journey.eyebrow,
+    title: data.journey.title,
+    steps: data.journey.steps,
+    comfortableRows: true,
+  });
 }
 
 function SecondVoice(): string {
@@ -266,23 +231,12 @@ function Results(): string {
 }
 
 function ExpertComment(): string {
-  return `
-    <section class="home-section-compact border-y border-line bg-canvas" aria-labelledby="polina-expert-comment-title">
-      ${Container({
-        content: `
-          <div class="grid min-w-0 gap-8 lg:grid-cols-12 lg:gap-12">
-            <div class="min-w-0 lg:col-span-5" data-motion-group>
-              <p class="home-kicker" data-motion-item>${escapeHtml(data.expertComment.eyebrow)}</p>
-              <h2 class="home-title story-expert-comment__title" id="polina-expert-comment-title" data-motion-item>Почему тренировки стали продолжением, а не началом</h2>
-            </div>
-            <blockquote class="min-w-0 border-l-2 border-brand pl-6 lg:col-span-7 lg:col-start-6 lg:pl-8" data-motion-group data-motion-offset="1">
-              ${paragraphs(data.expertComment.paragraphs, 'mb-5 text-lead text-ink-soft last:mb-0')}
-            </blockquote>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryExpertComment({
+    slug: 'polina',
+    eyebrow: data.expertComment.eyebrow,
+    title: 'Почему тренировки стали продолжением, а не началом',
+    paragraphs: data.expertComment.paragraphs,
+  });
 }
 
 function Today(): string {
@@ -317,72 +271,40 @@ function Today(): string {
 }
 
 function Recognition(): string {
-  return `
-    <section class="home-section-compact border-y border-line bg-brand-soft" aria-labelledby="polina-recognition-title">
-      ${Container({
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5" data-motion-group>
-              <p class="home-kicker" data-motion-item>${escapeHtml(data.recognition.eyebrow)}</p>
-              <h2 class="home-title" id="polina-recognition-title" data-motion-item>${escapeHtml(data.recognition.title)}</h2>
-            </div>
-            <ul class="border-y border-line-strong lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${data.recognition.items
-                .map(
-                  (item) => `
-                    <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-5 last:border-b-0" data-motion-item>
-                      <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
-                      <span class="text-lg font-semibold leading-8 text-ink">${escapeHtml(item)}</span>
-                    </li>
-                  `,
-                )
-                .join('')}
-            </ul>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryRecognition({
+    slug: 'polina',
+    eyebrow: data.recognition.eyebrow,
+    title: data.recognition.title,
+    items: data.recognition.items,
+  });
 }
 
-function StoryCTA(): string {
-  return `
-    <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="polina-cta-title">
-      ${Container({
-        className: 'py-[clamp(4.5rem,9vw,8rem)]',
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-8" data-motion-group>
-              <p class="mb-5 text-xs font-bold uppercase tracking-[0.17em] text-canvas" data-motion-item>${escapeHtml(data.cta.eyebrow)}</p>
-              <h2 class="home-display-heading max-w-[18ch] text-canvas" id="polina-cta-title" data-motion-item>${escapeHtml(data.cta.title)}</h2>
-              <p class="mt-6 max-w-2xl text-lead text-canvas" data-motion-item>${escapeHtml(data.cta.text)}</p>
-            </div>
-            <div class="border-t border-canvas/35 pt-7 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1" data-motion-group data-motion-offset="1">
-              <div data-motion-item>${Button({ ...data.cta.action, variant: 'inverse', className: 'w-full' })}</div>
-              <p class="mt-5 text-sm font-semibold leading-6 text-canvas" data-motion-item>${escapeHtml(data.cta.note)}</p>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+function StoryCTASection(): string {
+  return StoryCTA({
+    slug: 'polina',
+    eyebrow: data.cta.eyebrow,
+    title: data.cta.title,
+    text: data.cta.text,
+    action: data.cta.action,
+    note: data.cta.note,
+  });
 }
 
 export function polinaStoryPage(): string {
-  const mainContent = [
-    StoryHero(),
-    LifeBefore(),
-    FirstVoice(),
-    TurningPoint(),
-    Findings(),
-    Journey(),
-    SecondVoice(),
-    Results(),
-    ExpertComment(),
-    Today(),
-    Recognition(),
-    StoryCTA(),
-  ].join('');
-
-  return PageShell({ activePath: '/istorii-peremen/', mainContent, mainClassName: 'story-detail-page' });
+  return TransformationStoryPage({
+    sections: [
+      StoryHero(),
+      LifeBefore(),
+      FirstVoice(),
+      TurningPoint(),
+      Findings(),
+      Journey(),
+      SecondVoice(),
+      Results(),
+      ExpertComment(),
+      Today(),
+      Recognition(),
+      StoryCTASection(),
+    ],
+  });
 }

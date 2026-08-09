@@ -1,6 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { siteRoutes } from './site-entries.mjs';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const prototypeDirectory = resolve(scriptDirectory, '..');
@@ -10,27 +11,7 @@ const themeDirectory = resolve(wordpressPublicDirectory, 'wp-content', 'themes',
 const buildDirectory = resolve(prototypeDirectory, 'dist', 'client');
 const themeBuildDirectory = resolve(themeDirectory, 'dist');
 
-const routes = [
-  '/',
-  '/formula-tela/',
-  '/test/',
-  '/istorii-peremen/',
-  '/istorii-peremen/polina/',
-  '/istorii-peremen/sveta/',
-  '/istorii-peremen/vika/',
-  '/nastavnichestvo/',
-  '/o-svetlane/',
-  '/blog/',
-  '/blog/strogiy-plan/',
-  '/blog/son-i-ritm/',
-  '/blog/dvizhenie-bez-kraynostey/',
-  '/contacts/',
-  '/thank-you/',
-  '/privacy-policy/',
-  '/personal-data-consent/',
-  '/offer/',
-  '/requisites/',
-];
+const routes = siteRoutes;
 
 function htmlPathForRoute(route) {
   return route === '/' ? resolve(buildDirectory, 'index.html') : resolve(buildDirectory, route.slice(1), 'index.html');

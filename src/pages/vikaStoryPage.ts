@@ -1,7 +1,13 @@
-import { PageShell } from '../components/layout/PageShell';
-import { Button } from '../components/ui/Button';
+import {
+  PendingStoryMedia,
+  StoryCTA,
+  StoryExpertComment,
+  StoryJourney,
+  StoryRecognition,
+  TransformationStoryHero,
+  TransformationStoryPage,
+} from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
-import { TextLink } from '../components/ui/TextLink';
 import { vikaStoryPage as data } from '../data/vikaStory';
 import { escapeHtml } from '../lib/dom';
 
@@ -29,64 +35,26 @@ function checklist(items: readonly string[], dark = false): string {
   `;
 }
 
-interface PendingMediaProps {
-  label: string;
-  description: string;
-  kind: 'photo' | 'video';
-  variant?: 'light' | 'dark';
-}
-
-function PendingMedia({ label, description, kind, variant = 'light' }: PendingMediaProps): string {
-  const dark = variant === 'dark';
-  const surface = dark ? 'border-canvas/30 bg-canvas/5 text-canvas' : 'border-line-strong bg-brand-soft text-ink';
-  const muted = dark ? 'text-canvas/70' : 'text-ink-soft';
-  const ratio = kind === 'photo' ? 'aspect-[4/5]' : 'aspect-video';
-
-  return `
-    <figure class="m-0 border p-5 sm:p-7 ${surface}" data-motion-item>
-      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <span class="inline-flex min-h-10 items-center border ${dark ? 'border-canvas/35' : 'border-brand'} px-3 text-xs font-bold uppercase tracking-[0.14em]">${escapeHtml(label)}</span>
-        <span class="text-xs font-bold uppercase tracking-[0.14em] ${muted}">Материал не опубликован</span>
-      </div>
-      <div class="grid ${ratio} place-items-center border border-dashed ${dark ? 'border-canvas/35 bg-ink' : 'border-line-strong bg-canvas'} p-6 text-center" role="img" aria-label="${escapeHtml(label)}">
-        <p class="mb-0 max-w-md text-sm font-semibold leading-6 ${muted}">${escapeHtml(description)}</p>
-      </div>
-    </figure>
-  `;
-}
 
 function Hero(): string {
-  return `
-    <section class="border-b border-line bg-canvas" aria-labelledby="vika-story-title">
-      ${Container({
-        className: 'py-8 sm:py-10 lg:py-0',
-        content: `
-          <div class="grid gap-10 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-12 lg:items-stretch lg:gap-12">
-            <div class="flex min-w-0 flex-col justify-center lg:col-span-6 lg:py-16" data-motion-group>
-              <div data-motion-item>${TextLink({ label: 'Все истории перемен', href: '/istorii-peremen/', className: 'border-line-strong text-ink-soft' })}</div>
-              <p class="mt-12 mb-0 text-xs font-bold uppercase tracking-[0.18em] text-brand" data-motion-item>${escapeHtml(data.personLabel)}</p>
-              <p class="mt-5 mb-0 text-xs font-bold uppercase tracking-[0.15em] text-ink-soft" data-motion-item>${escapeHtml(data.hero.eyebrow)}</p>
-              <h1 class="mt-5 max-w-[12ch] font-display text-hero font-semibold text-ink-strong" id="vika-story-title" data-motion-item>${escapeHtml(data.hero.title)}</h1>
-              <div class="mt-7 max-w-xl border-l-2 border-brand pl-5" data-motion-group data-motion-offset="1">
-                ${data.hero.lines.map((line) => `<p class="mb-2 text-lg font-semibold leading-7 text-ink-soft last:mb-0" data-motion-item>${escapeHtml(line)}</p>`).join('')}
-              </div>
-              <p class="mt-7 max-w-xl text-lead font-semibold text-ink" data-motion-item>${escapeHtml(data.hero.closing)}</p>
-              <div class="mt-8" data-motion-item>${Button({ label: 'Посмотреть историю ↓', href: '#vika-start', variant: 'secondary', className: 'w-full sm:w-auto' })}</div>
-            </div>
-            <div class="min-w-0 lg:col-span-6" data-motion-group data-motion-offset="1">
-              <div class="h-full" data-motion-item data-motion-kind="media">
-                ${PendingMedia({
-                  label: data.hero.mediaLabel,
-                  description: data.hero.mediaDescription,
-                  kind: 'photo',
-                })}
-              </div>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return TransformationStoryHero({
+    slug: 'vika',
+    personLabel: data.personLabel,
+    eyebrow: data.hero.eyebrow,
+    title: data.hero.title,
+    bodyHtml: `
+      <div class="mt-7 max-w-xl border-l-2 border-brand pl-5" data-motion-group data-motion-offset="1">
+        ${data.hero.lines.map((line) => `<p class="mb-2 text-lg font-semibold leading-7 text-ink-soft last:mb-0" data-motion-item>${escapeHtml(line)}</p>`).join('')}
+      </div>
+      <p class="mt-7 max-w-xl text-lead font-semibold text-ink" data-motion-item>${escapeHtml(data.hero.closing)}</p>
+    `,
+    media: PendingStoryMedia({
+      label: data.hero.mediaLabel,
+      description: data.hero.mediaDescription,
+      kind: 'photo',
+    }),
+    action: { label: 'Посмотреть историю ↓', href: '#vika-start' },
+  });
 }
 
 function Start(): string {
@@ -95,7 +63,7 @@ function Start(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-12 xl:gap-16">
-            <div class="min-w-0 lg:col-span-5">${PendingMedia({ label: data.start.mediaLabel, description: data.start.mediaDescription, kind: 'photo' })}</div>
+            <div class="min-w-0 lg:col-span-5">${PendingStoryMedia({ label: data.start.mediaLabel, description: data.start.mediaDescription, kind: 'photo' })}</div>
             <div class="min-w-0 lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.start.eyebrow)}</p>
               <h2 class="home-title" id="vika-start-title" data-motion-item>${escapeHtml(data.start.title)}</h2>
@@ -121,7 +89,7 @@ function FirstVoice(): string {
               <h2 class="max-w-[14ch] font-display text-section font-semibold leading-tight text-canvas" id="vika-first-voice-title" data-motion-item>${escapeHtml(data.firstVoice.title)}</h2>
             </div>
             <div class="lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${PendingMedia({ label: data.firstVoice.label, description: data.firstVoice.description, kind: 'video', variant: 'dark' })}
+              ${PendingStoryMedia({ label: data.firstVoice.label, description: data.firstVoice.description, kind: 'video', variant: 'dark' })}
             </div>
           </div>
         `,
@@ -185,32 +153,12 @@ function TurningPoint(): string {
 }
 
 function Journey(): string {
-  return `
-    <section class="theme-dark home-section bg-ink-strong text-canvas" aria-labelledby="vika-journey-title">
-      ${Container({
-        content: `
-          <div class="grid min-w-0 gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="min-w-0 lg:col-span-5" data-motion-group>
-              <p class="mb-4 text-xs font-bold uppercase tracking-[0.17em] text-brand-soft" data-motion-item>${escapeHtml(data.journey.eyebrow)}</p>
-              <h2 class="home-display-heading max-w-[15ch] text-canvas" id="vika-journey-title" data-motion-item>${escapeHtml(data.journey.title)}</h2>
-            </div>
-            <ol class="m-0 min-w-0 list-none border-t border-canvas/25 p-0 lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${data.journey.steps
-                .map(
-                  (step, index) => `
-                    <li class="grid min-h-24 grid-cols-[3rem_1fr] items-center gap-5 border-b border-canvas/25 py-5" data-motion-item>
-                      <span class="text-2xl font-semibold text-brand-soft" aria-hidden="true">${index === data.journey.steps.length - 1 ? '✓' : '↓'}</span>
-                      <span class="text-lg font-semibold leading-8 text-canvas">${escapeHtml(step)}</span>
-                    </li>
-                  `,
-                )
-                .join('')}
-            </ol>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryJourney({
+    slug: 'vika',
+    eyebrow: data.journey.eyebrow,
+    title: data.journey.title,
+    steps: data.journey.steps,
+  });
 }
 
 function SecondVoice(): string {
@@ -220,7 +168,7 @@ function SecondVoice(): string {
         content: `
           <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <div class="lg:col-span-7" data-motion-group>
-              ${PendingMedia({ label: data.secondVoice.label, description: data.secondVoice.description, kind: 'video' })}
+              ${PendingStoryMedia({ label: data.secondVoice.label, description: data.secondVoice.description, kind: 'video' })}
             </div>
             <div class="lg:col-span-5" data-motion-group data-motion-offset="1">
               <p class="home-kicker" data-motion-item>${escapeHtml(data.secondVoice.eyebrow)}</p>
@@ -239,7 +187,7 @@ function LifeChanged(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5">${PendingMedia({ label: data.lifeChanged.mediaLabel, description: data.lifeChanged.mediaDescription, kind: 'photo' })}</div>
+            <div class="lg:col-span-5">${PendingStoryMedia({ label: data.lifeChanged.mediaLabel, description: data.lifeChanged.mediaDescription, kind: 'photo' })}</div>
             <div class="lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.lifeChanged.eyebrow)}</p>
               <h2 class="home-title" id="vika-life-title" data-motion-item>${escapeHtml(data.lifeChanged.title)}</h2>
@@ -292,82 +240,53 @@ function Results(): string {
 }
 
 function ExpertComment(): string {
-  return `
-    <section class="home-section-compact border-y border-line bg-brand-soft" aria-labelledby="vika-expert-title">
-      ${Container({
-        content: `
-          <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5" data-motion-group>
-              <p class="home-kicker" data-motion-item>${escapeHtml(data.expertComment.eyebrow)}</p>
-              <h2 class="home-title" id="vika-expert-title" data-motion-item>Система, с которой можно жить долго.</h2>
-            </div>
-            <blockquote class="border-l-2 border-brand pl-6 lg:col-span-7 lg:pl-8" data-motion-group data-motion-offset="1">
-              ${paragraphs(data.expertComment.paragraphs)}
-            </blockquote>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryExpertComment({
+    slug: 'vika',
+    eyebrow: data.expertComment.eyebrow,
+    title: 'Система, с которой можно жить долго.',
+    paragraphs: data.expertComment.paragraphs,
+    variant: 'soft',
+  });
 }
 
 function Recognition(): string {
-  return `
-    <section class="home-section-compact bg-canvas" aria-labelledby="vika-recognition-title">
-      ${Container({
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5" data-motion-group>
-              <p class="home-kicker" data-motion-item>${escapeHtml(data.recognition.eyebrow)}</p>
-              <h2 class="home-title" id="vika-recognition-title" data-motion-item>Эта история может быть близка вам, если…</h2>
-            </div>
-            <div class="lg:col-span-7">${checklist(data.recognition.items)}</div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryRecognition({
+    slug: 'vika',
+    eyebrow: data.recognition.eyebrow,
+    title: 'Эта история может быть близка вам, если…',
+    items: data.recognition.items,
+    variant: 'canvas',
+  });
 }
 
-function StoryCTA(): string {
-  return `
-    <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="vika-cta-title">
-      ${Container({
-        className: 'py-[clamp(4.5rem,9vw,8rem)]',
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-8" data-motion-group>
-              <p class="mb-5 text-xs font-bold uppercase tracking-[0.17em] text-canvas" data-motion-item>${escapeHtml(data.cta.eyebrow)}</p>
-              <h2 class="home-display-heading max-w-[18ch] text-canvas" id="vika-cta-title" data-motion-item>${escapeHtml(data.cta.title)}</h2>
-              <p class="mt-6 max-w-2xl text-lead text-canvas" data-motion-item>${escapeHtml(data.cta.text)}</p>
-            </div>
-            <div class="border-t border-canvas/35 pt-7 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1" data-motion-group data-motion-offset="1">
-              <div data-motion-item>${Button({ ...data.cta.action, variant: 'inverse', className: 'w-full' })}</div>
-              <p class="mt-5 text-sm font-semibold leading-6 text-canvas" data-motion-item>${escapeHtml(data.cta.note)}</p>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+function StoryCTASection(): string {
+  return StoryCTA({
+    slug: 'vika',
+    eyebrow: data.cta.eyebrow,
+    title: data.cta.title,
+    text: data.cta.text,
+    action: data.cta.action,
+    note: data.cta.note,
+  });
 }
 
 export function vikaStoryPage(): string {
-  const mainContent = [
-    Hero(),
-    Start(),
-    FirstVoice(),
-    Attempts(),
-    TurningPoint(),
-    Journey(),
-    SecondVoice(),
-    LifeChanged(),
-    AnotherVictory(),
-    Results(),
-    ExpertComment(),
-    Recognition(),
-    StoryCTA(),
-  ].join('');
-
-  return PageShell({ activePath: '/istorii-peremen/', mainContent, mainClassName: 'story-detail-page vika-story-page' });
+  return TransformationStoryPage({
+    className: 'vika-story-page',
+    sections: [
+      Hero(),
+      Start(),
+      FirstVoice(),
+      Attempts(),
+      TurningPoint(),
+      Journey(),
+      SecondVoice(),
+      LifeChanged(),
+      AnotherVictory(),
+      Results(),
+      ExpertComment(),
+      Recognition(),
+      StoryCTASection(),
+    ],
+  });
 }

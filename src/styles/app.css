@@ -482,16 +482,6 @@
     overflow-wrap: break-word;
   }
 
-  .sveta-story-hero__media,
-  .sveta-story-hero__media .editorial-picture {
-    height: 100%;
-  }
-
-  .sveta-story-hero__image {
-    aspect-ratio: auto;
-    object-fit: cover;
-    object-position: 50% 18%;
-  }
 
   .story-card[hidden] {
     display: none;
