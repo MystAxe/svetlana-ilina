@@ -11,7 +11,7 @@ interface LeadFormProps {
 export function LeadForm({
   id = 'request',
   title = 'Записаться на разбор',
-  intro = 'Оставьте контакты — свяжемся, чтобы уточнить формат и выбрать время.',
+  intro = 'Оставьте контакты — я свяжусь с вами, чтобы уточнить формат и выбрать время.',
   submitLabel = 'Отправить заявку',
 }: LeadFormProps = {}): string {
   return `

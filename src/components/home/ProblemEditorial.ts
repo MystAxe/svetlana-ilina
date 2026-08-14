@@ -25,7 +25,7 @@ export function ProblemEditorial({ eyebrow, title, text, factors }: ProblemEdito
               <p class="mt-7 max-w-2xl text-lead text-canvas/70" data-motion-item>${escapeHtml(text)}</p>
             </div>
             <div class="min-w-0 lg:col-span-5 lg:pt-2" data-motion-group data-motion-offset="1">
-              <p class="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-canvas/60" data-motion-item>На что смотрим вместе</p>
+              <p class="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-canvas/60" data-motion-item>Что я учитываю в разборе</p>
               <ol class="m-0 grid list-none gap-2 p-0 sm:grid-cols-2" data-motion-group data-motion-offset="2">
                 ${factors
                   .map(

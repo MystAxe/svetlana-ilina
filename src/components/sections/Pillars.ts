@@ -32,7 +32,7 @@ export function Pillars({ items }: PillarsProps): string {
             id: 'method-title',
             eyebrow: 'Подход',
             title: 'Метод четырех опор',
-            text: 'Смотрим на ситуацию целиком и выбираем реалистичную точку старта.',
+            text: 'Я смотрю на ситуацию целиком и помогаю выбрать реалистичную точку старта.',
           })}
           <ol class="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">${itemMarkup}</ol>
         `,

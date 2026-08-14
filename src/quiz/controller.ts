@@ -82,7 +82,7 @@ function contactView(state: QuizState, total: number, errors: ContactErrors): st
 
         <div class="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
           ${Button({ label: 'Назад', variant: 'quiet', attributes: 'data-quiz-back', className: 'w-full sm:w-auto', disabled: submitting })}
-          ${Button({ label: submitting ? 'Подготавливаем результат…' : 'Показать результат', type: 'submit', className: 'w-full sm:w-auto', disabled: submitting })}
+          ${Button({ label: submitting ? 'Готовлю результат…' : 'Показать результат', type: 'submit', className: 'w-full sm:w-auto', disabled: submitting })}
         </div>
         <p class="mt-4 text-xs leading-5 text-ink-soft">No-op adapter: сетевых запросов, браузерного хранения и отправки в аналитику нет.</p>
       </form>
