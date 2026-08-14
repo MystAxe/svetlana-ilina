@@ -15,15 +15,8 @@ function StoryCard(story: TransformationStorySummary): string {
   const problemLabels = story.problems
     .map((id) => storyProblems.find((problem) => problem.id === id)?.label)
     .filter((label): label is string => Boolean(label));
-
-  return `
-    <article
-      class="story-card grid border border-line-strong bg-canvas lg:grid-cols-12"
-      aria-labelledby="story-${escapeHtml(story.slug)}-title"
-      data-story-card
-      data-story-problems="${escapeHtml(story.problems.join(' '))}"
-      data-motion-item
-    >
+  const media = story.image
+    ? `
       <div class="min-w-0 lg:col-span-5">
         ${EditorialPicture({
           image: story.image,
@@ -32,7 +25,21 @@ function StoryCard(story: TransformationStorySummary): string {
           sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 40vw, 100vw',
         })}
       </div>
-      <div class="flex min-w-0 flex-col p-6 sm:p-8 lg:col-span-7 lg:p-10">
+    `
+    : '';
+  const gridClassName = story.image ? 'lg:grid-cols-12' : '';
+  const contentClassName = story.image ? 'lg:col-span-7' : 'lg:col-span-12';
+
+  return `
+    <article
+      class="story-card grid border border-line-strong bg-canvas ${gridClassName}"
+      aria-labelledby="story-${escapeHtml(story.slug)}-title"
+      data-story-card
+      data-story-problems="${escapeHtml(story.problems.join(' '))}"
+      data-motion-item
+    >
+      ${media}
+      <div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-10 ${contentClassName}">
         <p class="mb-0 text-xs font-bold uppercase tracking-[0.16em] text-brand">История ${escapeHtml(story.personGenitive)}</p>
         <h2 class="mt-5 max-w-[18ch] text-balance text-3xl font-bold leading-tight text-ink-strong sm:text-4xl" id="story-${escapeHtml(story.slug)}-title">
           ${escapeHtml(story.title)}

@@ -25,7 +25,7 @@ export interface TransformationStorySummary {
   decision: string;
   quote: string;
   problems: StoryProblemId[];
-  image: EditorialImage;
+  image?: EditorialImage;
   resultHighlights: string[];
 }
 
@@ -117,39 +117,6 @@ export const svetaBeforeBack: EditorialImage = {
   rights: 'confirmed',
 };
 
-export const vikaBeforeFront: EditorialImage = {
-  fallbackSrc: '/media/stories/vika/vika-before-front.jpg',
-  sizes: '(min-width: 1024px) 44vw, 100vw',
-  width: 960,
-  height: 1280,
-  alt: 'Вика до начала работы, вид спереди',
-  placeholderLabel: 'Вика до начала работы · вид спереди',
-  crop: 'portrait',
-  rights: 'confirmed',
-};
-
-export const vikaBeforeBack: EditorialImage = {
-  fallbackSrc: '/media/stories/vika/vika-before-back.jpg',
-  sizes: vikaBeforeFront.sizes,
-  width: 960,
-  height: 1280,
-  alt: 'Вика до начала работы, вид со спины',
-  placeholderLabel: 'Вика до начала работы · вид со спины',
-  crop: 'portrait',
-  rights: 'confirmed',
-};
-
-export const vikaAfterFrame: EditorialImage = {
-  fallbackSrc: '/media/stories/vika/vika-wardrobe-poster.jpg',
-  sizes: vikaBeforeFront.sizes,
-  width: 720,
-  height: 1280,
-  alt: 'Вика после перемен рассказывает о новом гардеробе',
-  placeholderLabel: 'Вика после перемен · кадр из видео',
-  crop: 'portrait-close',
-  rights: 'confirmed',
-};
-
 export const storyProblems: StoryProblem[] = [
   { id: 'no-energy', label: 'Нет энергии на тренировки' },
   { id: 'weight-stalled', label: 'Я стараюсь, но вес стоит' },
@@ -200,7 +167,6 @@ export const vikaStory: TransformationStorySummary = {
   decision: 'Это не диета. Это новый образ жизни.',
   quote: '«Мне было всего 34…»',
   problems: ['life-on-hold', 'diet-cycle', 'health-concerns', 'no-energy'],
-  image: vikaAfterFrame,
   resultHighlights: ['−23 кг', 'Размер одежды 42–44', 'Больше энергии', 'Снова хочется жить активно'],
 };
 
