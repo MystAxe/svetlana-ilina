@@ -7,6 +7,7 @@ interface StoryVideoProps {
   description: string;
   variant?: 'dark' | 'light';
   compact?: boolean;
+  preload?: 'none' | 'metadata';
 }
 
 export function StoryVideo({
@@ -16,6 +17,7 @@ export function StoryVideo({
   description,
   variant = 'dark',
   compact = false,
+  preload = 'metadata',
 }: StoryVideoProps): string {
   const dark = variant === 'dark';
   const surface = dark ? 'theme-dark border-canvas/25 bg-canvas/5 text-canvas' : 'border-line-strong bg-canvas text-ink';
@@ -33,7 +35,7 @@ export function StoryVideo({
           class="block max-h-[42rem] w-auto max-w-full bg-ink object-contain"
           controls
           playsinline
-          preload="metadata"
+          preload="${escapeHtml(preload)}"
           poster="${escapeHtml(poster)}"
           aria-label="${escapeHtml(label)}"
         >

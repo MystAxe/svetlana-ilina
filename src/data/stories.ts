@@ -117,6 +117,45 @@ export const svetaBeforeBack: EditorialImage = {
   rights: 'confirmed',
 };
 
+export const vikaBefore: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-before.jpg',
+  webpSrcSet:
+    '/media/stories/vika/vika-before-640.webp 640w, /media/stories/vika/vika-before-960.webp 960w',
+  sizes: '(min-width: 1024px) 44vw, 100vw',
+  width: 960,
+  height: 1280,
+  alt: 'Вика до начала работы, вид спереди',
+  placeholderLabel: 'Вика до начала работы',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const vikaAfterFitness: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-after-fitness.jpg',
+  webpSrcSet:
+    '/media/stories/vika/vika-after-fitness-640.webp 640w, /media/stories/vika/vika-after-fitness-960.webp 960w, /media/stories/vika/vika-after-fitness-1200.webp 1200w',
+  sizes: '(min-width: 1024px) 44vw, 100vw',
+  width: 1200,
+  height: 1600,
+  alt: 'Вика после результата, вид спереди',
+  placeholderLabel: 'Вика после результата',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const vikaAfterLifestyle: EditorialImage = {
+  fallbackSrc: '/media/stories/vika/vika-after-lifestyle.jpg',
+  webpSrcSet:
+    '/media/stories/vika/vika-after-lifestyle-640.webp 640w, /media/stories/vika/vika-after-lifestyle-960.webp 960w, /media/stories/vika/vika-after-lifestyle-1200.webp 1200w',
+  sizes: '(min-width: 1024px) 44vw, 100vw',
+  width: 1200,
+  height: 1600,
+  alt: 'Вика после перемен на прогулке с собакой',
+  placeholderLabel: 'Вика после перемен',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
 export const storyProblems: StoryProblem[] = [
   { id: 'no-energy', label: 'Нет энергии на тренировки' },
   { id: 'weight-stalled', label: 'Я стараюсь, но вес стоит' },
@@ -167,6 +206,7 @@ export const vikaStory: TransformationStorySummary = {
   decision: 'Это не диета. Это новый образ жизни.',
   quote: '«Мне было всего 34…»',
   problems: ['life-on-hold', 'diet-cycle', 'health-concerns', 'no-energy'],
+  image: vikaAfterLifestyle,
   resultHighlights: ['−23 кг', 'Размер одежды 42–44', 'Больше энергии', 'Снова хочется жить активно'],
 };
 

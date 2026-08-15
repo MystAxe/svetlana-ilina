@@ -1,5 +1,6 @@
+import { EditorialPicture } from '../components/home/HomeHero';
+import { StoryVideo } from '../components/stories/StoryVideo';
 import {
-  PendingStoryMedia,
   StoryCTA,
   StoryExpertComment,
   StoryJourney,
@@ -48,12 +49,9 @@ function Hero(): string {
       </div>
       <p class="mt-7 max-w-xl text-lead font-semibold text-ink" data-motion-item>${escapeHtml(data.hero.closing)}</p>
     `,
-    media: PendingStoryMedia({
-      label: data.hero.mediaLabel,
-      description: data.hero.mediaDescription,
-      kind: 'photo',
-    }),
+    media: data.hero.image,
     action: { label: 'Посмотреть историю ↓', href: '#vika-start' },
+    showMediaLabel: false,
   });
 }
 
@@ -63,7 +61,14 @@ function Start(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-12 xl:gap-16">
-            <div class="min-w-0 lg:col-span-5">${PendingStoryMedia({ label: data.start.mediaLabel, description: data.start.mediaDescription, kind: 'photo' })}</div>
+            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
+              <div data-motion-item data-motion-kind="media">
+                ${EditorialPicture({
+                  image: data.start.image,
+                  sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+                })}
+              </div>
+            </div>
             <div class="min-w-0 lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.start.eyebrow)}</p>
               <h2 class="home-title" id="vika-start-title" data-motion-item>${escapeHtml(data.start.title)}</h2>
@@ -89,7 +94,7 @@ function FirstVoice(): string {
               <h2 class="max-w-[14ch] font-display text-section font-semibold leading-tight text-canvas" id="vika-first-voice-title" data-motion-item>${escapeHtml(data.firstVoice.title)}</h2>
             </div>
             <div class="lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${PendingStoryMedia({ label: data.firstVoice.label, description: data.firstVoice.description, kind: 'video', variant: 'dark' })}
+              ${StoryVideo({ ...data.firstVoice.video, label: data.firstVoice.label, description: data.firstVoice.description, variant: 'dark', preload: 'none' })}
             </div>
           </div>
         `,
@@ -161,6 +166,26 @@ function Journey(): string {
   });
 }
 
+function WorkingProcess(): string {
+  return `
+    <section class="home-section-compact border-y border-line bg-canvas" aria-labelledby="vika-process-title">
+      ${Container({
+        content: `
+          <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+            <div class="min-w-0 lg:col-span-4" data-motion-group>
+              <p class="home-kicker" data-motion-item>${escapeHtml(data.process.eyebrow)}</p>
+              <h2 class="home-title" id="vika-process-title" data-motion-item>${escapeHtml(data.process.title)}</h2>
+            </div>
+            <div class="min-w-0 lg:col-span-8" data-motion-group data-motion-offset="1">
+              ${StoryVideo({ ...data.process.video, label: data.process.label, description: data.process.description, variant: 'light', compact: true, preload: 'none' })}
+            </div>
+          </div>
+        `,
+      })}
+    </section>
+  `;
+}
+
 function SecondVoice(): string {
   return `
     <section class="home-section-compact bg-brand-soft" aria-labelledby="vika-second-voice-title">
@@ -168,7 +193,7 @@ function SecondVoice(): string {
         content: `
           <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <div class="lg:col-span-7" data-motion-group>
-              ${PendingStoryMedia({ label: data.secondVoice.label, description: data.secondVoice.description, kind: 'video' })}
+              ${StoryVideo({ ...data.secondVoice.video, label: data.secondVoice.label, description: data.secondVoice.description, variant: 'light', preload: 'none' })}
             </div>
             <div class="lg:col-span-5" data-motion-group data-motion-offset="1">
               <p class="home-kicker" data-motion-item>${escapeHtml(data.secondVoice.eyebrow)}</p>
@@ -187,7 +212,14 @@ function LifeChanged(): string {
       ${Container({
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-5">${PendingStoryMedia({ label: data.lifeChanged.mediaLabel, description: data.lifeChanged.mediaDescription, kind: 'photo' })}</div>
+            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
+              <div data-motion-item data-motion-kind="media">
+                ${EditorialPicture({
+                  image: data.lifeChanged.image,
+                  sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+                })}
+              </div>
+            </div>
             <div class="lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.lifeChanged.eyebrow)}</p>
               <h2 class="home-title" id="vika-life-title" data-motion-item>${escapeHtml(data.lifeChanged.title)}</h2>
@@ -279,6 +311,7 @@ export function vikaStoryPage(): string {
       FirstVoice(),
       Attempts(),
       TurningPoint(),
+      WorkingProcess(),
       Journey(),
       SecondVoice(),
       LifeChanged(),

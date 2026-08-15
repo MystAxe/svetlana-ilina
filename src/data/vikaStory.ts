@@ -1,4 +1,4 @@
-import { vikaStory } from './stories';
+import { vikaAfterFitness, vikaAfterLifestyle, vikaBefore, vikaStory } from './stories';
 
 export const vikaStoryPage = {
   personLabel: 'История Вики',
@@ -13,8 +13,7 @@ export const vikaStoryPage = {
       'Потом поеду отдыхать.',
     ],
     closing: 'И незаметно это «потом» длилось уже несколько лет.',
-    mediaLabel: 'Фото Вики после результата',
-    mediaDescription: 'Фотография будет добавлена после передачи подтверждённого материала.',
+    image: vikaAfterFitness,
   },
   start: {
     eyebrow: '02 · С чего всё началось',
@@ -24,14 +23,17 @@ export const vikaStoryPage = {
       '«Ты выглядишь старше своего возраста.»',
       'На тот момент мне было всего 34. И именно тогда я впервые поняла, что дело уже не только в лишнем весе.',
     ],
-    mediaLabel: 'Фото Вики до начала работы',
-    mediaDescription: 'Фотографии будут добавлены после передачи подтверждённых материалов.',
+    image: vikaBefore,
   },
   firstVoice: {
     eyebrow: '03 · Голос Вики',
     title: '«Мне было всего 34…»',
-    label: 'Видео №1 · 27 секунд',
+    label: 'Видео · 26 секунд',
     description: 'Фрагмент о возрасте, первом впечатлении и состоянии Вики в начале пути.',
+    video: {
+      src: '/media/stories/vika/vika-first-impression.mp4',
+      poster: '/media/stories/vika/vika-first-impression-poster.jpg',
+    },
   },
   attempts: {
     eyebrow: '04 · Почему раньше ничего не менялось',
@@ -53,6 +55,16 @@ export const vikaStoryPage = {
       'Мы не искали очередную временную систему. Мы начали менять привычки, которые останутся на всю жизнь.',
     ],
   },
+  process: {
+    eyebrow: 'Рабочий процесс',
+    title: 'Изменения складывались в действии.',
+    label: 'Видео · 9 секунд',
+    description: 'Короткий фрагмент совместной тренировки Светланы и Вики.',
+    video: {
+      src: '/media/stories/vika/vika-working-process.mp4',
+      poster: '/media/stories/vika/vika-working-process-poster.jpg',
+    },
+  },
   journey: {
     eyebrow: '06 · Как менялась жизнь',
     title: 'Не этапы и не строгая схема. А маршрут решений.',
@@ -70,14 +82,17 @@ export const vikaStoryPage = {
   secondVoice: {
     eyebrow: '07 · Когда жизнь начала возвращаться',
     title: '«Снова захотелось выбирать одежду для себя.»',
-    label: 'Видео №2 · 46 секунд',
+    label: 'Видео · 50 секунд',
     description: 'Фрагмент о новом гардеробе и удовольствии от перемен.',
+    video: {
+      src: '/media/stories/vika/vika-wardrobe-life.mp4',
+      poster: '/media/stories/vika/vika-wardrobe-life-poster.jpg',
+    },
   },
   lifeChanged: {
     eyebrow: '08 · Когда жизнь начала меняться',
     title: 'Изменились не только цифры на весах.',
-    mediaLabel: 'Фото Вики после результата',
-    mediaDescription: 'Фотография будет добавлена после передачи подтверждённого материала.',
+    image: vikaAfterLifestyle,
     items: [
       'Размер одежды уменьшился на несколько размеров',
       'Теперь в магазине спокойно выбираю 42–44 размер',
