@@ -1,6 +1,10 @@
-import type { StoryProblemId } from '../../data/stories';
+import { storyProblems, type StoryProblemId } from '../../data/stories';
 
-const validProblemIds: StoryProblemId[] = ['no-energy', 'weight-stalled', 'willpower', 'starting-over', 'self-conscious'];
+const validProblemIds = new Set<StoryProblemId>(storyProblems.map(({ id }) => id));
+
+function isStoryProblemId(value: string | null | undefined): value is StoryProblemId {
+  return typeof value === 'string' && validProblemIds.has(value as StoryProblemId);
+}
 
 export function initStoryFilters(): void {
   const root = document.querySelector<HTMLElement>('[data-story-filters]');
@@ -50,14 +54,12 @@ export function initStoryFilters(): void {
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
       const value = button.dataset.storyFilter;
-      const problem = validProblemIds.includes(value as StoryProblemId) ? (value as StoryProblemId) : 'all';
+      const problem = isStoryProblemId(value) ? value : 'all';
       applyFilter(problem);
     });
   });
 
   const initialValue = new URLSearchParams(window.location.search).get('problem');
-  const initialProblem = validProblemIds.includes(initialValue as StoryProblemId)
-    ? (initialValue as StoryProblemId)
-    : 'all';
+  const initialProblem = isStoryProblemId(initialValue) ? initialValue : 'all';
   applyFilter(initialProblem, false);
 }

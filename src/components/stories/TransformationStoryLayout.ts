@@ -101,6 +101,7 @@ interface PendingStoryMediaProps {
   description: string;
   kind: 'photo' | 'video';
   variant?: 'light' | 'dark';
+  aspect?: 'portrait' | 'landscape';
 }
 
 export function PendingStoryMedia({
@@ -108,11 +109,12 @@ export function PendingStoryMedia({
   description,
   kind,
   variant = 'light',
+  aspect = 'portrait',
 }: PendingStoryMediaProps): string {
   const dark = variant === 'dark';
   const surface = dark ? 'border-canvas/30 bg-canvas/5 text-canvas' : 'border-line-strong bg-brand-soft text-ink';
   const muted = dark ? 'text-canvas/70' : 'text-ink-soft';
-  const ratio = kind === 'photo' ? 'aspect-[4/5]' : 'aspect-video';
+  const ratio = kind === 'video' || aspect === 'landscape' ? 'aspect-video' : 'aspect-[4/5]';
 
   return `
     <figure class="m-0 border p-5 sm:p-7 ${surface}" data-motion-item>

@@ -8,7 +8,8 @@ export type StoryProblemId =
   | 'self-conscious'
   | 'life-on-hold'
   | 'diet-cycle'
-  | 'health-concerns';
+  | 'health-concerns'
+  | 'postpartum';
 
 export interface StoryProblem {
   id: StoryProblemId;
@@ -165,6 +166,7 @@ export const storyProblems: StoryProblem[] = [
   { id: 'life-on-hold', label: 'Откладываю жизнь «до похудения»' },
   { id: 'diet-cycle', label: 'Устала от временных диет' },
   { id: 'health-concerns', label: 'Боюсь, что без таблеток не справиться' },
+  { id: 'postpartum', label: 'После родов перестала узнавать себя' },
 ];
 
 export const polinaStory: TransformationStorySummary = {
@@ -210,7 +212,21 @@ export const vikaStory: TransformationStorySummary = {
   resultHighlights: ['−23 кг', 'Размер одежды 42–44', 'Больше энергии', 'Снова хочется жить активно'],
 };
 
-export const transformationStories: TransformationStorySummary[] = [polinaStory, svetaStory, vikaStory];
+export const oksanaStory: TransformationStorySummary = {
+  slug: 'oksana',
+  href: '/istorii-peremen/oksana/',
+  person: 'Оксана',
+  personGenitive: 'Оксаны',
+  title: '«После родов я перестала узнавать себя.»',
+  summary:
+    'После рождения ребёнка Оксана набрала больше 20 кг и пять лет начинала сначала. Перемены начались с доверия, небольших привычек и понятной системы.',
+  decision: 'Не очередная попытка похудеть, а изменение образа жизни.',
+  quote: '«Теперь я люблю себя. И понимаю, что всё оказалось намного проще, чем я думала.»',
+  problems: ['postpartum', 'starting-over', 'self-conscious', 'diet-cycle'],
+  resultHighlights: ['С 62 до 53 кг за 2 месяца', 'Вернулась уверенность', 'Спорт стал частью жизни'],
+};
+
+export const transformationStories: TransformationStorySummary[] = [polinaStory, svetaStory, vikaStory, oksanaStory];
 
 export const storiesArchive = {
   eyebrow: 'Истории клиентов',

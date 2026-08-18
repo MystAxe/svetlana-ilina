@@ -6,6 +6,7 @@ export const siteEntries = [
   { key: 'polinaStory', route: '/istorii-peremen/polina/', input: 'istorii-peremen/polina/index.html' },
   { key: 'svetaStory', route: '/istorii-peremen/sveta/', input: 'istorii-peremen/sveta/index.html' },
   { key: 'vikaStory', route: '/istorii-peremen/vika/', input: 'istorii-peremen/vika/index.html' },
+  { key: 'oksanaStory', route: '/istorii-peremen/oksana/', input: 'istorii-peremen/oksana/index.html' },
   { key: 'mentorship', route: '/nastavnichestvo/', input: 'nastavnichestvo/index.html' },
   { key: 'about', route: '/o-svetlane/', input: 'o-svetlane/index.html' },
   { key: 'blog', route: '/blog/', input: 'blog/index.html' },

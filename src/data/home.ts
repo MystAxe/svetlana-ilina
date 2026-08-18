@@ -63,7 +63,7 @@ export const homeHero = {
   facts: [
     { value: 'Онлайн', label: 'основной формат по России', verification: 'brief-working' },
     { value: '4 опоры', label: 'рабочая модель подхода', verification: 'brief-working' },
-    { value: 'Уточняется', label: 'стаж и образование', verification: 'unverified' },
+    { value: '12+ лет', label: 'практики', verification: 'brief-working' },
   ] satisfies EditorialFact[],
 };
 
@@ -156,17 +156,17 @@ export const formulaFeature = {
 export const aboutEditorial = {
   eyebrow: 'О Светлане',
   name: 'Светлана Ильина',
-  title: 'Спокойный и последовательный подход к изменениям',
+  title: 'Эксперт по комплексному восстановлению здоровья, энергии и комфортному снижению веса',
   paragraphs: [
-    'Светлана помогает женщинам собрать питание, движение и повседневные привычки в понятную систему, которая учитывает реальный ритм жизни.',
-    'В центре работы — наблюдения, приоритеты и выполнимые шаги. Без стыда, жестких обещаний и медицинских выводов за пределами компетенций.',
+    'Более 12 лет Светлана помогает женщинам менять тело, питание и отношение к себе — от работы фитнес-тренером до сегодняшнего комплексного подхода.',
+    'В центре работы — питание, образ жизни, самочувствие, лабораторные показатели, уровень энергии, мотивация и только затем физическая нагрузка.',
   ],
-  quote: '«Не заставлять тело работать еще сильнее, а сначала понять, что мешает получать результат».',
+  quote: '«Не бороться с телом, а понять его».',
   facts: [
-    { value: 'Онлайн', label: 'основной формат по России', verification: 'brief-working' },
-    { value: 'Индивидуально', label: 'формат разбора', verification: 'brief-working' },
-    { value: '4 опоры', label: 'рабочая модель метода', verification: 'brief-working' },
-    { value: 'Уточняется', label: 'стаж, образование и сертификаты', verification: 'unverified' },
+    { value: '12+ лет', label: 'практики', verification: 'brief-working' },
+    { value: 'Комплексно', label: 'взгляд на состояние человека', verification: 'brief-working' },
+    { value: '4 направления', label: 'в основе работы', verification: 'brief-working' },
+    { value: 'Индивидуально', label: 'питание, привычки и движение', verification: 'brief-working' },
   ] satisfies EditorialFact[],
   portrait: portraitPlaceholder,
   action: { label: 'Подробнее о Светлане', href: '/o-svetlane/' },
