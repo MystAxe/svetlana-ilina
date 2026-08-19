@@ -21,7 +21,7 @@ export interface EditorialImage {
   height: number;
   alt: string;
   placeholderLabel: string;
-  crop: 'portrait' | 'portrait-close' | 'landscape' | 'landscape-left';
+  crop: 'portrait' | 'portrait-close' | 'landscape' | 'landscape-left' | 'landscape-top' | 'document';
   rights: 'confirmed' | 'unknown';
 }
 
@@ -30,17 +30,6 @@ export interface EditorialFact {
   label: string;
   verification: VerificationStatus;
 }
-
-const portraitPlaceholder: EditorialImage = {
-  fallbackSrc: '/images/placeholders/portrait-editorial.svg',
-  sizes: '(min-width: 1024px) 48vw, 100vw',
-  width: 960,
-  height: 1200,
-  alt: 'Место для оригинального вертикального портрета Светланы Ильиной',
-  placeholderLabel: 'Фото-placeholder · оригинальный портрет ожидается',
-  crop: 'portrait',
-  rights: 'unknown',
-};
 
 const landscapePlaceholder: EditorialImage = {
   fallbackSrc: '/images/placeholders/landscape-editorial.svg',
@@ -53,13 +42,110 @@ const landscapePlaceholder: EditorialImage = {
   rights: 'unknown',
 };
 
+const svetlanaHomeHero: EditorialImage = {
+  fallbackSrc: '/media/svetlana/svetlana-home-hero.jpg',
+  webpSrcSet:
+    '/media/svetlana/svetlana-home-hero-640.webp 640w, /media/svetlana/svetlana-home-hero-941.webp 941w',
+  sizes: '(min-width: 1024px) 48vw, 100vw',
+  width: 941,
+  height: 1672,
+  alt: 'Светлана Ильина за рабочим столом с ноутбуком',
+  placeholderLabel: 'Светлана Ильина',
+  crop: 'portrait-close',
+  rights: 'confirmed',
+};
+
+const svetlanaFormula: EditorialImage = {
+  fallbackSrc: '/media/svetlana/svetlana-formula.jpg',
+  webpSrcSet:
+    '/media/svetlana/svetlana-formula-640.webp 640w, /media/svetlana/svetlana-formula-941.webp 941w',
+  sizes: '(min-width: 1024px) 50vw, 100vw',
+  width: 941,
+  height: 1672,
+  alt: 'Светлана Ильина в тренажёрном зале',
+  placeholderLabel: 'Светлана Ильина · тренажёрный зал',
+  crop: 'landscape-top',
+  rights: 'confirmed',
+};
+
+const svetlanaAbout: EditorialImage = {
+  fallbackSrc: '/media/svetlana/svetlana-about.jpg',
+  webpSrcSet:
+    '/media/svetlana/svetlana-about-640.webp 640w, /media/svetlana/svetlana-about-960.webp 960w',
+  sizes: '(min-width: 1024px) 48vw, 100vw',
+  width: 960,
+  height: 1280,
+  alt: 'Светлана Ильина за столом во время работы',
+  placeholderLabel: 'Светлана Ильина',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const svetlanaCertificates: EditorialImage[] = [
+  {
+    fallbackSrc: '/media/svetlana/certificates/medical-diploma-2008.jpg',
+    webpSrcSet: '/media/svetlana/certificates/medical-diploma-2008.webp 1600w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1600,
+    height: 1272,
+    alt: 'Диплом о среднем профессиональном медицинском образовании Светланы Ильиной',
+    placeholderLabel: 'Среднее профессиональное образование · санитарный фельдшер · 2008',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/higher-education-diploma-2012.jpg',
+    webpSrcSet: '/media/svetlana/certificates/higher-education-diploma-2012.webp 1600w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1600,
+    height: 1114,
+    alt: 'Диплом о высшем образовании Светланы Ильиной',
+    placeholderLabel: 'Высшее образование · экономист-менеджер · 2012',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/gym-instructor-certificate-2017.jpg',
+    webpSrcSet: '/media/svetlana/certificates/gym-instructor-certificate-2017.webp 1066w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1066,
+    height: 1600,
+    alt: 'Сертификат Светланы Ильиной по программе инструктора тренажёрного зала',
+    placeholderLabel: 'Инструктор тренажёрного зала · 2017',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/sports-dietology-certificate-2019.jpg',
+    webpSrcSet: '/media/svetlana/certificates/sports-dietology-certificate-2019.webp 1088w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1088,
+    height: 1600,
+    alt: 'Сертификат Светланы Ильиной по спортивной диетологии',
+    placeholderLabel: 'Спортивная диетология · 2019',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/womens-strength-training-certificate-2018.jpg',
+    webpSrcSet: '/media/svetlana/certificates/womens-strength-training-certificate-2018.webp 1084w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1084,
+    height: 1600,
+    alt: 'Сертификат Светланы Ильиной об участии в семинаре по силовым тренировкам для женщин',
+    placeholderLabel: 'Силовые тренировки для женщин · 2018',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+];
+
 export const homeHero = {
   eyebrow: 'Светлана Ильина · фитнес-наставник',
   titleLines: ['Почему вес не уходит,', 'хотя вы стараетесь?'],
   text: 'Возможно, дело не в силе воли. Я помогу разобраться, какие факторы могут мешать получать результат, и собрать понятный путь без голодовок и изнурительных тренировок.',
   primaryAction: { label: 'Пройти бесплатный тест', href: '/test/' },
   secondaryAction: { label: 'Узнать о “Формуле тела”', href: '/formula-tela/' },
-  portrait: portraitPlaceholder,
+  portrait: svetlanaHomeHero,
   facts: [
     { value: 'Онлайн', label: 'основной формат по России', verification: 'brief-working' },
     { value: '4 опоры', label: 'рабочая модель подхода', verification: 'brief-working' },
@@ -141,7 +227,7 @@ export const formulaFeature = {
   title: 'Формула тела',
   subtitle: 'Собрать разрозненное в понятный план',
   text: 'Экспертный разбор факторов, которые могут мешать снижению веса и восстановлению энергии.',
-  image: { ...landscapePlaceholder, crop: 'landscape-left' as const },
+  image: svetlanaFormula,
   steps: [
     { number: '01', title: 'Анкета', text: 'Фиксируем контекст, режим и привычки.' },
     { number: '02', title: 'Встреча', text: 'Связываем наблюдения в общую картину.' },
@@ -168,7 +254,7 @@ export const aboutEditorial = {
     { value: '4 направления', label: 'в основе работы', verification: 'brief-working' },
     { value: 'Индивидуально', label: 'питание, привычки и движение', verification: 'brief-working' },
   ] satisfies EditorialFact[],
-  portrait: portraitPlaceholder,
+  portrait: svetlanaAbout,
   action: { label: 'Подробнее о Светлане', href: '/o-svetlane/' },
 };
 

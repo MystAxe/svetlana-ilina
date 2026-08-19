@@ -36,6 +36,31 @@ function renderSection(section: ContentSectionData, index: number): string {
         .map((paragraph) => `<p class="mb-5 text-lead text-ink-soft last:mb-0">${escapeHtml(paragraph)}</p>`)
         .join('')}</div>`
     : '';
+  const gallery = section.gallery?.length
+    ? `
+      <div class="mt-12 grid items-start gap-6 md:grid-cols-2 lg:gap-8" data-motion-group data-motion-offset="1">
+        ${section.gallery
+          .map(
+            (image) => `
+              <a
+                class="block rounded-panel"
+                href="${escapeHtml(image.fallbackSrc)}"
+                target="_blank"
+                rel="noopener"
+                aria-label="Открыть документ: ${escapeHtml(image.placeholderLabel)}"
+                data-motion-item
+              >
+                ${EditorialPicture({
+                  image,
+                  sizes: '(min-width: 1280px) 38rem, (min-width: 768px) 50vw, 100vw',
+                })}
+              </a>
+            `,
+          )
+          .join('')}
+      </div>
+    `
+    : '';
 
   return `
     <section class="border-t border-line py-[clamp(3.5rem,7vw,6.5rem)]" aria-labelledby="content-section-${index + 1}">
@@ -52,6 +77,7 @@ function renderSection(section: ContentSectionData, index: number): string {
               ${section.note ? `<p class="mt-7 border-l-2 border-brand pl-5 text-sm font-semibold leading-6 text-ink-soft" data-motion-item>${escapeHtml(section.note)}</p>` : ''}
             </div>
           </div>
+          ${gallery}
         `,
       })}
     </section>

@@ -1,6 +1,7 @@
+import { EditorialPicture } from '../components/home/HomeHero';
 import { StoryAudio } from '../components/stories/StoryAudio';
+import { StoryVideo } from '../components/stories/StoryVideo';
 import {
-  PendingStoryMedia,
   StoryCTA,
   StoryExpertComment,
   StoryRecognition,
@@ -8,22 +9,17 @@ import {
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import type { EditorialImage } from '../data/home';
 import { oksanaStoryPage as data } from '../data/oksanaStory';
 import { escapeHtml } from '../lib/dom';
-
-interface PendingMediaData {
-  label: string;
-  description: string;
-}
 
 interface TextMediaSectionProps {
   id: string;
   eyebrow: string;
   title: string;
   paragraphs: readonly string[];
-  media: PendingMediaData;
+  media: EditorialImage | string;
   mediaPosition?: 'left' | 'right';
-  aspect?: 'portrait' | 'landscape';
   variant?: 'canvas' | 'soft';
 }
 
@@ -48,13 +44,13 @@ function checklist(items: readonly string[]): string {
   `;
 }
 
-function pendingPhoto(media: PendingMediaData, aspect: 'portrait' | 'landscape' = 'portrait', variant: 'light' | 'dark' = 'light'): string {
-  return PendingStoryMedia({
-    ...media,
-    kind: 'photo',
-    aspect,
-    variant,
-  });
+function renderMedia(media: EditorialImage | string): string {
+  return typeof media === 'string'
+    ? media
+    : EditorialPicture({
+        image: media,
+        sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+      });
 }
 
 function TextMediaSection({
@@ -64,7 +60,6 @@ function TextMediaSection({
   paragraphs: paragraphItems,
   media,
   mediaPosition = 'left',
-  aspect = 'portrait',
   variant = 'canvas',
 }: TextMediaSectionProps): string {
   const isMediaLeft = mediaPosition === 'left';
@@ -83,7 +78,7 @@ function TextMediaSection({
               </div>
             </div>
             <div class="min-w-0 lg:col-span-5 ${isMediaLeft ? 'lg:order-1' : 'lg:order-2'}" data-motion-group data-motion-offset="1">
-              ${pendingPhoto(media, aspect)}
+              ${renderMedia(media)}
             </div>
           </div>
         `,
@@ -103,7 +98,7 @@ function Hero(): string {
         ${paragraphs(data.hero.paragraphs, 'mb-4 text-lead font-semibold text-ink-soft last:mb-0')}
       </div>
     `,
-    media: pendingPhoto(data.hero.media),
+    media: data.hero.media,
     action: { label: 'Читать историю ↓', href: '#oksana-before' },
     notice: data.publicationNote,
   });
@@ -146,9 +141,11 @@ function Before(): string {
 function Attempts(): string {
   return TextMediaSection({
     id: 'oksana-attempts',
-    ...data.attempts,
+    eyebrow: data.attempts.eyebrow,
+    title: data.attempts.title,
+    paragraphs: data.attempts.paragraphs,
+    media: StoryVideo({ ...data.attempts.video, variant: 'light' }),
     mediaPosition: 'right',
-    aspect: 'landscape',
   });
 }
 
@@ -157,7 +154,6 @@ function Trust(): string {
     id: 'oksana-trust',
     ...data.trust,
     mediaPosition: 'left',
-    aspect: 'landscape',
     variant: 'soft',
   });
 }
@@ -180,7 +176,7 @@ function Training(): string {
               </ul>
             </div>
             <div class="min-w-0 lg:col-span-7" data-motion-group data-motion-offset="1">
-              ${PendingStoryMedia({ ...data.training.media, kind: 'video', variant: 'dark' })}
+              ${StoryVideo({ ...data.training.video, variant: 'dark' })}
             </div>
           </div>
         `,
@@ -217,7 +213,10 @@ function Results(): string {
         content: `
           <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-12 xl:gap-16">
             <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
-              ${pendingPhoto(data.results.media)}
+              ${EditorialPicture({
+                image: data.results.media,
+                sizes: '(min-width: 1280px) 31rem, (min-width: 1024px) 39vw, 100vw',
+              })}
             </div>
             <div class="lg:col-span-7" data-motion-group>
               <p class="home-kicker" data-motion-item>${escapeHtml(data.results.eyebrow)}</p>
@@ -236,7 +235,6 @@ function Vacation(): string {
     id: 'oksana-vacation',
     ...data.vacation,
     mediaPosition: 'right',
-    aspect: 'landscape',
   });
 }
 
@@ -245,7 +243,6 @@ function Relationship(): string {
     id: 'oksana-relationship',
     ...data.relationship,
     mediaPosition: 'left',
-    aspect: 'landscape',
     variant: 'soft',
   });
 }
@@ -268,29 +265,6 @@ function Recognition(): string {
     items: data.recognition.items,
     variant: 'soft',
   });
-}
-
-function FinalQuote(): string {
-  return `
-    <section class="theme-dark home-section bg-ink-strong text-canvas" aria-labelledby="oksana-final-quote-title">
-      ${Container({
-        content: `
-          <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-16">
-            <div class="lg:col-span-7" data-motion-group>
-              <p class="mb-5 text-xs font-bold uppercase tracking-[0.17em] text-brand-soft" data-motion-item>${escapeHtml(data.finalQuote.eyebrow)}</p>
-              <h2 class="sr-only" id="oksana-final-quote-title">Оксана сегодня</h2>
-              <blockquote data-motion-item>
-                <p class="max-w-[15ch] font-display text-feature font-semibold leading-tight text-canvas">${escapeHtml(data.finalQuote.quote)}</p>
-              </blockquote>
-            </div>
-            <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
-              ${pendingPhoto(data.finalQuote.media, 'portrait', 'dark')}
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
 }
 
 function StoryCTASection(): string {
@@ -320,7 +294,6 @@ export function oksanaStoryPage(): string {
       Relationship(),
       ExpertComment(),
       Recognition(),
-      FinalQuote(),
       StoryCTASection(),
     ],
   });

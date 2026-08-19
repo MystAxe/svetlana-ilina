@@ -46,7 +46,7 @@ export function StoryAudio({
         transcript.length > 0
           ? `
             <details class="mt-6 border-t ${transcriptBorder} pt-5">
-              <summary class="cursor-pointer text-sm font-bold leading-6 ${dark ? 'text-canvas' : 'text-ink'}">Расшифровка голосового сообщения</summary>
+              <summary class="cursor-pointer text-sm font-bold leading-6 ${dark ? 'text-canvas' : 'text-ink'}">Текстовый формат</summary>
               <div class="mt-5 max-w-3xl">
                 ${transcript.map((paragraph) => `<p class="mb-4 text-sm leading-7 ${caption} last:mb-0">${escapeHtml(paragraph)}</p>`).join('')}
               </div>

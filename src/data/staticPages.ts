@@ -1,5 +1,5 @@
 import type { EditorialImage } from './home';
-import { aboutEditorial, blogEditorial } from './home';
+import { aboutEditorial, blogEditorial, svetlanaCertificates } from './home';
 
 export interface PageAction {
   label: string;
@@ -11,6 +11,7 @@ export interface ContentSectionData {
   title: string;
   paragraphs?: string[];
   items?: string[];
+  gallery?: EditorialImage[];
   note?: string;
 }
 
@@ -120,6 +121,15 @@ export const standardPages: StandardPageData[] = [
           'формирование устойчивой мотивации и новых привычек;',
           'индивидуально подобранная физическая активность.',
         ],
+      },
+      {
+        eyebrow: 'Образование и подготовка',
+        title: 'Документы профессионального пути',
+        paragraphs: [
+          'В галерее собраны наиболее чёткие документы из архива: медицинское и высшее образование, подготовка инструктора тренажёрного зала, спортивная диетология и силовые тренировки для женщин.',
+        ],
+        gallery: svetlanaCertificates,
+        note: 'Нажмите на документ, чтобы открыть его крупнее.',
       },
       {
         eyebrow: 'Границы компетенции',

@@ -157,6 +157,82 @@ export const vikaAfterLifestyle: EditorialImage = {
   rights: 'confirmed',
 };
 
+export const oksanaAfterHero: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-after-hero.jpg',
+  webpSrcSet:
+    '/media/stories/oksana/oksana-after-hero-640.webp 640w, /media/stories/oksana/oksana-after-hero-960.webp 960w, /media/stories/oksana/oksana-after-hero-1200.webp 1200w',
+  sizes: '(min-width: 1024px) 44vw, 100vw',
+  width: 1200,
+  height: 1414,
+  alt: 'Оксана после результата',
+  placeholderLabel: 'Оксана после результата',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const oksanaBefore: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-before.jpg',
+  webpSrcSet:
+    '/media/stories/oksana/oksana-before-640.webp 640w, /media/stories/oksana/oksana-before-960.webp 960w',
+  sizes: oksanaAfterHero.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Оксана до начала работы, вид спереди',
+  placeholderLabel: 'Оксана до начала работы',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const oksanaTrust: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-trust.jpg',
+  sizes: oksanaAfterHero.sizes,
+  width: 900,
+  height: 1126,
+  alt: 'Оксана и Светлана во время совместной работы в тренажёрном зале',
+  placeholderLabel: 'Оксана и Светлана · совместная работа',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const oksanaAfterResults: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-after-results.jpg',
+  webpSrcSet:
+    '/media/stories/oksana/oksana-after-results-640.webp 640w, /media/stories/oksana/oksana-after-results-960.webp 960w',
+  sizes: oksanaAfterHero.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Оксана после результата, вид спереди',
+  placeholderLabel: 'Оксана после результата',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const oksanaVacation: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-vacation.jpg',
+  webpSrcSet:
+    '/media/stories/oksana/oksana-vacation-640.webp 640w, /media/stories/oksana/oksana-vacation-960.webp 960w',
+  sizes: oksanaAfterHero.sizes,
+  width: 960,
+  height: 1280,
+  alt: 'Оксана с семьёй во время отпуска у моря',
+  placeholderLabel: 'Оксана с семьёй в отпуске',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
+export const oksanaWithHusband: EditorialImage = {
+  fallbackSrc: '/media/stories/oksana/oksana-with-husband.jpg',
+  webpSrcSet:
+    '/media/stories/oksana/oksana-with-husband-640.webp 640w, /media/stories/oksana/oksana-with-husband-960.webp 960w, /media/stories/oksana/oksana-with-husband-1200.webp 1200w',
+  sizes: oksanaAfterHero.sizes,
+  width: 1200,
+  height: 1800,
+  alt: 'Оксана с мужем',
+  placeholderLabel: 'Оксана с мужем',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
+
 export const storyProblems: StoryProblem[] = [
   { id: 'no-energy', label: 'Нет энергии на тренировки' },
   { id: 'weight-stalled', label: 'Я стараюсь, но вес стоит' },
@@ -223,6 +299,7 @@ export const oksanaStory: TransformationStorySummary = {
   decision: 'Не очередная попытка похудеть, а изменение образа жизни.',
   quote: '«Теперь я люблю себя. И понимаю, что всё оказалось намного проще, чем я думала.»',
   problems: ['postpartum', 'starting-over', 'self-conscious', 'diet-cycle'],
+  image: oksanaAfterHero,
   resultHighlights: ['С 62 до 53 кг за 2 месяца', 'Вернулась уверенность', 'Спорт стал частью жизни'],
 };
 
