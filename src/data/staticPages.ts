@@ -1,5 +1,5 @@
 import type { EditorialImage } from './home';
-import { aboutEditorial, blogEditorial, svetlanaCertificates } from './home';
+import { blogEditorial, svetlanaCertificates } from './home';
 
 export interface PageAction {
   label: string;
@@ -7,6 +7,7 @@ export interface PageAction {
 }
 
 export interface ContentSectionData {
+  id?: string;
   eyebrow?: string;
   title: string;
   paragraphs?: string[];
@@ -37,6 +38,19 @@ export interface BlogArticleData {
   image: EditorialImage;
   sections: ContentSectionData[];
 }
+
+const aboutPagePortrait: EditorialImage = {
+  fallbackSrc: '/media/svetlana/svetlana-about-event.jpg',
+  webpSrcSet:
+    '/media/svetlana/svetlana-about-event-640.webp 640w, /media/svetlana/svetlana-about-event-960.webp 960w, /media/svetlana/svetlana-about-event-1440.webp 1440w',
+  sizes: '(min-width: 1024px) 39vw, 100vw',
+  width: 1440,
+  height: 1920,
+  alt: 'Светлана Ильина во время выступления с микрофоном',
+  placeholderLabel: 'Светлана Ильина · выступление',
+  crop: 'portrait',
+  rights: 'confirmed',
+};
 
 export const standardPages: StandardPageData[] = [
   {
@@ -91,8 +105,18 @@ export const standardPages: StandardPageData[] = [
     title: 'Светлана Ильина',
     lead: 'Эксперт по комплексному восстановлению здоровья, энергии и комфортному снижению веса.',
     status: '12+ лет практики · от фитнес-тренера к комплексному подходу',
-    image: aboutEditorial.portrait,
+    image: aboutPagePortrait,
     sections: [
+      {
+        id: 'education',
+        eyebrow: 'Стаж, образование и сертификаты',
+        title: 'Документы профессионального пути',
+        paragraphs: [
+          'В галерее собраны восемь документов из архива: медицинское и высшее образование, подготовка инструктора тренажёрного зала, спортивная диетология, силовые тренировки и дополнительные сертификаты.',
+        ],
+        gallery: svetlanaCertificates,
+        note: 'Нажмите на документ, чтобы открыть его крупнее.',
+      },
       {
         eyebrow: 'Профессиональный путь',
         title: 'От тренировок — к пониманию причин',
@@ -123,15 +147,6 @@ export const standardPages: StandardPageData[] = [
         ],
       },
       {
-        eyebrow: 'Образование и подготовка',
-        title: 'Документы профессионального пути',
-        paragraphs: [
-          'В галерее собраны наиболее чёткие документы из архива: медицинское и высшее образование, подготовка инструктора тренажёрного зала, спортивная диетология и силовые тренировки для женщин.',
-        ],
-        gallery: svetlanaCertificates,
-        note: 'Нажмите на документ, чтобы открыть его крупнее.',
-      },
-      {
         eyebrow: 'Границы компетенции',
         title: 'Помочь лучше понимать своё тело',
         paragraphs: [
@@ -141,10 +156,11 @@ export const standardPages: StandardPageData[] = [
       },
       {
         eyebrow: 'Почему я понимаю своих клиентов',
-        title: 'Работа с человеком не сводится к цифре на весах',
+        title: 'Я знаю это ощущение изнутри',
         paragraphs: [
           'Я дважды восстанавливалась после родов, проходила через период эмоционального и физического истощения и сама однажды столкнулась с ощущением: «Я всё делаю правильно. Почему тогда мне плохо?»',
-          'Поэтому мне важно, чтобы вместе с изменениями тела возвращались энергия, хорошее самочувствие, уверенность и ощущение, что забота о себе больше не требует постоянной борьбы.',
+          'Поэтому для меня работа с человеком не сводится к цифре на весах.',
+          'Мне важно, чтобы вместе с изменениями тела возвращались энергия, хорошее самочувствие, уверенность и ощущение, что забота о себе больше не требует постоянной борьбы.',
         ],
       },
       {

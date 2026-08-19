@@ -15,6 +15,8 @@ import {
 import { escapeHtml } from '../lib/dom';
 
 function renderSection(section: ContentSectionData, index: number): string {
+  const sectionId = section.id ? ` id="${escapeHtml(section.id)}"` : '';
+  const titleId = section.id ? `${section.id}-title` : `content-section-${index + 1}`;
   const items = section.items
     ? `
       <ul class="mt-7 border-y border-line-strong" data-motion-group data-motion-offset="1">
@@ -63,13 +65,13 @@ function renderSection(section: ContentSectionData, index: number): string {
     : '';
 
   return `
-    <section class="border-t border-line py-[clamp(3.5rem,7vw,6.5rem)]" aria-labelledby="content-section-${index + 1}">
+    <section${sectionId} class="scroll-mt-24 border-t border-line py-[clamp(3.5rem,7vw,6.5rem)]" aria-labelledby="${escapeHtml(titleId)}">
       ${Container({
         content: `
           <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
             <div class="lg:col-span-4" data-motion-group>
               ${section.eyebrow ? `<p class="home-kicker" data-motion-item>${escapeHtml(section.eyebrow)}</p>` : ''}
-              <h2 class="home-title" id="content-section-${index + 1}" data-motion-item>${escapeHtml(section.title)}</h2>
+              <h2 class="home-title" id="${escapeHtml(titleId)}" data-motion-item>${escapeHtml(section.title)}</h2>
             </div>
             <div class="lg:col-span-7 lg:col-start-6" data-motion-group data-motion-offset="1">
               ${paragraphs}

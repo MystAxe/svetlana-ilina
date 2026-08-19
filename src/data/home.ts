@@ -21,7 +21,7 @@ export interface EditorialImage {
   height: number;
   alt: string;
   placeholderLabel: string;
-  crop: 'portrait' | 'portrait-close' | 'landscape' | 'landscape-left' | 'landscape-top' | 'document';
+  crop: 'portrait' | 'portrait-close' | 'landscape' | 'landscape-left' | 'document';
   rights: 'confirmed' | 'unknown';
 }
 
@@ -29,6 +29,7 @@ export interface EditorialFact {
   value: string;
   label: string;
   verification: VerificationStatus;
+  href?: string;
 }
 
 const landscapePlaceholder: EditorialImage = {
@@ -51,7 +52,7 @@ const svetlanaHomeHero: EditorialImage = {
   height: 1672,
   alt: 'Светлана Ильина за рабочим столом с ноутбуком',
   placeholderLabel: 'Светлана Ильина',
-  crop: 'portrait-close',
+  crop: 'portrait',
   rights: 'confirmed',
 };
 
@@ -64,7 +65,7 @@ const svetlanaFormula: EditorialImage = {
   height: 1672,
   alt: 'Светлана Ильина в тренажёрном зале',
   placeholderLabel: 'Светлана Ильина · тренажёрный зал',
-  crop: 'landscape-top',
+  crop: 'portrait-close',
   rights: 'confirmed',
 };
 
@@ -134,6 +135,39 @@ export const svetlanaCertificates: EditorialImage[] = [
     height: 1600,
     alt: 'Сертификат Светланы Ильиной об участии в семинаре по силовым тренировкам для женщин',
     placeholderLabel: 'Силовые тренировки для женщин · 2018',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/hormones-course-certificate.jpg',
+    webpSrcSet: '/media/svetlana/certificates/hormones-course-certificate.webp 1280w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1280,
+    height: 904,
+    alt: 'Сертификат Светланы Ильиной о прохождении курса «Гормоны»',
+    placeholderLabel: 'Курс «Гормоны» · Learn From The Best',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/integrative-nutritionist-open-days-2023.jpg',
+    webpSrcSet: '/media/svetlana/certificates/integrative-nutritionist-open-days-2023.webp 1280w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 1280,
+    height: 799,
+    alt: 'Сертификат Светланы об участии в открытых днях программы «Интегративный нутрициолог 3.0»',
+    placeholderLabel: 'Открытые дни «Интегративный нутрициолог 3.0» · 2023',
+    crop: 'document',
+    rights: 'confirmed',
+  },
+  {
+    fallbackSrc: '/media/svetlana/certificates/thetahealing-basic-dna-2021.jpg',
+    webpSrcSet: '/media/svetlana/certificates/thetahealing-basic-dna-2021.webp 828w',
+    sizes: '(min-width: 1024px) 50vw, 100vw',
+    width: 828,
+    height: 573,
+    alt: 'Сертификат Светланы Ильиной о прохождении курса ThetaHealing Basic DNA',
+    placeholderLabel: 'ThetaHealing Basic DNA · 2021',
     crop: 'document',
     rights: 'confirmed',
   },
@@ -249,7 +283,12 @@ export const aboutEditorial = {
   ],
   quote: '«Не бороться с телом, а понять его».',
   facts: [
-    { value: '12+ лет', label: 'практики', verification: 'brief-working' },
+    {
+      value: '12+ лет · 8 документов',
+      label: 'стаж, образование и сертификаты',
+      verification: 'confirmed',
+      href: '/o-svetlane/#education',
+    },
     { value: 'Комплексно', label: 'взгляд на состояние человека', verification: 'brief-working' },
     { value: '4 направления', label: 'в основе работы', verification: 'brief-working' },
     { value: 'Индивидуально', label: 'питание, привычки и движение', verification: 'brief-working' },

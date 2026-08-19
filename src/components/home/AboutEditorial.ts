@@ -23,6 +23,9 @@ function renderAboutFacts(data: AboutEditorialProps): string {
       const needsReview = needsVerificationReview(fact.verification);
       const ruleClass = needsReview ? 'border-brand' : 'border-line';
       const statusClass = needsReview ? 'border-brand text-brand' : 'border-line-strong text-ink-soft';
+      const factLink = 'href' in fact && fact.href
+        ? `<a class="text-link inline-flex items-center border-b border-brand pb-1 text-sm font-bold text-brand" href="${escapeHtml(fact.href)}">Открыть галерею <span class="text-link__icon ml-2" aria-hidden="true">→</span></a>`
+        : '';
 
       return `
         <div class="border-t-2 ${ruleClass} bg-canvas p-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
@@ -30,6 +33,7 @@ function renderAboutFacts(data: AboutEditorialProps): string {
           <dd class="mt-2 flex flex-col items-start gap-3">
             <span class="text-2xl font-semibold leading-tight text-ink-strong">${escapeHtml(fact.value)}</span>
             <span class="inline-flex border ${statusClass} px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.1em]">${escapeHtml(verificationLabels[fact.verification])}</span>
+            ${factLink}
           </dd>
         </div>
       `;

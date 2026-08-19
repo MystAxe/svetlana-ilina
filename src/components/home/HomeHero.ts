@@ -25,7 +25,6 @@ const cropClasses: Record<EditorialImage['crop'], string> = {
   'portrait-close': 'aspect-[4/5] object-cover object-top',
   landscape: 'aspect-[14/9] object-cover object-center',
   'landscape-left': 'aspect-[14/9] object-cover object-left',
-  'landscape-top': 'aspect-[14/9] object-cover object-[50%_18%]',
   document: 'h-auto object-contain object-center',
 };
 
