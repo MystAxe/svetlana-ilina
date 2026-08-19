@@ -121,7 +121,9 @@ export function HomeHero({
   portrait,
   facts,
 }: HomeHeroProps): string {
-  const title = titleLines.map((line) => `<span class="block">${escapeHtml(line)}</span>`).join(' ');
+  const title = titleLines
+    .map((line) => `<span class="block sm:whitespace-nowrap">${escapeHtml(line)}</span>`)
+    .join(' ');
 
   return `
     <section class="overflow-hidden border-b border-line bg-canvas" aria-labelledby="home-hero-title">
@@ -134,7 +136,7 @@ export function HomeHero({
                 <span class="h-px w-10 bg-brand" aria-hidden="true"></span>
                 ${escapeHtml(eyebrow)}
               </p>
-              <h1 class="home-hero__title max-w-[15ch] font-display text-hero text-ink-strong" id="home-hero-title" data-motion-item>
+              <h1 class="home-hero__title max-w-none font-display text-hero text-ink-strong" id="home-hero-title" data-motion-item>
                 ${title}
               </h1>
               <p class="mt-7 max-w-2xl text-lead text-ink-soft" data-motion-item>${escapeHtml(text)}</p>

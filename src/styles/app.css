@@ -175,7 +175,7 @@
 
 @layer components {
   .home-page {
-    --text-hero: clamp(3rem, 1.5rem + 5.25vw, 6rem);
+    --text-hero: clamp(2.35rem, 1.55rem + 3.4vw, 4.75rem);
     --text-hero--line-height: 0.98;
     --text-hero--letter-spacing: -0.028em;
     --text-section: clamp(2rem, 1.4rem + 2.7vw, 3.75rem);
