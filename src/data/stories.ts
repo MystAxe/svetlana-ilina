@@ -1,4 +1,5 @@
 import type { EditorialImage } from './home';
+import { veraCoverImage } from './veraStory';
 
 export type StoryProblemId =
   | 'no-energy'
@@ -9,7 +10,9 @@ export type StoryProblemId =
   | 'life-on-hold'
   | 'diet-cycle'
   | 'health-concerns'
-  | 'postpartum';
+  | 'postpartum'
+  | 'sweet-cravings'
+  | 'body-shape';
 
 export interface StoryProblem {
   id: StoryProblemId;
@@ -27,6 +30,8 @@ export interface TransformationStorySummary {
   quote: string;
   problems: StoryProblemId[];
   image?: EditorialImage;
+  anonymous?: boolean;
+  mediaPending?: boolean;
   resultHighlights: string[];
 }
 
@@ -234,14 +239,16 @@ export const oksanaWithHusband: EditorialImage = {
 };
 
 export const storyProblems: StoryProblem[] = [
-  { id: 'no-energy', label: 'Нет энергии на тренировки' },
-  { id: 'weight-stalled', label: 'Я стараюсь, но вес стоит' },
-  { id: 'willpower', label: 'Кажется, что не хватает силы воли' },
+  { id: 'sweet-cravings', label: 'Тянет к сладкому' },
+  { id: 'body-shape', label: 'Хочется изменить форму' },
+  { id: 'no-energy', label: 'Мало энергии' },
+  { id: 'weight-stalled', label: 'Вес стоит' },
+  { id: 'willpower', label: 'Не хватает сил на перемены' },
   { id: 'starting-over', label: 'Устала начинать снова' },
-  { id: 'self-conscious', label: 'Хочется спрятаться за одеждой' },
-  { id: 'life-on-hold', label: 'Откладываю жизнь «до похудения»' },
+  { id: 'self-conscious', label: 'Неуверенность в себе' },
+  { id: 'life-on-hold', label: 'Откладываю жизнь на потом' },
   { id: 'diet-cycle', label: 'Устала от временных диет' },
-  { id: 'health-concerns', label: 'Боюсь, что без таблеток не справиться' },
+  { id: 'health-concerns', label: 'Питание и самочувствие' },
   { id: 'postpartum', label: 'После родов перестала узнавать себя' },
 ];
 
@@ -303,23 +310,56 @@ export const oksanaStory: TransformationStorySummary = {
   resultHighlights: ['С 62 до 53 кг за 2 месяца', 'Вернулась уверенность', 'Спорт стал частью жизни'],
 };
 
-export const transformationStories: TransformationStorySummary[] = [polinaStory, svetaStory, vikaStory, oksanaStory];
+export const dashaStory: TransformationStorySummary = {
+  slug: 'dasha',
+  href: '/istorii-peremen/dasha/',
+  person: 'Даша',
+  personGenitive: 'Даши',
+  title: '«Шоколадка упала мне в руки. И я её не захотела».',
+  summary: 'История о питании, энергии и силе. Даша изначально была стройной — целью стала форма тела и другое самочувствие.',
+  decision: 'Начать с питания и состояния, а не с запретов.',
+  quote: '«Я теперь абсолютно по-другому себя чувствую».',
+  problems: ['sweet-cravings', 'no-energy', 'body-shape'],
+  image: {
+    fallbackSrc: '/media/stories/dasha/dasha-chocolate-poster.webp',
+    sizes: '(min-width: 1024px) 33vw, 100vw',
+    width: 720, height: 1280,
+    alt: 'Даша рассказывает о переменах в питании и самочувствии',
+    placeholderLabel: 'Даша · из её рассказа',
+    crop: 'portrait-close', rights: 'confirmed',
+  },
+  resultHighlights: ['Другие отношения со сладким', 'Больше энергии', 'Работа над силой и формой'],
+};
+
+export const veraStory: TransformationStorySummary = {
+  slug: 'vera', href: '/istorii-peremen/vera/', person: 'Вера', personGenitive: 'Веры',
+  anonymous: true, mediaPending: false,
+  title: '«Просто стать меньше — не то, чего я хочу».',
+  summary: 'Когда цель — сила, форма и комфорт в своём теле. История двух месяцев работы с питанием, нагрузкой и привычками.',
+  decision: 'Выбрать конкретную цель вместо бесконечного снижения веса.',
+  quote: '«Я уже худела. Но поняла, что просто стать меньше — не то, чего я хочу».',
+  problems: ['body-shape', 'diet-cycle'],
+  image: veraCoverImage,
+  resultHighlights: ['Питание под задачу', 'Подходящая нагрузка', 'Внимание к самочувствию'],
+};
+
+export const transformationStories: TransformationStorySummary[] = [dashaStory, veraStory, polinaStory, svetaStory, vikaStory, oksanaStory];
 
 export const storiesArchive = {
   eyebrow: 'Истории клиентов',
   title: 'Истории перемен',
-  lead: 'Не «до» и «после». А путь между ними.',
-  text: 'Выберите ситуацию, в которой узнаёте себя. Я покажу истории клиенток с похожей точкой старта — решения, поворотные моменты и изменения в обычной жизни.',
+  lead: 'У каждого результата — свой путь.',
+  text: 'Больше энергии, новые привычки, сила и уверенность в себе. Здесь важны не только килограммы — важны изменения в жизни.',
   question: 'С какой точки начинается ваша история?',
   filterHint: 'Одна история может отвечать сразу нескольким ситуациям.',
-  publicationNote: 'Истории пополняются только подтверждёнными фотографиями, видео и цифрами — по мере передачи материалов.',
+  publicationNote: 'Каждая история — личный опыт. Результаты и темп изменений индивидуальны. Часть историй опубликована без фотографий, чтобы сохранить приватность.',
 };
 
 export const polinaStoryPage = {
   personLabel: 'История Полины',
   publicationNote: 'Фото и видео опубликованы · точная цифра снижения веса ожидает подтверждения',
   hero: {
-    eyebrow: '01 · С чего всё началось',
+    eyebrow: 'С чего всё началось',
     title: polinaStory.title,
     paragraphs: [
       'Именно с этой мыслью Полина пришла ко мне.',
@@ -329,7 +369,7 @@ export const polinaStoryPage = {
     image: polinaPortrait,
   },
   lifeBefore: {
-    eyebrow: '02 · Как выглядела её жизнь',
+    eyebrow: 'Как выглядела её жизнь',
     title: '«День за днём всё повторялось.»',
     paragraphs: [
       'Она старалась. Пыталась есть меньше. Начинала худеть снова и снова.',
@@ -339,7 +379,7 @@ export const polinaStoryPage = {
     image: polinaBeforePortrait,
   },
   firstVoice: {
-    eyebrow: '03 · Голос Полины',
+    eyebrow: 'Голос Полины',
     mediaLabel: 'Видео №1 · 8 секунд',
     mediaDescription: 'Фрагмент о нехватке сил, чувстве вины и мысли, что проблема в ней.',
     quote: '«Я обвиняла себя в том, что просто ленивая.»',
@@ -349,7 +389,7 @@ export const polinaStoryPage = {
     },
   },
   turningPoint: {
-    eyebrow: '04 · Момент, который всё изменил',
+    eyebrow: 'Момент, который всё изменил',
     title: 'Мы не начали с тренировок.',
     paragraphs: [
       'Полина пришла похудеть. Но уже после первых встреч стало понятно: организму не хватает ресурса для дополнительной нагрузки.',
@@ -358,7 +398,7 @@ export const polinaStoryPage = {
     ],
   },
   findings: {
-    eyebrow: '05 · Что мы увидели',
+    eyebrow: 'Что мы увидели',
     title: 'Была проведена точечная работа над проблемами',
     intro: 'В материалах истории отмечены показатели, которые Полина обсуждала с профильным специалистом.',
     items: [
@@ -371,7 +411,7 @@ export const polinaStoryPage = {
     disclaimer: 'Эти показатели не объясняют результат сами по себе. Их оценивают только вместе с симптомами, историей и рекомендациями врача.',
   },
   journey: {
-    eyebrow: '06 · Как менялся путь',
+    eyebrow: 'Как менялся путь',
     title: 'Не схема «этап 1–2–3», а последовательность решений',
     steps: [
       'Сначала разобрались, почему нет энергии.',
@@ -383,7 +423,7 @@ export const polinaStoryPage = {
     ],
   },
   secondVoice: {
-    eyebrow: '07 · Когда стало легче',
+    eyebrow: 'Когда стало легче',
     mediaLabel: 'Видео №2 · 25 секунд',
     mediaDescription: 'Тёплый фрагмент о том, что стало легче просыпаться и снова захотелось жить активно.',
     quote: '«Появилось желание двигаться — не потому что надо, а потому что появились силы.»',
@@ -393,7 +433,7 @@ export const polinaStoryPage = {
     },
   },
   results: {
-    eyebrow: '08 · Что изменилось',
+    eyebrow: 'Что изменилось',
     title: 'Изменились не только цифры.',
     image: polinaJeansPortrait,
     items: [
@@ -405,7 +445,7 @@ export const polinaStoryPage = {
     ],
   },
   expertComment: {
-    eyebrow: '09 · Комментарий Светланы',
+    eyebrow: 'Комментарий Светланы',
     paragraphs: [
       'Очень часто человек приходит с мыслью: «Мне просто не хватает силы воли». Но иногда проблема совсем в другом.',
       'Поэтому моя задача — не заставить человека делать больше, а сначала понять, что мешает организму справляться с привычной нагрузкой.',
@@ -413,7 +453,7 @@ export const polinaStoryPage = {
     ],
   },
   today: {
-    eyebrow: '10 · Сегодня Полина говорит',
+    eyebrow: 'Сегодня Полина говорит',
     quote: '«Теперь я просыпаюсь с лёгкостью и снова хочу двигаться.»',
     closing: 'Иногда самое большое изменение — это не новая цифра на весах. А ощущение, что у тебя снова появились силы жить.',
     video: {
@@ -424,7 +464,7 @@ export const polinaStoryPage = {
     },
   },
   recognition: {
-    eyebrow: '11 · Возможно, вы тоже узнаете себя',
+    eyebrow: 'Возможно, вы тоже узнаете себя',
     title: 'Эта история может быть близка вам, если:',
     items: [
       'вы постоянно чувствуете усталость;',
@@ -434,7 +474,7 @@ export const polinaStoryPage = {
     ],
   },
   cta: {
-    eyebrow: '12 · Возможно, ваша история начинается совсем не там, где вы думаете',
+    eyebrow: 'Возможно, ваша история начинается совсем не там, где вы думаете',
     title: 'Не всегда первый шаг — ещё строже контролировать питание или тренировки.',
     text: 'Иногда стоит сначала разобраться, почему организму так трудно справляться с привычной нагрузкой.',
     action: { label: 'Записаться на разбор «Формула тела»', href: '/formula-tela/#request' },

@@ -12,7 +12,7 @@ function links(items: NavigationItem[]): string {
 
 export function Footer(): string {
   return `
-    <footer class="theme-dark bg-ink-strong text-canvas" aria-labelledby="footer-title" data-site-footer>
+    <footer class="site-footer theme-dark bg-ink-strong text-canvas" aria-labelledby="footer-title" data-site-footer>
       ${Container({
         className: 'py-16 sm:py-20 lg:py-24',
         content: `

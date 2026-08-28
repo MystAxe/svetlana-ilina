@@ -19,7 +19,7 @@ export function TransformationStoryFeature({ story }: TransformationStoryFeature
           })}
         </div>
         <p class="mt-5 border-l border-brand pl-4 text-sm leading-6 text-ink-soft" data-motion-item>
-          Фото, видео и точная цифра результата будут опубликованы после подтверждения материалов и согласия клиентки.
+          Фото и видео уже есть в полной истории. Точная цифра снижения веса ожидает подтверждения.
         </p>
       </div>
     `

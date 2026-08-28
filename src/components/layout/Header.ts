@@ -29,11 +29,11 @@ export function Header(activePath: string): string {
     .join('');
 
   return `
-    <header class="site-header sticky top-0 z-40 border-b" data-site-header>
+    <header class="site-header ${activePath === '/' ? 'site-header--home' : ''} sticky top-0 z-40 border-b" data-site-header>
       ${Container({
         content: `
           <div class="flex min-h-16 items-center justify-between gap-4 xl:min-h-18">
-            <a class="inline-flex min-h-11 flex-col justify-center leading-tight" href="/" aria-label="${escapeHtml(siteIdentity.name)}, на главную">
+            <a class="site-brand inline-flex min-h-11 flex-col justify-center leading-tight" href="/" aria-label="${escapeHtml(siteIdentity.name)}, на главную">
               <span class="text-base font-semibold text-ink-strong sm:text-lg">${escapeHtml(siteIdentity.name)}</span>
               <span class="mt-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-ink-soft">${escapeHtml(siteIdentity.role)}</span>
             </a>

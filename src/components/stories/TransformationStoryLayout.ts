@@ -279,7 +279,7 @@ export function StoryCTA({
   const titleId = `${slug}-cta-title`;
 
   return `
-    <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="${escapeHtml(titleId)}">
+    <section class="story-cta theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="${escapeHtml(titleId)}">
       ${Container({
         className: 'py-[clamp(4.5rem,9vw,8rem)]',
         content: `

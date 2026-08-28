@@ -35,7 +35,10 @@ export function Button({
   const idAttribute = id ? ` id="${escapeHtml(id)}"` : '';
 
   if (href) {
-    return `<a${idAttribute} class="${classes}" href="${escapeHtml(href)}" ${attributes}>${escapeHtml(label)}</a>`;
+    const dialogAttributes = href === '/formula-tela/#request' || href === '#request'
+      ? ' data-lead-open aria-haspopup="dialog" aria-controls="lead-dialog"'
+      : '';
+    return `<a${idAttribute} class="${classes}" href="${escapeHtml(href)}"${dialogAttributes} ${attributes}>${escapeHtml(label)}</a>`;
   }
 
   return `<button${idAttribute} class="${classes}" type="${type}" ${disabled ? 'disabled' : ''} ${attributes}>${escapeHtml(label)}</button>`;

@@ -1,3 +1,8 @@
+import { initStoryMedia } from './storyMedia';
+import { initDisclosures } from './disclosures';
+import { initLeadForms } from './leadForms';
+import { initLeadDialog } from './leadDialog';
+
 const rootRelativePath = /^\/(?!\/)/;
 
 export function withBasePath(value: string): string {
@@ -56,6 +61,10 @@ export function mountApp(markup: string): HTMLElement {
   const app = getRequiredElement<HTMLElement>('#app');
   app.innerHTML = markup;
   applyBasePaths(app);
+  initDisclosures(app);
+  initStoryMedia(app);
+  initLeadForms(app);
+  initLeadDialog(app);
   return app;
 }
 

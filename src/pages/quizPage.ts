@@ -4,7 +4,7 @@ import { Container } from '../components/ui/Container';
 export function quizPage(): string {
   return PageShell({
     activePath: '/test/',
-    mainClassName: 'min-h-[70vh]',
+    mainClassName: 'quiz-page min-h-[70vh]',
     mainContent: `
       <section class="page-grid py-12 sm:py-16 lg:py-20" aria-label="Интерактивный тест">
         ${Container({

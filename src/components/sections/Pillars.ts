@@ -31,7 +31,7 @@ export function Pillars({ items }: PillarsProps): string {
           ${SectionHeading({
             id: 'method-title',
             eyebrow: 'Подход',
-            title: 'Метод четырех опор',
+            title: 'Четыре направления работы',
             text: 'Я смотрю на ситуацию целиком и помогаю выбрать реалистичную точку старта.',
           })}
           <ol class="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">${itemMarkup}</ol>

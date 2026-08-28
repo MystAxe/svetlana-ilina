@@ -28,7 +28,7 @@ export function MobileMenu(activePath: string): string {
 
   return `
     <div class="mobile-menu fixed inset-0 z-50 xl:hidden" id="mobile-menu" hidden aria-hidden="true" data-state="closed" data-mobile-menu>
-      <button class="mobile-menu-backdrop absolute inset-0 h-full w-full cursor-default" type="button" aria-label="Закрыть меню" data-menu-backdrop></button>
+      <button class="mobile-menu-backdrop absolute inset-0 h-full w-full cursor-default" type="button" tabindex="-1" aria-label="Закрыть меню" data-menu-backdrop></button>
       <div class="mobile-menu-panel absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col overflow-y-auto border-l border-line bg-canvas px-5 py-5 sm:px-7" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title" data-menu-panel>
         <div class="flex min-h-12 items-center justify-between gap-4 border-b border-line pb-4">
           <p class="mb-0 text-lg font-semibold" id="mobile-menu-title">${escapeHtml(siteIdentity.name)}</p>
@@ -58,12 +58,22 @@ export function initMobileMenu(): void {
     (element): element is HTMLElement => element instanceof HTMLElement && element !== menu,
   );
   let previouslyFocused: HTMLElement | null = null;
-  let closeTimer: number | undefined;
+  let expanded = false;
+  let panelAnimation: Animation | null = null;
+  let backdropAnimation: Animation | null = null;
+  let closeOptions: { restoreFocus: boolean; afterClose?: () => void } | null = null;
+  const previousInert = new Map<HTMLElement, boolean>();
 
   const setBackgroundInert = (inert: boolean): void => {
     backgroundElements.forEach((element) => {
-      element.inert = inert;
+      if (inert) {
+        previousInert.set(element, element.inert);
+        element.inert = true;
+      } else {
+        element.inert = previousInert.get(element) ?? false;
+      }
     });
+    if (!inert) previousInert.clear();
   };
 
   const focusHashTarget = (hash: string): void => {
@@ -94,74 +104,95 @@ export function initMobileMenu(): void {
     }
   };
 
-  const close = (restoreFocus = true, immediate = motionQuery.matches, afterClose?: () => void): void => {
-    if (menu.hidden) {
+  const cancelAnimations = (): void => {
+    if (panelAnimation) panelAnimation.onfinish = null;
+    panelAnimation?.cancel();
+    backdropAnimation?.cancel();
+    panelAnimation = null;
+    backdropAnimation = null;
+  };
+
+  const finishTransition = (): void => {
+    cancelAnimations();
+    if (expanded) {
+      menu.dataset.state = 'open';
       return;
     }
 
-    window.clearTimeout(closeTimer);
-    menu.dataset.state = 'closed';
-    menu.setAttribute('aria-hidden', 'true');
-    openButton.setAttribute('aria-expanded', 'false');
-    openButton.setAttribute('aria-label', 'Открыть меню');
+    // Keep the page locked and focus inside the dialog until it has left the screen.
+    const options = closeOptions;
+    closeOptions = null;
     setBackgroundInert(false);
     document.body.classList.remove('menu-open');
-
-    if (restoreFocus) {
-      previouslyFocused?.focus();
+    if (options?.restoreFocus) {
+      (previouslyFocused?.isConnected ? previouslyFocused : openButton).focus({ preventScroll: true });
     } else if (document.activeElement instanceof HTMLElement && menu.contains(document.activeElement)) {
       document.activeElement.blur();
     }
+    menu.hidden = true;
+    menu.dataset.state = 'closed';
+    menu.setAttribute('aria-hidden', 'true');
+    options?.afterClose?.();
+  };
 
-    const finish = (): void => {
-      if (menu.dataset.state !== 'closed') {
-        return;
-      }
-
-      menu.hidden = true;
-      afterClose?.();
-    };
-
-    if (immediate) {
-      finish();
+  const transition = (immediate: boolean): void => {
+    // Capture the displayed frame before cancelling, so interrupted motion reverses smoothly.
+    const startTransform = getComputedStyle(panel).transform;
+    const startOpacity = getComputedStyle(backdrop).opacity;
+    cancelAnimations();
+    menu.dataset.state = expanded ? 'opening' : 'closing';
+    const endTransform = getComputedStyle(panel).transform;
+    const endOpacity = getComputedStyle(backdrop).opacity;
+    if (immediate || typeof panel.animate !== 'function') {
+      finishTransition();
       return;
     }
 
-    closeTimer = window.setTimeout(finish, 280);
+    const options: KeyframeAnimationOptions = {
+      duration: expanded ? 300 : 240,
+      easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      fill: 'both',
+    };
+    panelAnimation = panel.animate([{ transform: startTransform }, { transform: endTransform }], options);
+    backdropAnimation = backdrop.animate([{ opacity: startOpacity }, { opacity: endOpacity }], options);
+    panelAnimation.onfinish = finishTransition;
+  };
+
+  const close = (restoreFocus = true, immediate = motionQuery.matches, afterClose?: () => void): void => {
+    if (menu.hidden) return;
+    closeOptions = { restoreFocus, afterClose };
+    if (!expanded && !immediate) return;
+    expanded = false;
+    openButton.setAttribute('aria-expanded', 'false');
+    openButton.setAttribute('aria-label', 'Открыть меню');
+    transition(immediate);
   };
 
   const open = (): void => {
-    if (!menu.hidden && menu.dataset.state === 'open') {
-      return;
+    if (expanded || desktopQuery.matches) return;
+    if (menu.hidden) {
+      previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : openButton;
+      menu.hidden = false;
+      menu.removeAttribute('aria-hidden');
+      document.body.classList.add('menu-open');
+      setBackgroundInert(true);
     }
-
-    window.clearTimeout(closeTimer);
-    previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : openButton;
-    menu.hidden = false;
-    menu.dataset.state = 'closed';
-    menu.removeAttribute('aria-hidden');
+    closeOptions = null;
+    expanded = true;
     openButton.setAttribute('aria-expanded', 'true');
     openButton.setAttribute('aria-label', 'Закрыть меню');
-    document.body.classList.add('menu-open');
-    setBackgroundInert(true);
-
-    if (motionQuery.matches) {
-      menu.dataset.state = 'open';
-      closeButton.focus();
-      return;
-    }
-
-    window.requestAnimationFrame(() => {
-      menu.dataset.state = 'open';
-      window.requestAnimationFrame(() => closeButton.focus());
-    });
+    transition(motionQuery.matches);
+    closeButton.focus({ preventScroll: true });
   };
 
   openButton.addEventListener('click', open);
   closeButton.addEventListener('click', () => close());
   backdrop.addEventListener('click', () => close());
   menu.querySelectorAll<HTMLAnchorElement>('[data-menu-link]').forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+        link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+
       const destination = new URL(link.href, window.location.href);
       const current = new URL(window.location.href);
       const sameDocument =
@@ -170,16 +201,15 @@ export function initMobileMenu(): void {
         destination.search === current.search &&
         Boolean(destination.hash);
 
-      if (sameDocument) {
-        close(false, motionQuery.matches, () => focusHashTarget(destination.hash));
-        return;
-      }
-
-      close(false, true);
+      event.preventDefault();
+      close(false, motionQuery.matches, () => {
+        window.location.assign(destination.href);
+        if (sameDocument) focusHashTarget(destination.hash);
+      });
     });
   });
   menu.addEventListener('keydown', (event) => {
-    if (menu.dataset.state !== 'open') {
+    if (menu.hidden) {
       return;
     }
 
@@ -196,4 +226,10 @@ export function initMobileMenu(): void {
       close(false, true);
     }
   });
+  motionQuery.addEventListener('change', (event) => {
+    if (event.matches && panelAnimation) finishTransition();
+  });
+  window.addEventListener('resize', () => {
+    if (panelAnimation) finishTransition();
+  }, { passive: true });
 }

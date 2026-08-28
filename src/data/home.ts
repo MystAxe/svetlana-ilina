@@ -43,18 +43,33 @@ const landscapePlaceholder: EditorialImage = {
   rights: 'unknown',
 };
 
-const svetlanaHomeHero: EditorialImage = {
-  fallbackSrc: '/media/svetlana/svetlana-home-hero.jpg',
-  webpSrcSet:
-    '/media/svetlana/svetlana-home-hero-640.webp 640w, /media/svetlana/svetlana-home-hero-941.webp 941w',
-  sizes: '(min-width: 1024px) 48vw, 100vw',
-  width: 941,
-  height: 1672,
-  alt: 'Светлана Ильина за рабочим столом с ноутбуком',
-  placeholderLabel: 'Светлана Ильина',
-  crop: 'portrait',
-  rights: 'confirmed',
+const heroPortraits: Record<'black' | 'red', EditorialImage> = {
+  black: {
+    fallbackSrc: '/media/svetlana/svetlana-hero-studio-1600.webp',
+    fallbackSrcSet: '/media/svetlana/svetlana-hero-studio-640.webp 640w, /media/svetlana/svetlana-hero-studio-960.webp 960w, /media/svetlana/svetlana-hero-studio-1600.webp 1600w',
+    sizes: '(min-width: 768px) 55vw, 416px',
+    width: 1600,
+    height: 2400,
+    alt: 'Светлана Ильина в чёрном боди в синем кресле на студийном портрете',
+    placeholderLabel: 'Светлана Ильина',
+    crop: 'portrait',
+    rights: 'confirmed',
+  },
+  red: {
+    fallbackSrc: '/media/svetlana/svetlana-hero-red.webp',
+    sizes: '(min-width: 768px) 55vw, 416px',
+    width: 851,
+    height: 1280,
+    alt: 'Светлана Ильина в красном боди в светлом кресле на студийном портрете',
+    placeholderLabel: 'Светлана Ильина',
+    crop: 'portrait',
+    rights: 'confirmed',
+  },
 };
+
+// Red was selected for the published Hero; keep 'black' as the original-photo fallback.
+const activeHeroPortrait: keyof typeof heroPortraits = 'red';
+const svetlanaHomeHero = heroPortraits[activeHeroPortrait];
 
 const svetlanaFormula: EditorialImage = {
   fallbackSrc: '/media/svetlana/svetlana-formula.jpg',
@@ -175,15 +190,15 @@ export const svetlanaCertificates: EditorialImage[] = [
 
 export const homeHero = {
   eyebrow: 'Светлана Ильина · фитнес-наставник',
-  titleLines: ['Почему вес', 'не уходит, хотя вы', 'стараетесь?'],
-  text: 'Возможно, дело не в силе воли. Я помогу разобраться, какие факторы могут мешать получать результат, и собрать понятный путь без голодовок и изнурительных тренировок.',
+  titleLines: ['Тело, в котором', 'вам хорошо.'],
+  text: 'Помогаю наладить питание, найти подходящую нагрузку и свой ритм — без жёстких диет и гонки за цифрой на весах.',
   primaryAction: { label: 'Пройти бесплатный тест', href: '/test/' },
-  secondaryAction: { label: 'Узнать о “Формуле тела”', href: '/formula-tela/' },
+  secondaryAction: { label: 'Как я работаю', href: '#method' },
   portrait: svetlanaHomeHero,
   facts: [
-    { value: 'Онлайн', label: 'основной формат по России', verification: 'brief-working' },
-    { value: '4 опоры', label: 'рабочая модель подхода', verification: 'brief-working' },
-    { value: '12+ лет', label: 'практики', verification: 'brief-working' },
+    { value: '12+ лет', label: 'практики и работы с телом', verification: 'brief-working' },
+    { value: '4', label: 'направления работы', verification: 'brief-working' },
+    { value: 'Онлайн', label: 'рядом, где бы вы ни были', verification: 'brief-working' },
   ] satisfies EditorialFact[],
 };
 
@@ -216,27 +231,27 @@ export const problemEditorial = {
 
 export const methodEditorial = {
   eyebrow: 'Подход',
-  title: 'Метод четырех опор',
+  title: 'Четыре направления работы',
   text: 'Я смотрю на ситуацию целиком и помогаю выбрать реалистичную точку старта — без попытки изменить всё сразу.',
   pillars: [
     {
       number: '01',
-      title: 'Состояние и сигналы организма',
+      title: 'Самочувствие',
       text: 'Наблюдаем за самочувствием и повседневным ритмом без самостоятельных диагнозов.',
     },
     {
       number: '02',
-      title: 'Питание и восстановление ресурсов',
+      title: 'Питание',
       text: 'Я разбираю с вами рацион и режим в рамках своей компетенции.',
     },
     {
       number: '03',
-      title: 'Привычки, мотивация и поддержка',
+      title: 'Привычки и поддержка',
       text: 'Ищем изменения, которые можно встроить в реальную жизнь.',
     },
     {
       number: '04',
-      title: 'Движение, когда к нему есть ресурс',
+      title: 'Движение',
       text: 'Подключаем посильную активность без принципа «всё или ничего».',
     },
   ],
@@ -246,7 +261,7 @@ export const testFeature = {
   eyebrow: 'Главный бесплатный продукт',
   duration: '5–7 минут',
   title: 'С чего начать именно вам?',
-  text: 'Ответьте на 8 вопросов о повседневных привычках и получите предварительную подсказку, на какую опору стоит обратить внимание первой.',
+  text: 'Ответьте на 8 вопросов о повседневных привычках и получите предварительную подсказку, на какое направление стоит обратить внимание сначала.',
   action: { label: 'Пройти бесплатный тест', href: '/test/' },
   publicDisclaimer: 'Тест не ставит диагноз и не заменяет консультацию врача.',
   preview: {

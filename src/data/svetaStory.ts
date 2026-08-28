@@ -3,13 +3,13 @@ import { svetaAfterBack, svetaAfterFront, svetaAfterSide, svetaBeforeBack, sveta
 export const svetaStoryPage = {
   personLabel: 'История Светы',
   hero: {
-    eyebrow: '01 · С чего всё началось',
+    eyebrow: 'С чего всё началось',
     title: svetaStory.title,
     line: 'Именно так началась история Светы.',
     image: svetaAfterFront,
   },
   recognitionStart: {
-    eyebrow: '02 · Узнаёте себя?',
+    eyebrow: 'Узнаёте себя?',
     title: 'Хотелось стать незаметной.',
     thoughts: [
       'Мне казалось, что все смотрят только на меня.',
@@ -22,7 +22,7 @@ export const svetaStoryPage = {
     images: [svetaBeforeFront, svetaBeforeBack],
   },
   firstVoice: {
-    eyebrow: '03 · Голос Светы',
+    eyebrow: 'Голос Светы',
     title: '«Я пришла и даже не сняла шапку…»',
     label: 'Видео · около 20 секунд',
     description: 'Фрагмент о шапке, шарфе и состоянии Светы в начале пути.',
@@ -32,7 +32,7 @@ export const svetaStoryPage = {
     },
   },
   attempts: {
-    eyebrow: '04 · Почему ничего не получалось',
+    eyebrow: 'Почему ничего не получалось',
     title: '«Я уже пыталась…»',
     thoughts: [
       'Не есть.',
@@ -44,7 +44,7 @@ export const svetaStoryPage = {
     closing: 'Самым страшным было уже не похудеть. Самым страшным было снова поверить.',
   },
   turningPoint: {
-    eyebrow: '05 · Момент, который изменил всё',
+    eyebrow: 'Момент, который изменил всё',
     title: 'Мы перестали бороться с весом.',
     paragraphs: [
       'На первой встрече мы почти не говорили о килограммах.',
@@ -53,7 +53,7 @@ export const svetaStoryPage = {
     ],
   },
   journey: {
-    eyebrow: '06 · Что менялось на самом деле',
+    eyebrow: 'Что менялось на самом деле',
     title: 'Изменения начались задолго до новой цифры на весах',
     steps: [
       'Сначала появилась вера.',
@@ -67,7 +67,7 @@ export const svetaStoryPage = {
     ],
   },
   secondVoice: {
-    eyebrow: '07 · Когда снова захотелось жить',
+    eyebrow: 'Когда снова захотелось жить',
     title: '«Я кайфую. Покупаю одежду. Собираюсь в отпуск.»',
     label: 'Видео · самый счастливый фрагмент',
     description: 'Фрагмент о новом гардеробе, удовольствии от перемен и подготовке к отпуску.',
@@ -77,7 +77,7 @@ export const svetaStoryPage = {
     },
   },
   results: {
-    eyebrow: '08 · И только теперь…',
+    eyebrow: 'И только теперь…',
     title: 'Вес изменился. Но это было уже следствием.',
     image: svetaAfterSide,
     items: [
@@ -90,7 +90,7 @@ export const svetaStoryPage = {
     ],
   },
   expertComment: {
-    eyebrow: '09 · Комментарий Светланы',
+    eyebrow: 'Комментарий Светланы',
     title: 'Первая победа происходит гораздо раньше цифр.',
     paragraphs: [
       'Многие думают, что моя работа — помочь человеку похудеть.',
@@ -102,7 +102,7 @@ export const svetaStoryPage = {
     quote: '«Я впервые за пять лет собирала чемодан в отпуск и с удовольствием покупала себе вещи.»',
   },
   recognition: {
-    eyebrow: '11 · Возможно…',
+    eyebrow: 'Возможно…',
     title: 'Возможно, сейчас вы узнали себя, если…',
     items: [
       'кажется, что на вас все смотрят;',
@@ -113,10 +113,10 @@ export const svetaStoryPage = {
     ],
   },
   cta: {
-    eyebrow: '12 · Возможно, ваша история тоже может начаться по-другому',
+    eyebrow: 'Возможно, ваша история тоже может начаться по-другому',
     title: 'Не всегда всё начинается с похудения.',
     text: 'Иногда всё начинается с решения перестать бороться с собой.',
-    action: { label: 'Записаться на диагностику «Формула тела»', href: '/formula-tela/#request' },
+    action: { label: 'Записаться на разбор «Формула тела»', href: '/formula-tela/#request' },
     note: '«Формула тела» — экспертный разбор, а не медицинская диагностика.',
   },
 };

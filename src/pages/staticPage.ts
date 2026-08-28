@@ -2,266 +2,52 @@ import { EditorialPicture } from '../components/home/HomeHero';
 import { PageShell } from '../components/layout/PageShell';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
-import { TextLink } from '../components/ui/TextLink';
 import { blogEditorial } from '../data/home';
-import {
-  blogArticles,
-  findBlogArticle,
-  findStandardPage,
-  type BlogArticleData,
-  type ContentSectionData,
-  type StandardPageData,
-} from '../data/staticPages';
+import { blogArticles, findBlogArticle, findStandardPage, type BlogArticleData, type ContentSectionData, type StandardPageData } from '../data/staticPages';
 import { escapeHtml } from '../lib/dom';
 
 function renderSection(section: ContentSectionData, index: number): string {
-  const sectionId = section.id ? ` id="${escapeHtml(section.id)}"` : '';
-  const titleId = section.id ? `${section.id}-title` : `content-section-${index + 1}`;
-  const items = section.items
-    ? `
-      <ul class="mt-7 border-y border-line-strong" data-motion-group data-motion-offset="1">
-        ${section.items
-          .map(
-            (item, itemIndex) => `
-              <li class="grid min-h-18 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-4 last:border-b-0" data-motion-item>
-                <span class="text-sm font-extrabold text-brand" aria-hidden="true">${String(itemIndex + 1).padStart(2, '0')}</span>
-                <span class="text-body font-semibold text-ink">${escapeHtml(item)}</span>
-              </li>
-            `,
-          )
-          .join('')}
-      </ul>
-    `
-    : '';
-  const paragraphs = section.paragraphs
-    ? `<div class="mt-7 max-w-3xl">${section.paragraphs
-        .map((paragraph) => `<p class="mb-5 text-lead text-ink-soft last:mb-0">${escapeHtml(paragraph)}</p>`)
-        .join('')}</div>`
-    : '';
-  const gallery = section.gallery?.length
-    ? `
-      <div class="mt-12 grid items-start gap-6 md:grid-cols-2 lg:gap-8" data-motion-group data-motion-offset="1">
-        ${section.gallery
-          .map(
-            (image) => `
-              <a
-                class="block rounded-panel"
-                href="${escapeHtml(image.fallbackSrc)}"
-                target="_blank"
-                rel="noopener"
-                aria-label="Открыть документ: ${escapeHtml(image.placeholderLabel)}"
-                data-motion-item
-              >
-                ${EditorialPicture({
-                  image,
-                  sizes: '(min-width: 1280px) 38rem, (min-width: 768px) 50vw, 100vw',
-                })}
-              </a>
-            `,
-          )
-          .join('')}
-      </div>
-    `
-    : '';
+  const id = section.id || `content-section-${index + 1}`;
+  const paragraphs = (section.paragraphs || []).map(text => `<p>${escapeHtml(text)}</p>`).join('');
+  const items = section.items ? `<ul class="detail-list">${section.items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : '';
+  const gallery = section.gallery?.length ? `<div class="certificate-gallery" data-motion-group>${section.gallery.map(image => `<a href="${escapeHtml(image.fallbackSrc)}" target="_blank" rel="noopener" aria-label="Открыть документ: ${escapeHtml(image.placeholderLabel)}" data-motion-item>${EditorialPicture({ image, sizes: '(min-width: 1024px) 23vw, (min-width: 640px) 44vw, 90vw' })}</a>`).join('')}</div>` : '';
+  return `<section class="content-section" id="${escapeHtml(id)}" aria-labelledby="${escapeHtml(id)}-title">${Container({ content: `
+    <div class="standard-content-grid" data-motion-group><div data-motion-item>${section.eyebrow ? `<p class="home-kicker">${escapeHtml(section.eyebrow)}</p>` : ''}<h2 id="${escapeHtml(id)}-title">${escapeHtml(section.title)}</h2></div><div class="standard-content-copy" data-motion-item>${paragraphs}${items}${section.note ? `<p class="case-note">${escapeHtml(section.note)}</p>` : ''}</div></div>${gallery}
+  ` })}</section>`;
+}
 
-  return `
-    <section${sectionId} class="scroll-mt-24 border-t border-line py-[clamp(3.5rem,7vw,6.5rem)]" aria-labelledby="${escapeHtml(titleId)}">
-      ${Container({
-        content: `
-          <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
-            <div class="lg:col-span-4" data-motion-group>
-              ${section.eyebrow ? `<p class="home-kicker" data-motion-item>${escapeHtml(section.eyebrow)}</p>` : ''}
-              <h2 class="home-title" id="${escapeHtml(titleId)}" data-motion-item>${escapeHtml(section.title)}</h2>
-            </div>
-            <div class="lg:col-span-7 lg:col-start-6" data-motion-group data-motion-offset="1">
-              ${paragraphs}
-              ${items}
-              ${section.note ? `<p class="mt-7 border-l-2 border-brand pl-5 text-sm font-semibold leading-6 text-ink-soft" data-motion-item>${escapeHtml(section.note)}</p>` : ''}
-            </div>
-          </div>
-          ${gallery}
-        `,
-      })}
-    </section>
-  `;
+function pageActions(primary?: StandardPageData['primaryAction'], secondary?: StandardPageData['secondaryAction']): string {
+  if (!primary && !secondary) return '';
+  return `<section class="page-actions" aria-label="Следующий шаг">${Container({ content: `<div>${primary ? Button({ ...primary, variant: 'inverse' }) : ''}${secondary ? Button({ ...secondary, variant: 'inverse-outline' }) : ''}</div>` })}</section>`;
 }
 
 function renderStandardPage(data: StandardPageData): string {
-  const isLegal = data.kind === 'legal';
-  const heroTheme = isLegal ? 'theme-dark bg-ink-strong text-canvas' : 'bg-canvas text-ink';
-  const titleColor = isLegal ? 'text-canvas' : 'text-ink-strong';
-  const leadColor = isLegal ? 'text-canvas/75' : 'text-ink-soft';
-
-  const hero = `
-    <section class="border-b border-line ${heroTheme}" aria-labelledby="static-page-title">
-      ${Container({
-        className: 'py-[clamp(4rem,8vw,7.5rem)]',
-        content: `
-          <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12">
-            <div class="${data.image ? 'lg:col-span-7' : 'lg:col-span-9'}" data-motion-group>
-              <p class="mb-5 text-xs font-bold uppercase tracking-[0.18em] ${isLegal ? 'text-brand-soft' : 'text-brand'}" data-motion-item>${escapeHtml(data.eyebrow)}</p>
-              <h1 class="max-w-[18ch] font-display text-hero font-semibold ${titleColor}" id="static-page-title" data-motion-item>${escapeHtml(data.title)}</h1>
-              <p class="mt-7 max-w-3xl text-lead ${leadColor}" data-motion-item>${escapeHtml(data.lead)}</p>
-              ${data.status ? `<p class="mt-8 inline-flex border ${isLegal ? 'border-canvas/35 text-canvas' : 'border-brand bg-brand-soft text-brand'} px-4 py-3 text-xs font-bold uppercase leading-5 tracking-[0.11em]" data-motion-item>${escapeHtml(data.status)}</p>` : ''}
-            </div>
-            ${
-              data.image
-                ? `<div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1"><div data-motion-item data-motion-kind="media">${EditorialPicture({
-                    image: data.image,
-                    eager: true,
-                    sizes: '(min-width: 1024px) 39vw, 100vw',
-                  })}</div></div>`
-                : ''
-            }
-          </div>
-        `,
-      })}
-    </section>
-  `;
-
-  const actions =
-    data.primaryAction || data.secondaryAction
-      ? `
-        <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-label="Следующий шаг">
-          ${Container({
-            className: 'py-12 sm:py-16',
-            content: `
-              <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap" data-motion-group>
-                ${data.primaryAction ? `<div data-motion-item>${Button({ ...data.primaryAction, variant: 'inverse', className: 'w-full sm:w-auto' })}</div>` : ''}
-                ${data.secondaryAction ? `<div data-motion-item>${Button({ ...data.secondaryAction, variant: 'inverse-outline', className: 'w-full sm:w-auto' })}</div>` : ''}
-              </div>
-            `,
-          })}
-        </section>
-      `
-      : '';
-
-  return PageShell({
-    activePath: data.activePath,
-    mainClassName: `${data.kind}-page`,
-    mainContent: [hero, ...data.sections.map(renderSection), actions].join(''),
-  });
+  const hero = `<section class="standard-hero ${data.image ? 'standard-hero--photo' : ''}" aria-labelledby="static-page-title">${Container({ content: `
+    <div class="standard-hero__grid" data-motion-group><div data-motion-item><p class="home-kicker">${escapeHtml(data.eyebrow)}</p><h1 id="static-page-title">${escapeHtml(data.title)}</h1><p class="standard-hero__lead">${escapeHtml(data.lead)}</p>${data.status ? `<p class="status-note">${escapeHtml(data.status)}</p>` : ''}${data.image && data.primaryAction ? `<div class="mt-8">${Button(data.primaryAction)}</div>` : ''}</div>${data.image ? `<div class="standard-hero__photo" data-motion-item>${EditorialPicture({ image: data.image, eager: true, showLabel: false, sizes: '(min-width: 1024px) 38vw, 90vw' })}</div>` : ''}</div>
+  ` })}</section>`;
+  return PageShell({ activePath: data.activePath, mainClassName: `${data.kind}-page`, mainContent: [hero, ...data.sections.map(renderSection), pageActions(data.primaryAction, data.secondaryAction)].join('') });
 }
 
 function renderBlogIndex(): string {
-  return PageShell({
-    activePath: '/blog/',
-    mainClassName: 'blog-index-page',
-    mainContent: `
-      <section class="border-b border-line bg-canvas" aria-labelledby="blog-index-title">
-        ${Container({
-          className: 'py-[clamp(4rem,8vw,7.5rem)]',
-          content: `
-            <div class="grid gap-8 lg:grid-cols-12 lg:gap-12" data-motion-group>
-              <div class="lg:col-span-8">
-                <p class="home-kicker" data-motion-item>Блог</p>
-                <h1 class="max-w-[15ch] font-display text-hero font-semibold text-ink-strong" id="blog-index-title" data-motion-item>${escapeHtml(blogEditorial.title)}</h1>
-              </div>
-              <p class="home-lead mb-0 lg:col-span-4 lg:pt-9" data-motion-item>${escapeHtml(blogEditorial.text)}</p>
-            </div>
-          `,
-        })}
-      </section>
-      <section class="home-section bg-canvas" aria-label="Статьи">
-        ${Container({
-          content: `
-            <div class="grid gap-8 lg:grid-cols-12" data-motion-group>
-              ${blogArticles
-                .map(
-                  (article, index) => `
-                    <article class="border border-line-strong bg-canvas ${index === 0 ? 'lg:col-span-7' : 'lg:col-span-5'}" aria-labelledby="blog-card-${index + 1}" data-motion-item>
-                      ${EditorialPicture({
-                        image: article.image,
-                        sizes: index === 0 ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 1024px) 39vw, 100vw',
-                        showLabel: false,
-                      })}
-                      <div class="p-6 sm:p-8">
-                        <p class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-brand">${escapeHtml(article.category)}</p>
-                        <h2 class="text-2xl font-bold leading-tight text-ink-strong sm:text-3xl" id="blog-card-${index + 1}">${escapeHtml(article.title)}</h2>
-                        <p class="mt-5 text-body text-ink-soft">${escapeHtml(article.lead)}</p>
-                        <div class="mt-7">${TextLink({ label: 'Читать статью', href: article.path })}</div>
-                      </div>
-                    </article>
-                  `,
-                )
-                .join('')}
-            </div>
-          `,
-        })}
-      </section>
-    `,
-  });
+  return PageShell({ activePath: '/blog/', mainClassName: 'blog-index-page', mainContent: `
+    <section class="standard-hero" aria-labelledby="blog-index-title">${Container({ content: `<p class="home-kicker">Блог</p><h1 id="blog-index-title">Понимать себя —<br>чуть лучше.</h1><p class="standard-hero__lead">${escapeHtml(blogEditorial.text)}</p>` })}</section>
+    <section class="home-section" aria-label="Статьи">${Container({ content: `<div class="journal-grid" data-motion-group>${blogArticles.map(article => `<article class="journal-card" data-motion-item><p class="home-kicker">${escapeHtml(article.category)}</p><h2><a href="${escapeHtml(article.path)}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.lead)}</p><a class="plain-link" href="${escapeHtml(article.path)}">Читать статью <span aria-hidden="true">↗</span><span class="sr-only">: ${escapeHtml(article.title)}</span></a></article>`).join('')}</div>` })}</section>
+  ` });
 }
 
 function renderArticle(data: BlogArticleData): string {
-  return PageShell({
-    activePath: '/blog/',
-    mainClassName: 'article-page',
-    mainContent: `
-      <article>
-        <header class="border-b border-line bg-canvas">
-          ${Container({
-            className: 'py-[clamp(3.5rem,7vw,7rem)]',
-            content: `
-              <div class="mb-8" data-motion-item>${TextLink({ label: 'Все статьи', href: '/blog/', className: 'border-line-strong text-ink-soft' })}</div>
-              <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12">
-                <div class="lg:col-span-7" data-motion-group>
-                  <p class="home-kicker" data-motion-item>${escapeHtml(data.category)}</p>
-                  <h1 class="max-w-[17ch] font-display text-hero font-semibold text-ink-strong" data-motion-item>${escapeHtml(data.title)}</h1>
-                  <p class="mt-7 max-w-3xl text-lead text-ink-soft" data-motion-item>${escapeHtml(data.lead)}</p>
-                  <p class="mt-7 border-l-2 border-brand pl-5 text-sm font-semibold leading-6 text-ink-soft" data-motion-item>Материал носит информационный характер и не заменяет медицинскую консультацию.</p>
-                </div>
-                <div class="min-w-0 lg:col-span-5" data-motion-group data-motion-offset="1">
-                  <div data-motion-item data-motion-kind="media">${EditorialPicture({
-                    image: data.image,
-                    eager: true,
-                    sizes: '(min-width: 1024px) 39vw, 100vw',
-                  })}</div>
-                </div>
-              </div>
-            `,
-          })}
-        </header>
-        ${data.sections.map(renderSection).join('')}
-        <section class="theme-brand bg-brand text-canvas" aria-label="Следующий шаг">
-          ${Container({
-            className: 'py-12 sm:py-16',
-            content: `<div data-motion-item>${Button({ label: 'Пройти бесплатный тест', href: '/test/', variant: 'inverse' })}</div>`,
-          })}
-        </section>
-      </article>
-    `,
-  });
+  const hero = `<header class="standard-hero article-hero">${Container({ content: `<a class="plain-link" href="/blog/">← Все статьи</a><p class="home-kicker">${escapeHtml(data.category)}</p><h1>${escapeHtml(data.title)}</h1><p class="standard-hero__lead">${escapeHtml(data.lead)}</p><p class="case-note">Материал носит информационный характер и не заменяет медицинскую консультацию.</p>` })}</header>`;
+  return PageShell({ activePath: '/blog/', mainClassName: 'article-page', mainContent: `<article>${hero}${data.sections.map(renderSection).join('')}${pageActions({ label: 'Пройти бесплатный тест', href: '/test/' })}</article>` });
 }
 
 function renderNotFound(): string {
-  return PageShell({
-    activePath: '/',
-    mainContent: `
-      <section class="home-section bg-canvas" aria-labelledby="not-found-title">
-        ${Container({
-          content: `
-            <p class="home-kicker">404</p>
-            <h1 class="home-title" id="not-found-title">Страница не найдена</h1>
-            <p class="mt-6 text-lead text-ink-soft">Проверьте адрес или вернитесь на главную.</p>
-            <div class="mt-8">${Button({ label: 'На главную', href: '/' })}</div>
-          `,
-        })}
-      </section>
-    `,
-  });
+  return PageShell({ activePath: '/404/', mainContent: `<section class="standard-hero">${Container({ content: `<p class="home-kicker">404</p><h1>Страница не найдена</h1><p class="standard-hero__lead">Проверьте адрес или вернитесь на главную.</p>${Button({ label: 'На главную', href: '/' })}` })}</section>` });
 }
 
 export function staticPage(pathname: string): string {
-  if (pathname === '/blog/') {
-    return renderBlogIndex();
-  }
-
+  if (pathname === '/blog/') return renderBlogIndex();
   const article = findBlogArticle(pathname);
-  if (article) {
-    return renderArticle(article);
-  }
-
+  if (article) return renderArticle(article);
   const page = findStandardPage(pathname);
   return page ? renderStandardPage(page) : renderNotFound();
 }

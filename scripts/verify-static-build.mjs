@@ -39,6 +39,59 @@ async function assertFile(path, label) {
   }
 }
 
+function decodeHtml(value) {
+  return value.replaceAll('&amp;', '&').replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+}
+
+async function verifySocialMetadata(route, html) {
+  const metadata = new Map([...html.matchAll(/<meta\b[^>]*>/gi)].flatMap(([tag]) => {
+    const key = tag.match(/\b(?:name|property)="([^"]*)"/i)?.[1];
+    const value = tag.match(/\bcontent="([^"]*)"/i)?.[1];
+    return key && value !== undefined ? [[key, decodeHtml(value)]] : [];
+  }));
+  const title = decodeHtml(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim() ?? '');
+  for (const key of ['og:title', 'twitter:title']) {
+    if (!title || metadata.get(key) !== title) throw new Error(`Incorrect ${key} on ${route}`);
+  }
+  for (const key of ['og:description', 'twitter:description']) {
+    if (!metadata.get('description') || metadata.get(key) !== metadata.get('description')) {
+      throw new Error(`Incorrect ${key} on ${route}`);
+    }
+  }
+  const image = metadata.get('og:image');
+  if (image !== metadata.get('twitter:image')) throw new Error(`Share images disagree on ${route}`);
+  if (image) {
+    const url = new URL(image);
+    if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) {
+      throw new Error(`Share image is not a safe absolute URL on ${route}`);
+    }
+    const isDetail = (route.startsWith('/istorii-peremen/') && route !== '/istorii-peremen/')
+      || (route.startsWith('/blog/') && route !== '/blog/');
+    if (isDetail && url.pathname.endsWith('/og.png')) {
+      throw new Error(`A detail page inherited the generic site image: ${route}`);
+    }
+    const localImage = assetPath(url.pathname);
+    if (!localImage) throw new Error(`Unresolved share image on ${route}`);
+    await assertFile(localImage, `share image for ${route}`);
+  }
+}
+
+async function verifyCaptions(path) {
+  const text = (await readFile(path, 'utf8')).replaceAll('\r\n', '\n');
+  if (!text.startsWith('WEBVTT\n')) throw new Error(`Invalid WebVTT header: ${path}`);
+  const cues = [...text.matchAll(/^((?:\d{2}:)?\d{2}:\d{2}\.\d{3}) --> ((?:\d{2}:)?\d{2}:\d{2}\.\d{3})[^\n]*\n([^\n]+)/gm)];
+  if (!cues.length) throw new Error(`No caption cues: ${path}`);
+  const seconds = value => value.split(':').reduce((total, part) => total * 60 + Number(part), 0);
+  let previousEnd = 0;
+  for (const [, start, end, caption] of cues) {
+    const from = seconds(start);
+    const to = seconds(end);
+    if (from < previousEnd || to <= from || !caption.trim()) throw new Error(`Invalid caption timing: ${path}`);
+    previousEnd = to;
+  }
+}
+
 async function verifyRoute({ route, input }) {
   const outputPath = htmlPath(input);
   await assertFile(outputPath, `HTML for ${route}`);
@@ -55,6 +108,7 @@ async function verifyRoute({ route, input }) {
   }
 
   await Promise.all(localAssets.map((path) => assertFile(path, `asset referenced by ${route}`)));
+  await verifySocialMetadata(route, html);
 }
 
 async function listFiles(directory, prefix = '') {
@@ -79,6 +133,8 @@ for (const directory of ['media', 'images']) {
   const sourceDirectory = resolve(publicDirectory, directory);
   const files = await listFiles(sourceDirectory);
   await Promise.all(files.map((file) => assertFile(resolve(buildDirectory, directory, file), `copied public asset ${directory}/${file}`)));
+  await Promise.all(files.filter(file => file.endsWith('.vtt')).map(file => verifyCaptions(resolve(buildDirectory, directory, file))));
 }
 
-console.log(`Static build verified: ${siteEntries.length} routes, base ${basePath}`);
+await assertFile(resolve(buildDirectory, 'og.png'), 'site share image');
+console.log(`Static build verified: ${siteEntries.length} routes, metadata, captions, base ${basePath}`);

@@ -1,6 +1,7 @@
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { MobileMenu } from './MobileMenu';
+import { LeadDialog } from './LeadDialog';
 
 interface PageShellProps {
   activePath: string;
@@ -15,5 +16,6 @@ export function PageShell({ activePath, mainContent, mainClassName = '' }: PageS
     ${MobileMenu(activePath)}
     <main class="${mainClassName}" id="main-content" tabindex="-1">${mainContent}</main>
     ${Footer()}
+    ${LeadDialog()}
   `;
 }

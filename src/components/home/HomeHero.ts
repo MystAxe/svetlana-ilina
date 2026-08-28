@@ -2,7 +2,6 @@ import type { EditorialFact, EditorialImage } from '../../data/home';
 import { escapeHtml } from '../../lib/dom';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
-import { TextLink } from '../ui/TextLink';
 
 type ImageLoading = 'eager' | 'lazy';
 type FetchPriority = 'high' | 'low' | 'auto';
@@ -102,9 +101,9 @@ function renderFact(fact: EditorialFact): string {
     : '';
 
   return `
-    <div class="home-hero__fact flex min-w-0 flex-col rounded-control border border-line bg-canvas px-4 py-5 sm:px-5" data-verification="${escapeHtml(fact.verification)}" data-motion-item>
-      <dt class="order-2 mt-1 text-xs leading-5 text-ink-soft">${escapeHtml(fact.label)}</dt>
-      <dd class="order-1 m-0 text-xl font-semibold leading-tight text-ink-strong sm:text-2xl">
+    <div class="hero-fact" data-verification="${escapeHtml(fact.verification)}">
+      <dt>${escapeHtml(fact.label)}</dt>
+      <dd>
         ${escapeHtml(fact.value)}
         ${reviewLabel}
       </dd>
@@ -122,44 +121,28 @@ export function HomeHero({
   facts,
 }: HomeHeroProps): string {
   const title = titleLines
-    .map((line) => `<span class="block sm:whitespace-nowrap">${escapeHtml(line)}</span>`)
+    .map((line) => `<span>${escapeHtml(line)}</span>`)
     .join(' ');
 
   return `
-    <section class="overflow-hidden border-b border-line bg-canvas" aria-labelledby="home-hero-title">
+    <section class="home-hero" aria-labelledby="home-hero-title">
+      <div class="home-hero__scene">
+        <img src="${escapeHtml(portrait.fallbackSrc)}" ${portrait.fallbackSrcSet ? `srcset="${escapeHtml(portrait.fallbackSrcSet)}" sizes="${escapeHtml(portrait.sizes)}"` : ''} width="${portrait.width}" height="${portrait.height}" alt="${escapeHtml(portrait.alt)}" fetchpriority="high" loading="eager" decoding="async" />
+      </div>
       ${Container({
-        className: 'py-12 sm:py-16 lg:py-10',
+        className: 'home-hero__inner',
         content: `
-          <div class="grid items-center gap-12 lg:min-h-[42rem] lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.88fr)] lg:gap-10 xl:gap-16">
-            <div class="min-w-0 lg:pr-4" data-motion-group>
-              <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-brand" data-motion-item>
-                <span class="h-px w-10 bg-brand" aria-hidden="true"></span>
-                ${escapeHtml(eyebrow)}
-              </p>
-              <h1 class="home-hero__title max-w-none font-display text-hero text-ink-strong" id="home-hero-title" data-motion-item>
-                ${title}
-              </h1>
-              <p class="mt-7 max-w-2xl text-lead text-ink-soft" data-motion-item>${escapeHtml(text)}</p>
-              <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6" data-motion-item>
-                ${Button({ ...primaryAction, className: 'w-full sm:w-auto' })}
-                ${TextLink(secondaryAction)}
-              </div>
-              <dl class="home-hero__facts mt-10 grid gap-2 sm:grid-cols-3 lg:mt-12" data-motion-group data-motion-offset="3">
-                ${facts.map(renderFact).join('')}
-              </dl>
-            </div>
-            <div class="home-hero__media relative min-w-0" data-motion-group data-motion-offset="2">
-              <div data-motion-item data-motion-kind="media">
-                ${EditorialPicture({
-                  image: portrait,
-                  eager: true,
-                  className: 'mx-auto max-w-[32rem] lg:max-w-none lg:pl-5 lg:pt-5',
-                  sizes: '(min-width: 1280px) 35rem, (min-width: 1024px) 44vw, (min-width: 640px) 36rem, 100vw',
-                  labelVariant: 'overlay',
-                })}
-              </div>
+          <div class="home-hero__copy">
+            <p class="hero-eyebrow"><span aria-hidden="true"></span>${escapeHtml(eyebrow)}</p>
+            <h1 id="home-hero-title">${title}</h1>
+            <p class="home-hero__intro">${escapeHtml(text)}</p>
+            <div class="home-hero__actions">
+              ${Button({ ...primaryAction })}
+              ${Button({ ...secondaryAction, variant: 'inverse-outline' })}
             </div>
           </div>
+          <a class="home-hero__signature" href="/o-svetlane/">Знакомство со Светланой <span aria-hidden="true">↗</span></a>
+          <dl class="hero-facts">${facts.map(renderFact).join('')}</dl>
         `,
       })}
     </section>

@@ -36,7 +36,7 @@ export function FAQ({ items, id = 'faq', title = 'Частые вопросы', 
           <details class="faq-item group" data-motion-item>
             <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 text-base font-bold marker:content-none">
               <span>${escapeHtml(item.question)}</span>
-              <span class="faq-icon text-2xl font-normal text-brand group-open:rotate-45" aria-hidden="true">+</span>
+              <span class="faq-icon text-2xl font-normal text-brand" aria-hidden="true">+</span>
             </summary>
             <p class="faq-answer max-w-2xl pb-5 pr-10 text-sm leading-7 text-ink-soft">${escapeHtml(item.answer)}</p>
           </details>
@@ -47,7 +47,7 @@ export function FAQ({ items, id = 'faq', title = 'Частые вопросы', 
         <details class="faq-item group" data-motion-item>
           <summary class="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-6 text-lg font-semibold leading-7 marker:content-none sm:text-xl">
             <span>${escapeHtml(item.question)}</span>
-            <span class="faq-icon shrink-0 text-3xl font-normal leading-none text-brand group-open:rotate-45" aria-hidden="true">+</span>
+            <span class="faq-icon shrink-0 text-3xl font-normal leading-none text-brand" aria-hidden="true">+</span>
           </summary>
           <p class="faq-answer max-w-2xl pb-7 pr-10 text-body text-ink-soft">${escapeHtml(item.answer)}</p>
         </details>
@@ -67,7 +67,7 @@ export function FAQ({ items, id = 'faq', title = 'Частые вопросы', 
                   : DefaultHeading(id, title, text)
               }
             </div>
-            <div class="divide-y divide-line border-y border-line ${questionsColumnClass}" data-motion-group data-motion-offset="1">
+            <div class="faq-list ${questionsColumnClass}" data-motion-group data-motion-offset="1">
               ${questions}
             </div>
           </div>
