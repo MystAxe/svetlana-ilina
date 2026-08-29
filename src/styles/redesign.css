@@ -47,7 +47,7 @@
 .story-card-grid--two .story-card__cover { aspect-ratio: auto; min-height: 25rem; }
 .story-card-grid--two .story-card__tag { display: none; }
 .expert-preview-photo .editorial-picture { height: 24rem; }
-.expert-preview-photo img { object-position: center 32%; }
+.expert-preview-photo img { height: 100%; object-position: center 32%; }
 .article-hero .plain-link { margin-bottom: 2rem; }
 .article-hero h1 { max-width: 23ch; }
 .journal-card h2 { font-size: 1.4rem; line-height: 1.45; letter-spacing: -.04em; }
