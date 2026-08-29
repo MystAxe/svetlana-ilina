@@ -2,6 +2,7 @@ import type { EditorialFact, EditorialImage } from '../../data/home';
 import { escapeHtml } from '../../lib/dom';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
+import { ArrowUpRightIcon } from '../ui/ArrowUpRightIcon';
 
 type ImageLoading = 'eager' | 'lazy';
 type FetchPriority = 'high' | 'low' | 'auto';
@@ -141,7 +142,7 @@ export function HomeHero({
               ${Button({ ...secondaryAction, variant: 'inverse-outline' })}
             </div>
           </div>
-          <a class="home-hero__signature" href="/o-svetlane/">Знакомство со Светланой <span aria-hidden="true">↗</span></a>
+          <a class="home-hero__signature" href="/o-svetlane/">Знакомство со Светланой ${ArrowUpRightIcon()}</a>
           <dl class="hero-facts">${facts.map(renderFact).join('')}</dl>
         `,
       })}

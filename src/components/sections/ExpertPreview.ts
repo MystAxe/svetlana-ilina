@@ -2,6 +2,7 @@ import { escapeHtml } from '../../lib/dom';
 import { aboutEditorial } from '../../data/home';
 import { EditorialPicture } from '../home/HomeHero';
 import { TextLink } from '../ui/TextLink';
+import { ArrowUpRightIcon } from '../ui/ArrowUpRightIcon';
 
 interface ExpertPreviewProps {
   text: string;
@@ -18,7 +19,7 @@ export function ExpertPreview({ text, note }: ExpertPreviewProps): string {
         <p class="mt-5 max-w-2xl text-base leading-8 text-ink-soft">${escapeHtml(text)}</p>
         ${note ? `<p class="mt-5 max-w-2xl border-l-2 border-brand pl-4 text-sm leading-6">${escapeHtml(note)}</p>` : ''}
         <div class="mt-6">${TextLink({ label: 'Подробнее о подходе', href: '/o-svetlane/' })}</div>
-        <a class="plain-link" href="/o-svetlane/#education">12+ лет практики · образование и сертификаты <span aria-hidden="true">↗</span></a>
+        <a class="plain-link" href="/o-svetlane/#education">12+ лет практики · образование и сертификаты ${ArrowUpRightIcon()}</a>
       </div>
     </article>
   `;

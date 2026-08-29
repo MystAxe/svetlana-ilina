@@ -2,6 +2,7 @@ import { EditorialPicture } from '../components/home/HomeHero';
 import { PageShell } from '../components/layout/PageShell';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
+import { ArrowUpRightIcon } from '../components/ui/ArrowUpRightIcon';
 import { blogEditorial } from '../data/home';
 import { blogArticles, findBlogArticle, findStandardPage, type BlogArticleData, type ContentSectionData, type StandardPageData } from '../data/staticPages';
 import { escapeHtml } from '../lib/dom';
@@ -31,7 +32,7 @@ function renderStandardPage(data: StandardPageData): string {
 function renderBlogIndex(): string {
   return PageShell({ activePath: '/blog/', mainClassName: 'blog-index-page', mainContent: `
     <section class="standard-hero" aria-labelledby="blog-index-title">${Container({ content: `<p class="home-kicker">Блог</p><h1 id="blog-index-title">Понимать себя —<br>чуть лучше.</h1><p class="standard-hero__lead">${escapeHtml(blogEditorial.text)}</p>` })}</section>
-    <section class="home-section" aria-label="Статьи">${Container({ content: `<div class="journal-grid" data-motion-group>${blogArticles.map(article => `<article class="journal-card" data-motion-item><p class="home-kicker">${escapeHtml(article.category)}</p><h2><a href="${escapeHtml(article.path)}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.lead)}</p><a class="plain-link" href="${escapeHtml(article.path)}">Читать статью <span aria-hidden="true">↗</span><span class="sr-only">: ${escapeHtml(article.title)}</span></a></article>`).join('')}</div>` })}</section>
+    <section class="home-section" aria-label="Статьи">${Container({ content: `<div class="journal-grid" data-motion-group>${blogArticles.map(article => `<article class="journal-card" data-motion-item><p class="home-kicker">${escapeHtml(article.category)}</p><h2><a href="${escapeHtml(article.path)}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.lead)}</p><a class="plain-link" href="${escapeHtml(article.path)}">Читать статью ${ArrowUpRightIcon()}<span class="sr-only">: ${escapeHtml(article.title)}</span></a></article>`).join('')}</div>` })}</section>
   ` });
 }
 
