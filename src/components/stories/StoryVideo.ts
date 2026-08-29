@@ -1,4 +1,5 @@
 import { escapeHtml } from '../../lib/dom';
+import { CoolIcon } from '../ui/CoolIcon';
 
 interface StoryVideoProps {
   src: string;
@@ -50,7 +51,7 @@ export function StoryVideo({
           ${captions ? `<track kind="captions" src="${escapeHtml(captions)}" srclang="ru" label="Русские (авто)" default />` : ''}
           Ваш браузер не поддерживает видео. <a href="${escapeHtml(src)}">Открыть видео отдельным файлом</a>.
         </video>
-        <button class="story-video__play" type="button" data-story-play aria-label="Воспроизвести: ${escapeHtml(label)}"><span aria-hidden="true">▶</span><span data-story-play-label>Смотреть</span></button>
+        <button class="story-video__play" type="button" data-story-play aria-label="Воспроизвести: ${escapeHtml(label)}">${CoolIcon('play', 'coolicon--md')}<span data-story-play-label>Смотреть</span></button>
       </div>
       <p class="story-video__error" data-story-video-error role="status" hidden>Не удалось запустить видео. <a href="${escapeHtml(src)}">Открыть отдельным файлом</a>.</p>
       <figcaption class="mt-4 text-sm font-semibold leading-6 ${caption}">${escapeHtml(description)}</figcaption>

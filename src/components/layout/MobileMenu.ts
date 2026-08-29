@@ -2,6 +2,7 @@ import { primaryNavigation, siteIdentity } from '../../data/site';
 import { trapFocus } from '../../lib/a11y';
 import { escapeHtml, getRequiredElement } from '../../lib/dom';
 import { Button } from '../ui/Button';
+import { CoolIcon } from '../ui/CoolIcon';
 
 function isCurrent(href: string, activePath: string): boolean {
   return (
@@ -19,7 +20,7 @@ export function MobileMenu(activePath: string): string {
       return `
         <li>
           <a class="nav-link flex min-h-13 items-center justify-between border-b border-line py-3 text-lg font-semibold ${current ? 'text-brand' : 'text-ink'}" href="${escapeHtml(item.href)}" ${current ? 'aria-current="page"' : ''} data-menu-link>
-            <span>${escapeHtml(item.label)}</span><span class="nav-link__icon" aria-hidden="true">→</span>
+            <span>${escapeHtml(item.label)}</span>${CoolIcon('arrow-right', 'nav-link__icon')}
           </a>
         </li>
       `;
@@ -32,7 +33,7 @@ export function MobileMenu(activePath: string): string {
       <div class="mobile-menu-panel absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col overflow-y-auto border-l border-line bg-canvas px-5 py-5 sm:px-7" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title" data-menu-panel>
         <div class="flex min-h-12 items-center justify-between gap-4 border-b border-line pb-4">
           <p class="mb-0 text-lg font-semibold" id="mobile-menu-title">${escapeHtml(siteIdentity.name)}</p>
-          <button class="ui-button inline-flex min-h-11 min-w-11 items-center justify-center border border-line-strong text-2xl leading-none" type="button" aria-label="Закрыть меню" data-menu-close>×</button>
+          <button class="ui-button inline-flex min-h-11 min-w-11 items-center justify-center border border-line-strong text-ink" type="button" aria-label="Закрыть меню" data-menu-close>${CoolIcon('close', 'coolicon--md')}</button>
         </div>
         <nav class="mt-5" aria-label="Мобильная навигация">
           <ul>${navigation}</ul>

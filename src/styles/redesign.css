@@ -72,7 +72,10 @@
 .recognition-cards h3 { max-width: 14ch; font-size: 1.2rem; font-weight: 550; line-height: 1.4; letter-spacing: -.03em; }
 .recognition-cards p { margin: auto 0 0; padding-top: .8rem; font-size: .8rem; color: var(--color-ink-soft); }
 .recognition-cards__arrow { position: absolute; top: .8rem; right: 1rem; color: var(--color-brand); }
-.arrow-up-right-icon { display: block; flex: none; width: 1rem; height: 1rem; }
+.coolicon { display: inline-block; flex: none; width: 1rem; height: 1rem; vertical-align: -.125em; background-color: currentColor; -webkit-mask-image: var(--coolicon-source); mask-image: var(--coolicon-source); -webkit-mask-position: center; mask-position: center; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: contain; mask-size: contain; }
+.coolicon--md { width: 1.25rem; height: 1.25rem; }
+.coolicon--lg { width: 1.5rem; height: 1.5rem; }
+.arrow-up-right-icon { display: block; width: 1rem; height: 1rem; }
 .method-section, .services-section { background: var(--surface); }
 .method-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .method-card { min-width: 0; padding: 1.8rem; border-radius: 1.4rem; background: var(--surface-white); }
@@ -371,7 +374,7 @@ button, summary { cursor: pointer; }
 .case-tags span { padding: .5rem .8rem; border: 1px solid var(--color-line-strong); border-radius: 999px; font-size: .75rem; }
 .case-list { padding: 0; margin: 1.8rem 0; list-style: none; }
 .case-list li { padding: .8rem 0; border-bottom: 1px solid var(--color-line); font-size: .95rem; }
-.case-list li::before { content: '+'; display: inline-block; margin-right: 1rem; color: var(--color-brand); }
+.case-list li::before { content: ''; display: inline-block; width: 1rem; height: 1rem; margin-right: 1rem; vertical-align: -.125em; background: var(--color-brand); -webkit-mask: url('../assets/icons/coolicons/add-plus.svg') center / contain no-repeat; mask: url('../assets/icons/coolicons/add-plus.svg') center / contain no-repeat; }
 .lab-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0; }
 .lab-cards > div { padding: 2rem; border-radius: 1.5rem; background: var(--surface-white); }
 .lab-cards dt { font-size: .85rem; }

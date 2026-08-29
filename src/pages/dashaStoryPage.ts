@@ -1,14 +1,15 @@
 import { StoryVideo } from '../components/stories/StoryVideo';
 import { StoryCTA, TransformationStoryPage } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { dashaBaseline, dashaClips, dashaEarlyMeals, dashaMeals } from '../data/dashaStory';
 import { escapeHtml } from '../lib/dom';
 
 export function dashaStoryPage(): string {
   const earlyMeals = `<div class="case-early-meals">${dashaEarlyMeals.map(photo => `<figure><img src="${photo.src}" width="960" height="1280" loading="lazy" decoding="async" alt="${escapeHtml(photo.alt)}"><figcaption>${escapeHtml(photo.caption)}</figcaption></figure>`).join('')}</div>`;
   const hero = `<section class="case-hero" aria-labelledby="dasha-title">${Container({ content: `
-    <a class="plain-link" href="/istorii-peremen/">← Все истории</a>
-    <div class="case-split"><div class="case-copy"><p class="home-kicker">История Даши · питание, энергия, форма</p><h1 id="dasha-title">«Шоколадка упала мне в руки. И я её не захотела».</h1><p class="case-lead">Я думала, что просто не могу жить без сладкого.</p><p>Даша изначально была стройной. Эта история — о том, как изменились её привычки, самочувствие и отношение к своему телу.</p><a class="plain-link" href="#dasha-start">Как всё начиналось <span aria-hidden="true">↓</span></a></div><div class="case-media">${StoryVideo({ ...dashaClips.chocolate, variant: 'light', portrait: true, compact: true })}</div></div>` })}</section>`;
+    <a class="plain-link" href="/istorii-peremen/">${CoolIcon('arrow-left')}<span>Все истории</span></a>
+    <div class="case-split"><div class="case-copy"><p class="home-kicker">История Даши · питание, энергия, форма</p><h1 id="dasha-title">«Шоколадка упала мне в руки. И я её не захотела».</h1><p class="case-lead">Я думала, что просто не могу жить без сладкого.</p><p>Даша изначально была стройной. Эта история — о том, как изменились её привычки, самочувствие и отношение к своему телу.</p><a class="plain-link" href="#dasha-start"><span>Как всё начиналось</span>${CoolIcon('arrow-down')}</a></div><div class="case-media">${StoryVideo({ ...dashaClips.chocolate, variant: 'light', portrait: true, compact: true })}</div></div>` })}</section>`;
 
   const start = `<section class="case-section" id="dasha-start" aria-labelledby="dasha-start-title">${Container({ content: `<div class="case-split case-split--reverse"><div class="case-copy"><p class="home-kicker">Привычный день</p><h2 id="dasha-start-title">Кофе, ещё кофе.<br>И что-нибудь сладкое.</h2><p>Сладкое было почти после каждого приёма пищи. Кофе сопровождал завтрак, обед и перекусы — это казалось обычным порядком вещей.</p><p>Но энергии было мало. Задачей стало разобраться в привычках и самочувствии, а не просто запретить шоколад.</p>${earlyMeals}</div><div class="case-media">${StoryVideo({ ...dashaClips.diet, variant: 'light', portrait: true, compact: true })}</div></div>` })}</section>`;
 

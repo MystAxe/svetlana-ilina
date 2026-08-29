@@ -4,11 +4,13 @@ import { EditorialPicture } from '../home/HomeHero';
 import { PageShell } from '../layout/PageShell';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
+import { CoolIcon, type CoolIconName } from '../ui/CoolIcon';
 import { TextLink } from '../ui/TextLink';
 
 interface StoryAction {
   label: string;
   href: string;
+  icon?: CoolIconName;
 }
 
 interface TransformationStoryPageProps {
@@ -155,7 +157,7 @@ export function StoryJourney({ slug, eyebrow, title, steps, comfortableRows = fa
                 .map(
                   (step, index) => `
                     <li class="grid ${rowHeight} grid-cols-[3rem_1fr] items-center gap-5 border-b border-canvas/25 py-5" data-motion-item>
-                      <span class="text-2xl font-semibold text-brand-soft" aria-hidden="true">${index === steps.length - 1 ? '✓' : '↓'}</span>
+                      ${CoolIcon(index === steps.length - 1 ? 'check' : 'arrow-down', 'coolicon--lg text-brand-soft')}
                       <span class="min-w-0 text-lg font-semibold leading-8 text-canvas">${escapeHtml(step)}</span>
                     </li>
                   `,
@@ -238,7 +240,7 @@ export function StoryRecognition({
                 .map(
                   (item) => `
                     <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-5 last:border-b-0" data-motion-item>
-                      <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+                      ${CoolIcon('check', 'coolicon--md text-brand')}
                       <span class="text-lg font-semibold leading-8 text-ink">${escapeHtml(item)}</span>
                     </li>
                   `,

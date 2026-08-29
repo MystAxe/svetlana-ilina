@@ -1,6 +1,7 @@
 import { escapeHtml } from '../../lib/dom';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
+import { CoolIcon } from '../ui/CoolIcon';
 
 interface HomeFinalCTAProps {
   eyebrow: string;
@@ -42,7 +43,7 @@ export function HomeFinalCTA({
                 ${Button({ ...action, variant: 'inverse', className: 'w-full sm:w-auto', attributes: 'data-motion-item' })}
                 <a class="text-link inline-flex min-h-11 items-center gap-2 border-b border-canvas/70 py-2 text-sm font-bold text-canvas hover:border-ink hover:text-ink" href="${escapeHtml(secondaryAction.href)}" data-motion-item>
                   ${escapeHtml(secondaryAction.label)}
-                  <span class="text-link__icon" aria-hidden="true">→</span>
+                  ${CoolIcon('arrow-right', 'text-link__icon')}
                 </a>
               </div>
             </div>

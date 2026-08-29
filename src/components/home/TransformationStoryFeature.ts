@@ -1,6 +1,7 @@
 import type { TransformationStorySummary } from '../../data/stories';
 import { escapeHtml } from '../../lib/dom';
 import { Container } from '../ui/Container';
+import { CoolIcon } from '../ui/CoolIcon';
 import { TextLink } from '../ui/TextLink';
 import { EditorialPicture } from './HomeHero';
 
@@ -53,7 +54,7 @@ export function TransformationStoryFeature({ story }: TransformationStoryFeature
                     .map(
                       (item) => `
                         <li class="flex min-h-36 flex-col justify-between bg-canvas p-5" data-motion-item>
-                          <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+                          ${CoolIcon('check', 'coolicon--md text-brand')}
                           <span class="mt-8 text-sm font-bold leading-6 text-ink">${escapeHtml(item)}</span>
                         </li>
                       `,

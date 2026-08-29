@@ -1,6 +1,7 @@
 import type { VerificationStatus } from '../../data/home';
 import { escapeHtml } from '../../lib/dom';
 import { Container } from '../ui/Container';
+import { CoolIcon } from '../ui/CoolIcon';
 import { TextLink } from '../ui/TextLink';
 import { EditorialPicture } from './HomeHero';
 
@@ -24,7 +25,7 @@ function renderAboutFacts(data: AboutEditorialProps): string {
       const ruleClass = needsReview ? 'border-brand' : 'border-line';
       const statusClass = needsReview ? 'border-brand text-brand' : 'border-line-strong text-ink-soft';
       const factLink = 'href' in fact && fact.href
-        ? `<a class="text-link inline-flex items-center border-b border-brand pb-1 text-sm font-bold text-brand" href="${escapeHtml(fact.href)}">Открыть галерею <span class="text-link__icon ml-2" aria-hidden="true">→</span></a>`
+        ? `<a class="text-link inline-flex items-center border-b border-brand pb-1 text-sm font-bold text-brand" href="${escapeHtml(fact.href)}">Открыть галерею ${CoolIcon('arrow-right', 'text-link__icon ml-2')}</a>`
         : '';
 
       return `

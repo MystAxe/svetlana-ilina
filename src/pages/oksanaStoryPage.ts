@@ -9,6 +9,7 @@ import {
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import type { EditorialImage } from '../data/home';
 import { oksanaStoryPage as data } from '../data/oksanaStory';
 import { escapeHtml } from '../lib/dom';
@@ -34,7 +35,7 @@ function checklist(items: readonly string[]): string {
         .map(
           (item) => `
             <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-5 last:border-b-0" data-motion-item>
-              <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+              ${CoolIcon('check', 'coolicon--md text-brand')}
               <span class="text-lg font-semibold leading-8 text-ink">${escapeHtml(item)}</span>
             </li>
           `,
@@ -99,7 +100,7 @@ function Hero(): string {
       </div>
     `,
     media: data.hero.media,
-    action: { label: 'Читать историю ↓', href: '#oksana-before' },
+    action: { label: 'Читать историю', href: '#oksana-before', icon: 'arrow-down' },
     notice: data.publicationNote,
   });
 }

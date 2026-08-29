@@ -39,7 +39,7 @@ export function ProductCard({
       <${headingLevel}${idAttribute} class="mt-5 ${titleTypography} text-3xl leading-tight text-ink-strong">${escapeHtml(title)}</${headingLevel}>
       <p class="mt-4 leading-7 text-ink-soft">${escapeHtml(text)}</p>
       <ul class="mt-6 space-y-3">
-        ${features.map((feature) => `<li class="flex gap-3 text-sm leading-6"><span class="text-brand" aria-hidden="true">—</span><span>${escapeHtml(feature)}</span></li>`).join('')}
+        ${features.map((feature) => `<li class="flex gap-3 text-sm leading-6"><span class="mt-[.72rem] h-px w-3 shrink-0 bg-brand" aria-hidden="true"></span><span>${escapeHtml(feature)}</span></li>`).join('')}
       </ul>
       ${outcome ? `<p class="mt-6 border-l-2 border-brand pl-4 font-semibold leading-7">${escapeHtml(outcome)}</p>` : ''}
       <div class="mt-7">${Button({ label: action.label, href: action.href, variant: 'secondary' })}</div>

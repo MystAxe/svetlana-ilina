@@ -9,6 +9,7 @@ import {
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { polinaStoryPage as data } from '../data/stories';
 import { escapeHtml } from '../lib/dom';
 
@@ -212,7 +213,7 @@ function Results(): string {
                   .map(
                     (item) => `
                       <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-5 last:border-b-0" data-motion-item>
-                        <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+                        ${CoolIcon('check', 'coolicon--md text-brand')}
                         <span>
                           <span class="block text-lg font-bold leading-7 text-ink">${escapeHtml(item.title)}</span>
                           ${item.note ? `<span class="mt-1 block text-sm leading-6 text-ink-soft">${escapeHtml(item.note)}</span>` : ''}

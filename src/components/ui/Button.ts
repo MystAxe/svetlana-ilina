@@ -1,4 +1,5 @@
 import { escapeHtml } from '../../lib/dom';
+import { CoolIcon, type CoolIconName } from './CoolIcon';
 
 type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'inverse' | 'inverse-outline';
 
@@ -11,6 +12,7 @@ interface ButtonProps {
   className?: string;
   attributes?: string;
   disabled?: boolean;
+  icon?: CoolIconName;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -30,16 +32,18 @@ export function Button({
   className = '',
   attributes = '',
   disabled = false,
+  icon,
 }: ButtonProps): string {
-  const classes = `ui-button inline-flex min-h-13 min-w-11 items-center justify-center rounded-control border px-5 py-3 text-center text-sm font-bold leading-5 ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-45 ${className}`;
+  const classes = `ui-button inline-flex min-h-13 min-w-11 items-center justify-center gap-2 rounded-control border px-5 py-3 text-center text-sm font-bold leading-5 ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-45 ${className}`;
   const idAttribute = id ? ` id="${escapeHtml(id)}"` : '';
+  const content = `${escapeHtml(label)}${icon ? CoolIcon(icon, 'ui-button__icon') : ''}`;
 
   if (href) {
     const dialogAttributes = href === '/formula-tela/#request' || href === '#request'
       ? ' data-lead-open aria-haspopup="dialog" aria-controls="lead-dialog"'
       : '';
-    return `<a${idAttribute} class="${classes}" href="${escapeHtml(href)}"${dialogAttributes} ${attributes}>${escapeHtml(label)}</a>`;
+    return `<a${idAttribute} class="${classes}" href="${escapeHtml(href)}"${dialogAttributes} ${attributes}>${content}</a>`;
   }
 
-  return `<button${idAttribute} class="${classes}" type="${type}" ${disabled ? 'disabled' : ''} ${attributes}>${escapeHtml(label)}</button>`;
+  return `<button${idAttribute} class="${classes}" type="${type}" ${disabled ? 'disabled' : ''} ${attributes}>${content}</button>`;
 }

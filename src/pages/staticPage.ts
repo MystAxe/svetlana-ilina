@@ -3,6 +3,7 @@ import { PageShell } from '../components/layout/PageShell';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
 import { ArrowUpRightIcon } from '../components/ui/ArrowUpRightIcon';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { blogEditorial } from '../data/home';
 import { blogArticles, findBlogArticle, findStandardPage, type BlogArticleData, type ContentSectionData, type StandardPageData } from '../data/staticPages';
 import { escapeHtml } from '../lib/dom';
@@ -37,7 +38,7 @@ function renderBlogIndex(): string {
 }
 
 function renderArticle(data: BlogArticleData): string {
-  const hero = `<header class="standard-hero article-hero">${Container({ content: `<a class="plain-link" href="/blog/">← Все статьи</a><p class="home-kicker">${escapeHtml(data.category)}</p><h1>${escapeHtml(data.title)}</h1><p class="standard-hero__lead">${escapeHtml(data.lead)}</p><p class="case-note">Материал носит информационный характер и не заменяет медицинскую консультацию.</p>` })}</header>`;
+  const hero = `<header class="standard-hero article-hero">${Container({ content: `<a class="plain-link" href="/blog/">${CoolIcon('arrow-left')}<span>Все статьи</span></a><p class="home-kicker">${escapeHtml(data.category)}</p><h1>${escapeHtml(data.title)}</h1><p class="standard-hero__lead">${escapeHtml(data.lead)}</p><p class="case-note">Материал носит информационный характер и не заменяет медицинскую консультацию.</p>` })}</header>`;
   return PageShell({ activePath: '/blog/', mainClassName: 'article-page', mainContent: `<article>${hero}${data.sections.map(renderSection).join('')}${pageActions({ label: 'Пройти бесплатный тест', href: '/test/' })}</article>` });
 }
 

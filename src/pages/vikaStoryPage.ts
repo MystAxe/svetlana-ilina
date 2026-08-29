@@ -9,6 +9,7 @@ import {
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { vikaStoryPage as data } from '../data/vikaStory';
 import { escapeHtml } from '../lib/dom';
 
@@ -26,7 +27,7 @@ function checklist(items: readonly string[], dark = false): string {
         .map(
           (item) => `
             <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b ${border} py-5 last:border-b-0" data-motion-item>
-              <span class="text-xl font-bold ${dark ? 'text-brand-soft' : 'text-brand'}" aria-hidden="true">✓</span>
+              ${CoolIcon('check', `coolicon--md ${dark ? 'text-brand-soft' : 'text-brand'}`)}
               <span class="text-lg font-semibold leading-8 ${text}">${escapeHtml(item)}</span>
             </li>
           `,
@@ -50,7 +51,7 @@ function Hero(): string {
       <p class="mt-7 max-w-xl text-lead font-semibold text-ink" data-motion-item>${escapeHtml(data.hero.closing)}</p>
     `,
     media: data.hero.image,
-    action: { label: 'Посмотреть историю ↓', href: '#vika-start' },
+    action: { label: 'Посмотреть историю', href: '#vika-start', icon: 'arrow-down' },
     showMediaLabel: false,
   });
 }
@@ -120,7 +121,7 @@ function Attempts(): string {
                   .map(
                     (marker) => `
                       <div class="min-h-36 bg-brand-soft p-5" data-motion-item>
-                        <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+                        ${CoolIcon('check', 'coolicon--md text-brand')}
                         <p class="mt-8 mb-0 text-sm font-bold leading-6 text-ink">${escapeHtml(marker)}</p>
                       </div>
                     `,

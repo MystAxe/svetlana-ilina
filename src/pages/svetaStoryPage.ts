@@ -9,6 +9,7 @@ import {
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { svetaStoryPage as data } from '../data/svetaStory';
 import { escapeHtml } from '../lib/dom';
 
@@ -25,7 +26,7 @@ function StoryHero(): string {
     title: data.hero.title,
     bodyHtml: `<p class="mt-7 max-w-xl text-lead text-ink-soft" data-motion-item>${escapeHtml(data.hero.line)}</p>`,
     media: data.hero.image,
-    action: { label: 'Посмотреть историю ↓', href: '#sveta-recognition-start' },
+    action: { label: 'Посмотреть историю', href: '#sveta-recognition-start', icon: 'arrow-down' },
     showMediaLabel: false,
   });
 }
@@ -190,7 +191,7 @@ function Results(): string {
                   .map(
                     (item) => `
                       <li class="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-b border-line py-5 last:border-b-0" data-motion-item>
-                        <span class="text-xl font-bold text-brand" aria-hidden="true">✓</span>
+                        ${CoolIcon('check', 'coolicon--md text-brand')}
                         <span class="text-lg font-bold leading-7 text-ink">${escapeHtml(item)}</span>
                       </li>
                     `,

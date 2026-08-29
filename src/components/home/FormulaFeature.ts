@@ -26,7 +26,7 @@ function renderFormulaResults(data: FormulaFeatureProps): string {
     .map(
       (result) => `
         <li class="flex gap-3 text-body font-semibold text-ink" data-motion-item>
-          <span class="text-brand" aria-hidden="true">—</span>
+          <span class="mt-[.72rem] h-px w-3 shrink-0 bg-brand" aria-hidden="true"></span>
           <span>${escapeHtml(result)}</span>
         </li>
       `,

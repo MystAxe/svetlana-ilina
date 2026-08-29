@@ -2,19 +2,20 @@ import { EditorialPicture } from '../components/home/HomeHero';
 import { StoryVideo } from '../components/stories/StoryVideo';
 import { StoryCTA, TransformationStoryPage } from '../components/stories/TransformationStoryLayout';
 import { Container } from '../components/ui/Container';
+import { CoolIcon } from '../components/ui/CoolIcon';
 import { veraBaseline, veraBeforePhoto, veraClips, veraStoryContent as data } from '../data/veraStory';
 import { escapeHtml } from '../lib/dom';
 
 export function veraStoryPage(): string {
   const hero = `<section class="case-hero vera-hero" aria-labelledby="vera-title">${Container({ content: `
-    <a class="plain-link" href="/istorii-peremen/">← Все истории</a>
+    <a class="plain-link" href="/istorii-peremen/">${CoolIcon('arrow-left')}<span>Все истории</span></a>
     <div class="case-split">
       <div class="case-copy">
         <p class="home-kicker">История о форме тела</p>
         <h1 id="vera-title">${escapeHtml(data.title)}</h1>
         <p class="case-lead">${escapeHtml(data.lead)}</p>
         <div class="case-tags"><span>Питание</span><span>Движение</span><span>Свой ритм</span></div>
-        <a class="plain-link" href="#vera-start">Как всё начиналось <span aria-hidden="true">↓</span></a>
+        <a class="plain-link" href="#vera-start"><span>Как всё начиналось</span>${CoolIcon('arrow-down')}</a>
       </div>
       <div class="case-media">${StoryVideo({ ...veraClips.training, variant: 'light', portrait: true, compact: true })}</div>
     </div>` })}</section>`;

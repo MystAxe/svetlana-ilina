@@ -1,5 +1,6 @@
 import { escapeHtml } from '../../lib/dom';
 import { Container } from '../ui/Container';
+import { CoolIcon } from '../ui/CoolIcon';
 
 export interface AudienceQuotesProps {
   eyebrow: string;
@@ -42,7 +43,7 @@ export function AudienceQuotes({ eyebrow, title, quotes, highlightIndex, highlig
               .join('')}
           </ul>
           <div class="audience-quotes__summary mt-6 grid gap-4 border border-ink bg-ink px-6 py-7 text-canvas sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6 sm:px-8" data-motion-group>
-            <span class="flex h-11 w-11 items-center justify-center border border-brand bg-brand text-base font-extrabold" aria-hidden="true" data-motion-item>→</span>
+            <span class="flex h-11 w-11 items-center justify-center border border-brand bg-brand text-canvas" aria-hidden="true" data-motion-item>${CoolIcon('arrow-right', 'coolicon--md')}</span>
             <p class="mb-0 max-w-3xl text-lg font-semibold leading-8" data-motion-item>${escapeHtml(closing)}</p>
           </div>
         `,
