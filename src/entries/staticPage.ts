@@ -1,10 +1,11 @@
 import '../styles/app.css';
 import { initMobileMenu } from '../components/layout/MobileMenu';
-import { mountApp } from '../lib/dom';
+import { mountApp, withoutBasePath } from '../lib/dom';
 import { initSiteMotion } from '../lib/motion';
 import { staticPage } from '../pages/staticPage';
 
-const pathname = window.location.pathname.endsWith('/') ? window.location.pathname : `${window.location.pathname}/`;
+const routePath = withoutBasePath(window.location.pathname);
+const pathname = routePath.endsWith('/') ? routePath : `${routePath}/`;
 
 mountApp(staticPage(pathname));
 initMobileMenu();

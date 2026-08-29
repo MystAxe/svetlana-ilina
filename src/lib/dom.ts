@@ -14,6 +14,20 @@ export function withBasePath(value: string): string {
   return `${baseUrl}${value.slice(1)}`;
 }
 
+export function withoutBasePath(value: string): string {
+  const baseUrl = import.meta.env.BASE_URL;
+  if (baseUrl === '/') {
+    return value;
+  }
+
+  const baseRoot = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  if (value === baseRoot) {
+    return '/';
+  }
+
+  return value.startsWith(baseUrl) ? `/${value.slice(baseUrl.length)}` : value;
+}
+
 function withBaseSrcSet(value: string): string {
   return value
     .split(',')
