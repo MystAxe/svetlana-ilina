@@ -269,20 +269,40 @@ button, summary { cursor: pointer; }
   .home-hero__signature { display: none; }
   .hero-facts { left: 1.5rem; right: 1.5rem; }
 }
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .home-hero__scene { bottom: 6.25rem; }
+  .home-hero__scene img { right: -6%; bottom: 0; height: 115%; }
+}
 @media (max-width: 47.99rem) {
   .site-header, .site-header > div > div { min-height: 4.6rem; }
   .site-header--home { margin-bottom: -4.6rem; }
-  .home-hero { min-height: 0; background: #626265; }
+  .home-hero { --hero-mobile-scene-height: clamp(32rem, 76vw, 36rem); min-height: 0; background: #626265; }
   .home-hero::after { background: linear-gradient(180deg, rgb(30 30 32 / .7), rgb(42 42 44 / .5) 43%, transparent 67%, rgb(30 30 32 / .34) 90%); }
-  .home-hero__inner { justify-content: flex-start; min-height: 0; padding: 7.5rem 1.25rem 33rem; }
+  .home-hero__inner { justify-content: flex-start; min-height: 0; padding: 7.5rem 1.25rem calc(var(--hero-mobile-scene-height) + 3rem); }
   .home-hero__copy { width: 100%; }
   .hero-eyebrow { margin-bottom: 1.5rem; font-size: .75rem; }
   .home-hero h1 { font-size: clamp(2.15rem, 8.75vw, 4rem); }
   .home-hero__intro { max-width: 24rem; margin-top: 1.1rem; font-size: .9rem; line-height: 1.65; }
   .home-hero__actions { margin-top: 1.5rem; gap: .6rem; }
   .home-hero__actions .ui-button { min-height: 3rem; padding: .7rem 1rem; font-size: .75rem; }
-  .home-hero__scene { inset: auto 0 6.25rem; height: 30rem; overflow: hidden; mask-image: linear-gradient(180deg, transparent, #000 16%); }
-  .home-hero__scene img { height: 130%; right: 50%; bottom: -2rem; transform: translateX(50%); mask-image: none; }
+  .home-hero__scene { inset: auto 0 6.25rem; height: var(--hero-mobile-scene-height); overflow: hidden; mask-image: linear-gradient(180deg, transparent, #000 16%); }
+  .home-hero__scene img {
+    right: 50%;
+    bottom: 0;
+    height: 115%;
+    transform: translateX(50%);
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(0 0 0 / .2) 3%,
+      rgb(0 0 0 / .75) 7%,
+      #000 11%,
+      #000 89%,
+      rgb(0 0 0 / .75) 93%,
+      rgb(0 0 0 / .2) 97%,
+      transparent 100%
+    );
+  }
   .hero-facts { left: .8rem; right: .8rem; bottom: 1.5rem; padding: 1rem .9rem; border-radius: 1.1rem; }
   .hero-fact { padding-inline: .7rem; }
   .hero-fact dd { font-size: 1rem; letter-spacing: -.035em; }
