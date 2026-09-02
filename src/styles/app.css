@@ -14,15 +14,18 @@
   --color-*: initial;
   --color-transparent: transparent;
   --color-current: currentColor;
-  --color-canvas: #f7f6f2;
-  --color-ink: #252623;
-  --color-ink-strong: #1b1d1b;
-  --color-ink-soft: #62635e;
-  --color-line: rgb(37 38 35 / 0.12);
-  --color-line-strong: rgb(17 17 17 / 0.3);
+  --color-canvas: #f7f7f4;
+  --color-surface: #eeeeeb;
+  --color-surface-strong: #e3e3e0;
+  --color-panel: #fff;
+  --color-ink: #252526;
+  --color-ink-strong: #1b1b1c;
+  --color-ink-soft: #626263;
+  --color-line: rgb(37 37 38 / 0.12);
+  --color-line-strong: rgb(27 27 28 / 0.3);
   --color-brand: #c1121f;
   --color-brand-hover: #a90f18;
-  --color-brand-soft: #f5e9e5;
+  --color-brand-soft: #eeeeeb;
   --font-sans: "Manrope Variable", Arial, sans-serif;
   --font-display: "Manrope Variable", Arial, sans-serif;
   --radius-control: 1rem;
@@ -369,14 +372,14 @@
   .editorial-picture {
     position: relative;
     display: block;
-    overflow: hidden;
-    background: var(--color-brand-soft);
+    background: transparent;
   }
 
   .editorial-picture img {
     display: block;
     width: 100%;
     height: 100%;
+    border-radius: var(--radius-panel);
     object-fit: cover;
     transition: transform var(--motion-slow) var(--ease-enter);
   }

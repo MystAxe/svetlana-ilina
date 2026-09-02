@@ -37,7 +37,7 @@ export function StoryVideo({
         <span class="inline-flex min-h-10 items-center border px-3 text-xs font-bold uppercase tracking-[0.14em] ${badge}">${escapeHtml(label)}</span>
         <span class="text-xs font-bold uppercase tracking-[0.14em] ${caption}">Нажмите, чтобы посмотреть</span>
       </div>
-      <div class="story-video__player grid place-items-center overflow-hidden ${dark ? 'bg-ink' : 'bg-brand-soft'}">
+      <div class="story-video__player grid place-items-center overflow-hidden ${dark ? 'bg-ink' : 'bg-surface'}">
         <video
           class="block max-h-[42rem] w-auto max-w-full bg-ink object-contain"
           controls

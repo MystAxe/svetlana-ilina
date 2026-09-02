@@ -22,7 +22,7 @@ function introView(definition: QuizDefinition): string {
         ${definition.meta.map((item) => `<li class="rounded-full border border-line px-4 py-2 text-sm font-semibold">${escapeHtml(item)}</li>`).join('')}
       </ul>
       <div class="mt-8">${Button({ label: 'Начать тест', attributes: 'data-quiz-start', className: 'w-full sm:w-auto' })}</div>
-      <p class="mt-6 border-l-2 border-brand pl-4 text-sm leading-6 text-ink-soft">Тест не ставит диагноз, не определяет заболевание или дефицит и не заменяет консультацию врача.</p>
+      <p class="mt-6 max-w-3xl border-l-2 border-brand pl-4 text-sm leading-6 text-ink-soft">Тест не ставит диагноз, не определяет заболевание или дефицит и не заменяет консультацию врача.</p>
     </section>
   `;
 }
@@ -41,7 +41,7 @@ function contactView(state: QuizState, total: number, errors: ContactErrors): st
       ${ProgressBar({ current: total, total, complete: true })}
       <p class="mt-9 mb-3 text-sm font-bold uppercase tracking-[0.14em] text-brand">Контактный шаг</p>
       <h1 class="font-display text-3xl leading-tight text-ink-strong sm:text-4xl" tabindex="-1" data-screen-heading>Куда показать ваш результат?</h1>
-      <p class="mt-4 text-sm leading-7 text-ink-soft">На рабочем сайте контакт понадобится для получения результата и следующего шага. В прототипе данные остаются только в памяти вкладки и никуда не отправляются.</p>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-ink-soft">На рабочем сайте контакт понадобится для получения результата и следующего шага. В прототипе данные остаются только в памяти вкладки и никуда не отправляются.</p>
 
       <form class="mt-8" data-contact-form aria-busy="${submitting}" novalidate>
         <div class="grid gap-5 sm:grid-cols-2">

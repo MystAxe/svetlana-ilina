@@ -33,7 +33,7 @@ function renderAboutFacts(data: AboutEditorialProps): string {
           <dt class="text-sm leading-6 text-ink-soft">${escapeHtml(fact.label)}</dt>
           <dd class="mt-2 flex flex-col items-start gap-3">
             <span class="text-2xl font-semibold leading-tight text-ink-strong">${escapeHtml(fact.value)}</span>
-            <span class="inline-flex border ${statusClass} px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.1em]">${escapeHtml(verificationLabels[fact.verification])}</span>
+            <span class="inline-flex border ${statusClass} px-2.5 py-1 text-xs font-bold uppercase tracking-[0.1em]">${escapeHtml(verificationLabels[fact.verification])}</span>
             ${factLink}
           </dd>
         </div>

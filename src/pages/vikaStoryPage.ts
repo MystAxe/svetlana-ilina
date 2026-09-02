@@ -5,6 +5,7 @@ import {
   StoryExpertComment,
   StoryJourney,
   StoryRecognition,
+  StoryStatement,
   TransformationStoryHero,
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
@@ -120,7 +121,7 @@ function Attempts(): string {
                 ${data.attempts.markers
                   .map(
                     (marker) => `
-                      <div class="min-h-36 bg-brand-soft p-5" data-motion-item>
+                      <div class="min-h-36 bg-surface p-5" data-motion-item>
                         ${CoolIcon('check', 'coolicon--md text-brand')}
                         <p class="mt-8 mb-0 text-sm font-bold leading-6 text-ink">${escapeHtml(marker)}</p>
                       </div>
@@ -138,24 +139,12 @@ function Attempts(): string {
 }
 
 function TurningPoint(): string {
-  return `
-    <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="vika-turning-title">
-      ${Container({
-        className: 'py-[clamp(5rem,10vw,10rem)]',
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <p class="mb-0 text-xs font-bold uppercase tracking-[0.18em] text-canvas lg:col-span-4" data-motion-item>${escapeHtml(data.turningPoint.eyebrow)}</p>
-            <div class="lg:col-span-8" data-motion-group data-motion-offset="1">
-              <h2 class="max-w-[15ch] font-display text-feature font-semibold text-canvas" id="vika-turning-title" data-motion-item>${escapeHtml(data.turningPoint.title)}</h2>
-              <div class="mt-10 max-w-3xl border-t border-canvas/45 pt-8">
-                ${paragraphs(data.turningPoint.paragraphs, 'mb-5 text-lead text-canvas last:mb-0')}
-              </div>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryStatement({
+    slug: 'vika-turning',
+    eyebrow: data.turningPoint.eyebrow,
+    title: data.turningPoint.title,
+    paragraphs: data.turningPoint.paragraphs,
+  });
 }
 
 function Journey(): string {
@@ -189,7 +178,7 @@ function WorkingProcess(): string {
 
 function SecondVoice(): string {
   return `
-    <section class="home-section-compact bg-brand-soft" aria-labelledby="vika-second-voice-title">
+    <section class="home-section-compact bg-surface" aria-labelledby="vika-second-voice-title">
       ${Container({
         content: `
           <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">

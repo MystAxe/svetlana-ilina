@@ -114,7 +114,7 @@ export function PendingStoryMedia({
   aspect = 'portrait',
 }: PendingStoryMediaProps): string {
   const dark = variant === 'dark';
-  const surface = dark ? 'border-canvas/30 bg-canvas/5 text-canvas' : 'border-line-strong bg-brand-soft text-ink';
+  const surface = dark ? 'border-canvas/30 bg-canvas/5 text-canvas' : 'border-line-strong bg-surface text-ink';
   const muted = dark ? 'text-canvas/70' : 'text-ink-soft';
   const ratio = kind === 'video' || aspect === 'landscape' ? 'aspect-video' : 'aspect-[4/5]';
 
@@ -171,6 +171,43 @@ export function StoryJourney({ slug, eyebrow, title, steps, comfortableRows = fa
   `;
 }
 
+interface StoryStatementProps {
+  slug: string;
+  eyebrow: string;
+  title: string;
+  paragraphs: readonly string[];
+  variant?: 'canvas' | 'soft';
+}
+
+export function StoryStatement({
+  slug,
+  eyebrow,
+  title,
+  paragraphs,
+  variant = 'soft',
+}: StoryStatementProps): string {
+  const titleId = `${slug}-statement-title`;
+  const sectionClass = variant === 'soft' ? 'border-y border-line bg-surface' : 'bg-canvas';
+
+  return `
+    <section class="home-section ${sectionClass}" aria-labelledby="${escapeHtml(titleId)}" data-story-block="statement">
+      ${Container({
+        content: `
+          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+            <p class="home-kicker mb-0 lg:col-span-4" data-motion-item>${escapeHtml(eyebrow)}</p>
+            <div class="min-w-0 lg:col-span-8" data-motion-group data-motion-offset="1">
+              <h2 class="max-w-[15ch] font-display text-feature font-semibold text-ink-strong" id="${escapeHtml(titleId)}" data-motion-item>${escapeHtml(title)}</h2>
+              <div class="mt-10 max-w-[68ch] border-t border-line-strong pt-8">
+                ${paragraphs.map((item) => `<p class="mb-5 text-lead text-ink-soft last:mb-0">${escapeHtml(item)}</p>`).join('')}
+              </div>
+            </div>
+          </div>
+        `,
+      })}
+    </section>
+  `;
+}
+
 interface StoryExpertCommentProps {
   slug: string;
   eyebrow: string;
@@ -187,7 +224,7 @@ export function StoryExpertComment({
   variant = 'canvas',
 }: StoryExpertCommentProps): string {
   const titleId = `${slug}-expert-title`;
-  const background = variant === 'soft' ? 'bg-brand-soft' : 'bg-canvas';
+  const background = variant === 'soft' ? 'bg-surface' : 'bg-canvas';
 
   return `
     <section class="home-section-compact border-y border-line ${background}" aria-labelledby="${escapeHtml(titleId)}">
@@ -224,7 +261,7 @@ export function StoryRecognition({
   variant = 'soft',
 }: StoryRecognitionProps): string {
   const titleId = `${slug}-recognition-title`;
-  const sectionClass = variant === 'soft' ? 'border-y border-line bg-brand-soft' : 'bg-canvas';
+  const sectionClass = variant === 'soft' ? 'border-y border-line bg-surface' : 'bg-canvas';
 
   return `
     <section class="home-section-compact ${sectionClass}" aria-labelledby="${escapeHtml(titleId)}">
@@ -281,7 +318,7 @@ export function StoryCTA({
   const titleId = `${slug}-cta-title`;
 
   return `
-    <section class="story-cta theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="${escapeHtml(titleId)}">
+    <section class="story-cta theme-dark bg-ink-strong text-canvas" aria-labelledby="${escapeHtml(titleId)}">
       ${Container({
         className: 'py-[clamp(4.5rem,9vw,8rem)]',
         content: `

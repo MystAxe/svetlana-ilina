@@ -56,11 +56,11 @@ export function EditorialPicture({
 
   return `
     <figure class="relative m-0 min-w-0 ${escapeHtml(className)}">
-      <picture class="editorial-picture block overflow-hidden rounded-panel border border-line bg-canvas">
+      <picture class="editorial-picture block">
         ${avifSource}
         ${webpSource}
         <img
-          class="block h-auto w-full ${cropClasses[image.crop]} ${escapeHtml(imageClassName)}"
+          class="editorial-image block h-auto w-full ${cropClasses[image.crop]} ${escapeHtml(imageClassName)}"
           src="${escapeHtml(image.fallbackSrc)}"
           ${fallbackSrcSet}
           sizes="${escapeHtml(resolvedSizes)}"
@@ -98,7 +98,7 @@ export interface HomeHeroProps {
 
 function renderFact(fact: EditorialFact): string {
   const reviewLabel = fact.verification === 'unverified' || fact.verification === 'mock'
-    ? '<span class="mt-1 block text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-brand">Требует подтверждения</span>'
+    ? '<span class="mt-1 block text-xs font-bold uppercase tracking-[0.12em] text-brand">Требует подтверждения</span>'
     : '';
 
   return `

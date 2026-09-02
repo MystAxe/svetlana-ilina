@@ -176,12 +176,12 @@ export const oksanaAfterHero: EditorialImage = {
 };
 
 export const oksanaBefore: EditorialImage = {
-  fallbackSrc: '/media/stories/oksana/oksana-before-lightened.jpg',
+  fallbackSrc: '/media/stories/oksana/oksana-before.jpg',
   webpSrcSet:
-    '/media/stories/oksana/oksana-before-lightened-640.webp 640w, /media/stories/oksana/oksana-before-lightened-960.webp 960w',
+    '/media/stories/oksana/oksana-before-640.webp 640w, /media/stories/oksana/oksana-before-960.webp 960w, /media/stories/oksana/oksana-before-1200.webp 1200w',
   sizes: oksanaAfterHero.sizes,
-  width: 960,
-  height: 1280,
+  width: 1200,
+  height: 1600,
   alt: 'Оксана до начала работы, вид спереди',
   placeholderLabel: 'Оксана до начала работы',
   crop: 'portrait',

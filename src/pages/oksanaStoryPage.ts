@@ -5,6 +5,7 @@ import {
   StoryCTA,
   StoryExpertComment,
   StoryRecognition,
+  StoryStatement,
   TransformationStoryHero,
   TransformationStoryPage,
 } from '../components/stories/TransformationStoryLayout';
@@ -64,7 +65,7 @@ function TextMediaSection({
   variant = 'canvas',
 }: TextMediaSectionProps): string {
   const isMediaLeft = mediaPosition === 'left';
-  const sectionClass = variant === 'soft' ? 'border-y border-line bg-brand-soft' : 'bg-canvas';
+  const sectionClass = variant === 'soft' ? 'border-y border-line bg-surface' : 'bg-canvas';
 
   return `
     <section class="home-section ${sectionClass}" id="${escapeHtml(id)}" aria-labelledby="${escapeHtml(id)}-title">
@@ -152,7 +153,7 @@ function Attempts(): string {
 
 function Trust(): string {
   return `
-    <section class="home-section border-y border-line bg-brand-soft" id="oksana-trust" aria-labelledby="oksana-trust-title">
+    <section class="home-section border-y border-line bg-surface" id="oksana-trust" aria-labelledby="oksana-trust-title">
       ${Container({
         content: `
           <div class="mx-auto max-w-4xl" data-motion-group>
@@ -196,24 +197,12 @@ function Training(): string {
 }
 
 function Release(): string {
-  return `
-    <section class="theme-brand border-y border-brand bg-brand text-canvas" aria-labelledby="oksana-release-title">
-      ${Container({
-        className: 'py-[clamp(5rem,10vw,10rem)]',
-        content: `
-          <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <p class="mb-0 text-xs font-bold uppercase tracking-[0.18em] text-canvas lg:col-span-4" data-motion-item>${escapeHtml(data.release.eyebrow)}</p>
-            <div class="lg:col-span-8" data-motion-group data-motion-offset="1">
-              <h2 class="max-w-[15ch] font-display text-feature font-semibold text-canvas" id="oksana-release-title" data-motion-item>${escapeHtml(data.release.title)}</h2>
-              <div class="mt-10 max-w-3xl border-t border-canvas/45 pt-8">
-                ${paragraphs(data.release.paragraphs, 'mb-5 text-lead text-canvas last:mb-0')}
-              </div>
-            </div>
-          </div>
-        `,
-      })}
-    </section>
-  `;
+  return StoryStatement({
+    slug: 'oksana-release',
+    eyebrow: data.release.eyebrow,
+    title: data.release.title,
+    paragraphs: data.release.paragraphs,
+  });
 }
 
 function Results(): string {
