@@ -151,12 +151,21 @@ function Attempts(): string {
 }
 
 function Trust(): string {
-  return TextMediaSection({
-    id: 'oksana-trust',
-    ...data.trust,
-    mediaPosition: 'left',
-    variant: 'soft',
-  });
+  return `
+    <section class="home-section border-y border-line bg-brand-soft" id="oksana-trust" aria-labelledby="oksana-trust-title">
+      ${Container({
+        content: `
+          <div class="mx-auto max-w-4xl" data-motion-group>
+            <p class="home-kicker" data-motion-item>${escapeHtml(data.trust.eyebrow)}</p>
+            <h2 class="home-title" id="oksana-trust-title" data-motion-item>${escapeHtml(data.trust.title)}</h2>
+            <div class="mt-8 max-w-3xl border-t border-line-strong pt-7" data-motion-group data-motion-offset="1">
+              ${paragraphs(data.trust.paragraphs)}
+            </div>
+          </div>
+        `,
+      })}
+    </section>
+  `;
 }
 
 function Training(): string {

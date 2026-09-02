@@ -176,9 +176,9 @@ export const oksanaAfterHero: EditorialImage = {
 };
 
 export const oksanaBefore: EditorialImage = {
-  fallbackSrc: '/media/stories/oksana/oksana-before.jpg',
+  fallbackSrc: '/media/stories/oksana/oksana-before-lightened.jpg',
   webpSrcSet:
-    '/media/stories/oksana/oksana-before-640.webp 640w, /media/stories/oksana/oksana-before-960.webp 960w',
+    '/media/stories/oksana/oksana-before-lightened-640.webp 640w, /media/stories/oksana/oksana-before-lightened-960.webp 960w',
   sizes: oksanaAfterHero.sizes,
   width: 960,
   height: 1280,

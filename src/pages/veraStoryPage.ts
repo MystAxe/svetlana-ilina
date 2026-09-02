@@ -15,7 +15,7 @@ export function veraStoryPage(): string {
         <h1 id="vera-title">${escapeHtml(data.title)}</h1>
         <p class="case-lead">${escapeHtml(data.lead)}</p>
         <div class="case-tags"><span>Питание</span><span>Движение</span><span>Свой ритм</span></div>
-        <a class="plain-link" href="#vera-start"><span>Как всё начиналось</span>${CoolIcon('arrow-down')}</a>
+        <a class="plain-link case-anchor-link" href="#vera-start"><span>Как всё начиналось</span>${CoolIcon('arrow-down')}</a>
       </div>
       <div class="case-media">${StoryVideo({ ...veraClips.training, variant: 'light', portrait: true, compact: true })}</div>
     </div>` })}</section>`;
