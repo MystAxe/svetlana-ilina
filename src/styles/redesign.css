@@ -186,6 +186,7 @@
 .archive-intro .home-lead { margin-left: 0; }
 .archive-intro__lead { font-size: 1.4rem; letter-spacing: -.03em; }
 .archive-collection { padding-block: 3.5rem 5rem; }
+.stories-page .quiz-invitation { margin-bottom: 6rem; }
 .archive-filter-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 3rem; }
 .archive-filter-heading h2 { font-size: 1.35rem; font-weight: 550; letter-spacing: -.035em; }
 .archive-filter-heading p { font-size: .8rem; color: var(--color-ink-soft); }
@@ -580,6 +581,7 @@ button, summary { cursor: pointer; }
   .archive-intro { padding: 3rem 0; }
   .archive-filter-heading { gap: 0; }
   .archive-collection { padding-block: 2rem 3rem; }
+  .stories-page .quiz-invitation { margin-bottom: 4rem; }
   .archive-filters { gap: .4rem; }
   .archive-filters .story-filter { font-size: .75rem; padding-inline: .85rem; }
   .case-hero { padding-top: 1rem; }
