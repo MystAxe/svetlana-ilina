@@ -1,10 +1,11 @@
 import { aboutEditorial, blogEditorial, formulaFeature, mentorshipFeature, methodEditorial, testFeature } from '../../data/home';
-import { dashaStory, oksanaStory, polinaStory } from '../../data/stories';
+import { transformationStories } from '../../data/stories';
 import { escapeHtml } from '../../lib/dom';
 import { StoryCard } from '../stories/StoryCard';
 import { ArrowUpRightIcon } from '../ui/ArrowUpRightIcon';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
+import { CoolIcon } from '../ui/CoolIcon';
 import { EditorialPicture } from './HomeHero';
 
 function sectionHeader(id: string, eyebrow: string, title: string, text?: string): string {
@@ -31,9 +32,31 @@ export function HomeMethod(): string {
 }
 
 export function HomeStories(): string {
+  const storyCount = transformationStories.length;
+
   return `<section class="home-section" aria-labelledby="home-stories-title">${Container({ content: `
     ${sectionHeader('home-stories-title', 'Истории перемен', 'У результата есть лицо. И своя история.', 'Кому-то важно вернуть силы. Кому-то — перестать бояться еды. Кто-то начинает по-другому чувствовать своё тело.')}
-    <div class="story-card-grid" data-motion-group>${[dashaStory, polinaStory, oksanaStory].map(story => StoryCard(story, 'h3')).join('')}</div>
+    <div class="stories-carousel" role="region" aria-roledescription="карусель" aria-label="Истории перемен" data-stories-carousel>
+      <div class="stories-carousel__stage">
+        <button class="stories-carousel__control stories-carousel__control--previous" type="button" aria-label="Предыдущая история" aria-controls="home-stories-carousel" data-carousel-previous>
+          ${CoolIcon('arrow-left', 'coolicon--lg')}
+        </button>
+        <div class="stories-carousel__viewport" id="home-stories-carousel" tabindex="0" aria-label="Карточки историй. Используйте стрелки влево и вправо для перелистывания" data-carousel-viewport>
+          <div class="stories-carousel__track" data-carousel-track data-motion-group>
+            ${transformationStories.map((story, index) => `<div class="stories-carousel__slide" role="group" aria-roledescription="слайд" aria-label="${index + 1} из ${storyCount}" data-carousel-slide>${StoryCard(story, 'h3')}</div>`).join('')}
+          </div>
+        </div>
+        <button class="stories-carousel__control stories-carousel__control--next" type="button" aria-label="Следующая история" aria-controls="home-stories-carousel" data-carousel-next>
+          ${CoolIcon('arrow-right', 'coolicon--lg')}
+        </button>
+      </div>
+      <div class="stories-carousel__footer">
+        <p class="stories-carousel__status" aria-label="Позиция в карусели"><span data-carousel-current>01</span><span aria-hidden="true"> / </span><span>${String(storyCount).padStart(2, '0')}</span></p>
+        <div class="stories-carousel__progress" aria-hidden="true"><span data-carousel-progress></span></div>
+        <button class="stories-carousel__autoplay" type="button" aria-pressed="false" data-carousel-autoplay><span data-carousel-autoplay-label>Пауза</span></button>
+        <span class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-announcer></span>
+      </div>
+    </div>
     <div class="section-action">${Button({ label: 'Все истории перемен', href: '/istorii-peremen/', variant: 'secondary' })}</div>` })}</section>`;
 }
 
