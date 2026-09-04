@@ -52,7 +52,7 @@ export function HomeAbout(): string {
 }
 
 export function HomeQuizCTA(): string {
-  return `<section class="quiz-invitation" aria-labelledby="quiz-invitation-title">${Container({ content: `<div class="quiz-invitation__panel" data-motion-group><div data-motion-item><p class="home-kicker">Небольшой первый шаг · ${escapeHtml(testFeature.duration)}</p><h2 id="quiz-invitation-title">С чего начать именно вам?</h2><p>Восемь вопросов о ваших привычках помогут наметить точку старта.</p></div><div class="quiz-invitation__action" data-motion-item>${Button({ label: 'Пройти бесплатный тест', href: '/test/', variant: 'inverse' })}<small>Предварительная подсказка,<br>не медицинское заключение.</small></div></div>` })}</section>`;
+  return `<section class="quiz-invitation" aria-labelledby="quiz-invitation-title">${Container({ content: `<div class="quiz-invitation__panel" data-motion-group><div data-motion-item><p class="home-kicker">Небольшой первый шаг · ${escapeHtml(testFeature.duration)}</p><h2 id="quiz-invitation-title">Почему тело не меняется?</h2><p>Десять коротких вопросов помогут увидеть ведущий и, если он близок, сопутствующий сценарий.</p></div><div class="quiz-invitation__action" data-motion-item>${Button({ label: 'Пройти бесплатный тест', href: '/test/', variant: 'inverse' })}<small>Результат без регистрации.<br>Не медицинское заключение.</small></div></div>` })}</section>`;
 }
 
 export function HomeJournal(): string {

@@ -74,6 +74,6 @@
 | ProgressBar | Нативный progress и текущий шаг |
 | QuizQuestion | Один вопрос, fieldset, back/next |
 | QuizOption | Нативный radio option с keyboard support |
-| QuizResult | Недиагностический mock-result и CTA |
+| QuizResult | Ведущий и возможный сопутствующий сценарий, связанная история и CTA |
 
 `PageShell` — технический компоновщик landmarks; `QuizController` — application layer, а не визуальный компонент. `src/lib/motion.ts` наблюдает независимые смысловые группы и запускает короткий stagger их непосредственных элементов; фон и геометрия секции при этом остаются стабильными. При reduced motion всё сразу переводится в конечное состояние.

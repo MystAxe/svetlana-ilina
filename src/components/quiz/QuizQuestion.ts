@@ -39,7 +39,7 @@ export function QuizQuestion({ question, index, total, selectedOptionId, error }
         <div class="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
           ${Button({ label: 'Назад', variant: 'quiet', attributes: 'data-quiz-back', className: 'w-full sm:w-auto' })}
           ${Button({
-            label: isLast ? 'Завершить вопросы' : 'Следующий вопрос',
+            label: isLast ? 'Показать результат' : 'Следующий вопрос',
             type: 'submit',
             disabled: !selectedOptionId,
             attributes: 'data-quiz-next',

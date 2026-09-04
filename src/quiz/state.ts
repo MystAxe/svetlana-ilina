@@ -3,12 +3,6 @@ import type { QuizAction, QuizState } from './types';
 export const initialQuizState: QuizState = {
   phase: { name: 'intro' },
   answers: {},
-  contact: {
-    name: '',
-    value: '',
-    method: '',
-    consent: false,
-  },
 };
 
 export function quizReducer(state: QuizState, action: QuizAction): QuizState {
@@ -32,14 +26,10 @@ export function quizReducer(state: QuizState, action: QuizAction): QuizState {
       const nextIndex = state.phase.index + 1;
       return {
         ...state,
-        phase: nextIndex < action.questionCount ? { name: 'question', index: nextIndex } : { name: 'contact', status: 'idle' },
+        phase: nextIndex < action.questionCount ? { name: 'question', index: nextIndex } : state.phase,
       };
     }
     case 'BACK': {
-      if (state.phase.name === 'contact') {
-        return { ...state, phase: { name: 'question', index: Math.max(0, action.questionCount - 1) } };
-      }
-
       if (state.phase.name !== 'question') {
         return state;
       }
@@ -49,20 +39,15 @@ export function quizReducer(state: QuizState, action: QuizAction): QuizState {
         phase: state.phase.index === 0 ? { name: 'intro' } : { name: 'question', index: state.phase.index - 1 },
       };
     }
-    case 'CONTACT_CHANGE':
-      return { ...state, contact: action.contact };
-    case 'SUBMIT_START':
-      return state.phase.name === 'contact' ? { ...state, phase: { name: 'contact', status: 'submitting' } } : state;
-    case 'SUBMIT_SUCCESS':
+    case 'SHOW_RESULT':
       return {
         ...state,
-        phase: { name: 'result', resultKey: action.resultKey },
-        contact: initialQuizState.contact,
+        phase: {
+          name: 'result',
+          resultKey: action.resultKey,
+          secondaryResultKey: action.secondaryResultKey,
+        },
       };
-    case 'SUBMIT_FAILURE':
-      return state.phase.name === 'contact'
-        ? { ...state, phase: { name: 'contact', status: 'error', submitError: action.message } }
-        : state;
     case 'RESET':
       return initialQuizState;
   }

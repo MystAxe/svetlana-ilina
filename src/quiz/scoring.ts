@@ -2,10 +2,19 @@ import type { QuizQuestionData, ResultKey } from './types';
 
 export interface QuizScore {
   resultKey: ResultKey;
+  secondaryResultKey?: ResultKey;
   totals: Record<ResultKey, number>;
+  normalized: Record<ResultKey, number>;
+  evidence: Record<ResultKey, number>;
 }
 
-const emptyTotals = (): Record<ResultKey, number> => ({ resource: 0, nutrition: 0, habits: 0, movement: 0 });
+const emptyResultRecord = (): Record<ResultKey, number> => ({
+  recovery: 0,
+  cravings: 0,
+  consistency: 0,
+  'self-image': 0,
+  'body-shape': 0,
+});
 
 export function validateQuizDefinition(questions: readonly QuizQuestionData[]): void {
   if (questions.length === 0) {
@@ -41,7 +50,9 @@ export function scoreQuiz(
   tieBreakOrder: readonly ResultKey[],
 ): QuizScore {
   validateQuizDefinition(questions);
-  const totals = emptyTotals();
+  const totals = emptyResultRecord();
+  const maximums = emptyResultRecord();
+  const evidence = emptyResultRecord();
 
   questions.forEach((question) => {
     const selectedId = answers[question.id];
@@ -52,16 +63,51 @@ export function scoreQuiz(
     }
 
     Object.entries(option.scores).forEach(([key, value]) => {
-      totals[key as ResultKey] += value ?? 0;
+      const resultKey = key as ResultKey;
+      const score = value ?? 0;
+      totals[resultKey] += score;
+      if (score > 0) {
+        evidence[resultKey] += 1;
+      }
+    });
+
+    tieBreakOrder.forEach((key) => {
+      maximums[key] += Math.max(...question.options.map((candidate) => candidate.scores[key] ?? 0));
     });
   });
 
-  const highestScore = Math.max(...Object.values(totals));
-  const resultKey = tieBreakOrder.find((key) => totals[key] === highestScore);
+  const normalized = emptyResultRecord();
+  tieBreakOrder.forEach((key) => {
+    normalized[key] = maximums[key] === 0 ? 0 : Math.round((totals[key] / maximums[key]) * 100);
+  });
+
+  const ranked = [...tieBreakOrder].sort((left, right) => {
+    const byNormalizedScore = normalized[right] - normalized[left];
+    if (byNormalizedScore !== 0) {
+      return byNormalizedScore;
+    }
+
+    const byRawScore = totals[right] - totals[left];
+    if (byRawScore !== 0) {
+      return byRawScore;
+    }
+
+    return tieBreakOrder.indexOf(left) - tieBreakOrder.indexOf(right);
+  });
+
+  const resultKey = ranked.find((key) => evidence[key] >= 2) ?? ranked[0];
 
   if (!resultKey) {
     throw new Error('Unable to determine quiz result.');
   }
 
-  return { resultKey, totals };
+  const secondaryResultKey = ranked.find(
+    (key) =>
+      key !== resultKey &&
+      evidence[key] >= 2 &&
+      normalized[key] >= 45 &&
+      normalized[resultKey] - normalized[key] <= 15,
+  );
+
+  return { resultKey, secondaryResultKey, totals, normalized, evidence };
 }

@@ -11,7 +11,7 @@ export function quizPage(): string {
           className: 'max-w-4xl',
           content: `
             <div class="rounded-panel border border-line-strong bg-canvas p-5 sm:p-8 lg:p-10" id="quiz-root" aria-live="off"></div>
-            <p class="mt-4 text-center text-xs leading-5 text-ink-soft">Прототип работает локально: ответы и контакты не сохраняются и не отправляются.</p>
+            <p class="mt-4 text-center text-xs leading-5 text-ink-soft">Ответы обрабатываются только в этой вкладке браузера, не сохраняются и не отправляются.</p>
           `,
         })}
       </section>

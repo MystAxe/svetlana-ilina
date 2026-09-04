@@ -1,4 +1,4 @@
-export type ResultKey = 'resource' | 'nutrition' | 'habits' | 'movement';
+export type ResultKey = 'recovery' | 'cravings' | 'consistency' | 'self-image' | 'body-shape';
 export type ContactMethod = 'telegram' | 'phone';
 
 export interface QuizOptionData {
@@ -18,7 +18,17 @@ export interface QuizResultData {
   eyebrow: string;
   title: string;
   summary: string;
+  analysis: string;
+  why: string;
   steps: string[];
+  secondarySummary: string;
+  story: {
+    eyebrow: string;
+    title: string;
+    summary: string;
+    href: string;
+    label: string;
+  };
   disclaimer: string;
   cta: {
     label: string;
@@ -35,23 +45,14 @@ export interface QuizDefinition {
   results: Record<ResultKey, QuizResultData>;
 }
 
-export interface QuizContact {
-  name: string;
-  value: string;
-  method: ContactMethod | '';
-  consent: boolean;
-}
-
 export type QuizPhase =
   | { name: 'intro' }
   | { name: 'question'; index: number }
-  | { name: 'contact'; status: 'idle' | 'submitting' | 'error'; submitError?: string }
-  | { name: 'result'; resultKey: ResultKey };
+  | { name: 'result'; resultKey: ResultKey; secondaryResultKey?: ResultKey };
 
 export interface QuizState {
   phase: QuizPhase;
   answers: Record<string, string>;
-  contact: QuizContact;
   startedAt?: string;
 }
 
@@ -60,8 +61,5 @@ export type QuizAction =
   | { type: 'SELECT_ANSWER'; questionId: string; optionId: string }
   | { type: 'NEXT'; questionCount: number }
   | { type: 'BACK'; questionCount: number }
-  | { type: 'CONTACT_CHANGE'; contact: QuizContact }
-  | { type: 'SUBMIT_START' }
-  | { type: 'SUBMIT_SUCCESS'; resultKey: ResultKey }
-  | { type: 'SUBMIT_FAILURE'; message: string }
+  | { type: 'SHOW_RESULT'; resultKey: ResultKey; secondaryResultKey?: ResultKey }
   | { type: 'RESET' };
