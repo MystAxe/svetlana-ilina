@@ -1,4 +1,5 @@
-import { aboutEditorial, blogEditorial, formulaFeature, mentorshipFeature, methodEditorial, testFeature } from '../../data/home';
+import { aboutEditorial, blogEditorial, methodEditorial, testFeature } from '../../data/home';
+import { ProductShowcase } from './ProductShowcase';
 import { transformationStories } from '../../data/stories';
 import { escapeHtml } from '../../lib/dom';
 import { StoryCard } from '../stories/StoryCard';
@@ -61,12 +62,7 @@ export function HomeStories(): string {
 }
 
 export function HomeServices(): string {
-  return `<section class="home-section services-section" id="formula" aria-labelledby="services-title">${Container({ content: `
-    ${sectionHeader('services-title', 'Как мы можем работать', 'Разобраться. А затем — двигаться вместе.')}
-    <div class="service-cards" data-motion-group>
-      <article class="service-card service-card--formula" data-motion-item><div class="service-card__copy"><p class="home-kicker">Индивидуальный разбор</p><h3>Формула тела</h3><p>Собрать наблюдения о питании, нагрузке и самочувствии в понятный план.</p><ul><li>Разберём ваш запрос</li><li>Определим приоритеты</li><li>Наметим следующие шаги</li></ul><div class="service-card__actions">${Button({ label: 'Подробнее о разборе', href: '/formula-tela/' })}<small>Экспертный разбор, не медицинская диагностика.</small></div></div><div class="service-card__image">${EditorialPicture({ image: formulaFeature.image, showLabel: false, sizes: '(min-width: 1024px) 23vw, (min-width: 768px) 45vw, 100vw' })}</div></article>
-      <article class="service-card service-card--mentor" data-motion-item><p class="home-kicker">Сопровождение</p><h3>В своём ритме.<br>С поддержкой.</h3><p>${escapeHtml(mentorshipFeature.text)}</p><div class="service-card__path">${mentorshipFeature.path.map(item => `<span>${escapeHtml(item.title)}</span>`).join('')}</div><div class="service-card__actions">${Button({ label: 'О наставничестве', href: '/nastavnichestvo/', variant: 'secondary' })}<small>Формат и длительность обсуждаем индивидуально.</small></div></article>
-    </div>` })}</section>`;
+  return ProductShowcase();
 }
 
 export function HomeAbout(): string {

@@ -10,6 +10,7 @@ export const siteIdentity = {
 
 export const primaryNavigation: NavigationItem[] = [
   { label: 'Подход', href: '/#method' },
+  { label: 'СЫТАЯ', href: '/sytaya/' },
   { label: 'Формула тела', href: '/formula-tela/' },
   { label: 'Истории перемен', href: '/istorii-peremen/' },
   { label: 'Наставничество', href: '/nastavnichestvo/' },
@@ -19,6 +20,7 @@ export const primaryNavigation: NavigationItem[] = [
 
 export const footerNavigation: NavigationItem[] = [
   { label: 'Главная', href: '/' },
+  { label: 'СЫТАЯ', href: '/sytaya/' },
   { label: 'Формула тела', href: '/formula-tela/' },
   { label: 'Истории перемен', href: '/istorii-peremen/' },
   { label: 'Бесплатный тест', href: '/test/' },

@@ -1,4 +1,5 @@
 import { EditorialPicture } from '../components/home/HomeHero';
+import { mentorshipPage } from './mentorshipPage';
 import { PageShell } from '../components/layout/PageShell';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
@@ -47,6 +48,7 @@ function renderNotFound(): string {
 }
 
 export function staticPage(pathname: string): string {
+  if (pathname === '/nastavnichestvo/') return mentorshipPage();
   if (pathname === '/blog/') return renderBlogIndex();
   const article = findBlogArticle(pathname);
   if (article) return renderArticle(article);

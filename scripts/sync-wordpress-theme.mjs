@@ -10,6 +10,7 @@ const wordpressPublicDirectory = resolve(workspaceDirectory, 'app', 'public');
 const themeDirectory = resolve(wordpressPublicDirectory, 'wp-content', 'themes', 'svetlana');
 const buildDirectory = resolve(prototypeDirectory, 'dist', 'client');
 const themeBuildDirectory = resolve(themeDirectory, 'dist');
+const muPluginsDirectory = resolve(wordpressPublicDirectory, 'wp-content', 'mu-plugins');
 
 const routes = siteRoutes;
 
@@ -56,6 +57,9 @@ await mkdir(themeDirectory, { recursive: true });
 await rm(themeBuildDirectory, { recursive: true, force: true });
 await cp(buildDirectory, themeBuildDirectory, { recursive: true, force: true });
 await writeFile(resolve(themeBuildDirectory, 'route-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+
+await mkdir(muPluginsDirectory, { recursive: true });
+await cp(resolve(prototypeDirectory, 'wordpress', 'mu-plugins', 'svetlana-sytaya.php'), resolve(muPluginsDirectory, 'svetlana-sytaya.php'), { force: true });
 
 for (const directory of ['media', 'images']) {
   await cp(resolve(buildDirectory, directory), resolve(wordpressPublicDirectory, directory), { recursive: true, force: true });

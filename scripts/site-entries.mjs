@@ -1,5 +1,7 @@
 export const siteEntries = [
   { key: 'home', route: '/', input: 'index.html' },
+  { key: 'sytaya', route: '/sytaya/', input: 'sytaya/index.html' },
+  { key: 'sytayaProgram', route: '/sytaya/program/', input: 'sytaya/program/index.html' },
   { key: 'formula', route: '/formula-tela/', input: 'formula-tela/index.html' },
   { key: 'quiz', route: '/test/', input: 'test/index.html' },
   { key: 'stories', route: '/istorii-peremen/', input: 'istorii-peremen/index.html' },
