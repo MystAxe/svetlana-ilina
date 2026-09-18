@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
 import { transformationStories } from '../data/stories';
 import { escapeHtml } from '../lib/dom';
-import { SignatureArt, SignatureDivider } from '../components/decorations/SignatureLine';
+import { SignatureDivider } from '../components/decorations/SignatureLine';
 
 const action = { label: 'Хочу обсудить свою цель', href: '#application' };
 const audience = ['Хотите снизить вес и больше не начинать очередную диету.', 'Вес уходит, а затем возвращается.', 'Знаете основы питания, но тело не меняется так, как хочется.', 'Вечером переедаете или часто хочется сладкого.', 'Тренируетесь, но не видите ожидаемых изменений.', 'Хотите более подтянутое тело, даже если вес уже нормальный.', 'Не хватает энергии и восстановления.', 'Система держится неделю-две, а затем распадается.'];
@@ -48,8 +48,20 @@ function application(): string {
     ${Button({ label: 'Отправить заявку', type: 'submit' })}<p class='product-form-status' role='status' tabindex='-1' data-lead-status>Прототип: заявка пока не отправляется.</p>
   </form>` })}</section>`;
 }
+function mentorshipRoute(): string {
+  return `<aside class='mentor-route' data-motion-item data-motion-kind='media' aria-label='Личный маршрут за три месяца'>
+    <div class='mentor-route__head'><span>Личный маршрут</span><div><strong>03</strong><small>месяца<br>рядом</small></div></div>
+    <ol class='mentor-route__steps'>
+      <li><span>01 / СТАРТ</span><strong>Настраиваем</strong><p>Цель и основу системы</p></li>
+      <li><span>02 / ДИНАМИКА</span><strong>Корректируем</strong><p>По реакции вашего тела</p></li>
+      <li><span>03 / РЕЗУЛЬТАТ</span><strong>Закрепляем</strong><p>Решения для жизни</p></li>
+    </ol>
+    <p class='mentor-route__foot'>Личная поддержка каждую неделю</p>
+  </aside>`;
+}
+
 export function mentorshipPage(): string {
-  const hero = `<section class='product-hero' aria-labelledby='mentor-title'>${Container({ content: `<div class='product-hero__layout'><div class='product-hero__content'><p class='home-kicker'>Персональное наставничество</p><h1 id='mentor-title'>План подстраивается под вас. Не вы под план.</h1><p class='product-hero__lead'>За 3 месяца мы выстроим персональную систему питания, нагрузки и восстановления под вашу цель — и будем менять её по реакции именно вашего тела.</p><p>Я лично веду вас весь путь и каждую неделю корректирую дальнейшие действия по вашей динамике.</p><div class='product-hero__price'><strong>90 000 ₽</strong><span>за 3 месяца при полной оплате<br>или 3 × 32 000 ₽</span></div><div class='product-hero__actions'>${Button(action)}${Button({ label: 'Сначала «Формула тела»', href: '/formula-tela/', variant: 'secondary' })}</div><small>Количество мест ограничено, потому что каждого клиента я веду лично.</small></div>${SignatureArt('journey')}</div>` })}</section>`;
+  const hero = `<section class='product-hero product-hero--mentorship' aria-labelledby='mentor-title'>${Container({ content: `<div class='product-hero__layout'><div class='product-hero__content'><p class='home-kicker'>Персональное наставничество</p><h1 id='mentor-title'>План подстраивается под вас. Не вы под план.</h1><p class='product-hero__lead'>За 3 месяца мы выстроим персональную систему питания, нагрузки и восстановления под вашу цель — и будем менять её по реакции именно вашего тела.</p><p>Я лично веду вас весь путь и каждую неделю корректирую дальнейшие действия по вашей динамике.</p><div class='product-hero__price'><strong>90 000 ₽</strong><span>за 3 месяца при полной оплате<br>или 3 × 32 000 ₽</span></div><div class='product-hero__actions'>${Button(action)}${Button({ label: 'Сначала «Формула тела»', href: '/formula-tela/', variant: 'secondary' })}</div><small>Количество мест ограничено, потому что каждого клиента я веду лично.</small></div>${mentorshipRoute()}</div>` })}</section>`;
   const difference = section('difference', 'Главное отличие', 'План подстраивается под вас', `<div class='product-prose'><p>Вес, аппетит, энергия, график и сон меняются. То, что работает на бумаге, иногда неудобно в обычной жизни. Каждую неделю мы смотрим: что работает → что мешает → что оставляем → что меняем → что делаем дальше.</p><blockquote>Вам не нужно идеально выполнять мой план. Моя задача — сделать так, чтобы он работал в вашей реальной жизни.</blockquote></div>`);
   const recognition = section('for-whom', 'Кому подходит', 'Возможно, вы узнаёте себя', `<div class='product-checklist'>${audience.map(item => `<p>${escapeHtml(item)}</p>`).join('')}</div><p class='product-section-note'>Вам не нужно заранее знать причину. С этого и начинается наша работа.</p>${Button(action)}`, true);
   const timeline = section('timeline', 'Почему 3 месяца', 'Настроить, скорректировать, закрепить', `<p class='product-section-note'>Недостаточно составить план. Нужно увидеть реакцию тела, изменить действия и закрепить работающую систему.</p>${cards(months)}`);

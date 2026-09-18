@@ -8,7 +8,7 @@ import { Container } from '../components/ui/Container';
 import { formulaFeature } from '../data/home';
 import { dashaStory, polinaStory } from '../data/stories';
 import { escapeHtml } from '../lib/dom';
-import { SignatureArt, SignatureDivider } from '../components/decorations/SignatureLine';
+import { SignatureDivider } from '../components/decorations/SignatureLine';
 
 const action = { label: 'Получить свою «Формулу тела»', href: '#request' };
 const audience = [
@@ -61,7 +61,7 @@ export function formulaPage(): string {
     text: 'Разберём, что сейчас мешает вашему телу меняться и с чего начать именно вам.',
     outcome: 'Анкета до встречи · разбор 60–90 минут · персональная карта первых действий.',
     image: formulaFeature.image,
-    accentArt: SignatureArt('body'),
+    accentArt: `<ol class='formula-hero__steps' data-motion-item aria-label='От точки А к первым действиям'><li>Точка А</li><li>1–3 приоритета</li><li>Первые действия</li></ol>`,
     primaryAction: action,
     secondaryAction: { label: 'Как это проходит', href: '#process' },
   });

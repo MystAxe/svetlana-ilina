@@ -774,6 +774,32 @@ button, summary { cursor: pointer; }
 @media (max-width:63.99rem) { .course-layout { grid-template-columns:1fr; } .course-top { position:static; } .course-nav { grid-template-columns:repeat(7,minmax(0,1fr)); } }
 @media (max-width:39.99rem) { .course-shell { padding:1.5rem 0 3rem; } .course-top,.course-part,.course-examples,.course-meal { padding:1.15rem; } .course-examples > div,.course-options { grid-template-columns:1fr; } .course-nav { gap:.25rem; } .course-nav button { min-height:2.6rem; font-size:.78rem; } .course-actions > * { width:100%; } }
 
+.formula-hero__steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); max-width:31rem; margin:1.8rem 0 .1rem; padding:0; list-style:none; }
+.formula-hero__steps li { position:relative; padding:.85rem .6rem 0 0; border-top:1px solid #c99b9e; color:#92515a; font-size:.75rem; font-weight:750; letter-spacing:.065em; line-height:1.4; text-transform:uppercase; }
+.formula-hero__steps li::before { content:''; position:absolute; top:-.26rem; left:0; width:.48rem; height:.48rem; border-radius:50%; background:var(--color-brand); }
+.product-hero--mentorship { background:linear-gradient(125deg,#f7f7f4 0%,#f5eee9 100%); }
+.product-hero--mentorship .product-hero__layout { grid-template-columns:minmax(0,1.35fr) minmax(19rem,.65fr); align-items:start; }
+.product-hero--mentorship h1 { max-width:16ch; font-size:clamp(2.7rem,5.25vw,5rem); }
+.mentor-route { box-sizing:border-box; width:100%; max-width:27rem; min-height:34rem; justify-self:center; padding:2rem; border:1px solid #d5b6b4; border-radius:1.7rem; background:linear-gradient(145deg,#fffaf6 0%,#f1e3de 100%); box-shadow:0 24px 60px rgb(91 47 48 / .08); }
+.mentor-route__head > span { color:#92515a; font-size:.75rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+.mentor-route__head > div { display:flex; align-items:end; gap:1rem; margin-top:.55rem; color:#9f4954; }
+.mentor-route__head strong { font-family:'Source Serif 4',Georgia,serif; font-size:6.7rem; font-weight:350; line-height:.95; letter-spacing:-.085em; }
+.mentor-route__head small { padding-bottom:.75rem; font-size:.78rem; line-height:1.45; letter-spacing:.02em; text-transform:uppercase; }
+.mentor-route__steps { position:relative; display:grid; gap:1.55rem; margin:2.3rem 0 1.7rem; padding:0 0 0 2.4rem; list-style:none; }
+.mentor-route__steps::before { content:''; position:absolute; top:.55rem; bottom:.55rem; left:.5rem; width:1px; background:#c48a8e; }
+.mentor-route__steps li { position:relative; }
+.mentor-route__steps li::before { content:''; position:absolute; top:.28rem; left:-2.35rem; width:.9rem; height:.9rem; border:1px solid #b5636c; border-radius:50%; background:#fff8f3; box-shadow:inset 0 0 0 3px #fff8f3; }
+.mentor-route__steps li span { display:block; color:#a35861; font-size:.75rem; font-weight:750; letter-spacing:.12em; }
+.mentor-route__steps li strong { display:block; margin-top:.3rem; color:var(--color-ink); font-size:1.08rem; font-weight:600; letter-spacing:-.025em; }
+.mentor-route__steps li p { margin:.12rem 0 0; color:var(--color-ink-soft); font-size:.76rem; line-height:1.4; }
+.mentor-route__foot { margin:0; padding-top:1rem; border-top:1px solid #d8b9b6; color:#92515a !important; font-size:.76rem; letter-spacing:.025em; }
+@media (max-width:47.99rem) {
+  .product-hero--mentorship .product-hero__layout { grid-template-columns:1fr; }
+  .mentor-route { max-width:none; min-height:0; margin-top:1.2rem; padding:1.6rem; }
+  .mentor-route__head strong { font-size:5.3rem; }
+  .mentor-route__steps { gap:1.3rem; margin:1.7rem 0 1.4rem; }
+}
+
 /* One continuous line: editorial drawings shared by the product stories. */
 .product-hero__layout { display:grid; grid-template-columns:minmax(0,1.28fr) minmax(17rem,.72fr); align-items:center; gap:clamp(1.5rem,4vw,4.5rem); }
 .product-hero__layout > * { min-width:0; }
@@ -783,21 +809,12 @@ button, summary { cursor: pointer; }
 .signature-art--plate { color:#ad3946; filter:drop-shadow(0 20px 40px rgb(127 56 61 / .08)); }
 .signature-art--plate .signature-line__draw--main { stroke-width:2.15; }
 .signature-art--plate .signature-line__draw--inner { stroke:#c38e92; stroke-width:1; }
-.signature-art--plate .signature-line__curl { stroke-width:1.4; }
 .signature-art__food { stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
 .signature-art__food--first > :first-child { fill:#d9a7a3; stroke:#a64552; }
 .signature-art__food--second > :first-child { fill:#98a28c; stroke:#667b68; }
 .signature-art__food--third > :first-child { fill:#f1ddc8; stroke:#b58f7a; }
 .signature-art__food--fourth > :first-child { fill:#dfbdac; stroke:#aa7065; }
 .signature-art__food-detail { fill:none; stroke:#fff8f0; stroke-width:2; }
-.signature-art--body { width:min(12rem,48vw); margin:1.3rem 0 -.4rem; justify-self:start; color:var(--color-brand); }
-.signature-art--body .signature-line__draw { stroke-width:1.55; }
-.signature-art--body .signature-line__spine { stroke:#b8858b; }
-.signature-art__point,.signature-art__milestone,.signature-art__waypoint { fill:var(--color-brand); }
-.signature-art--journey { max-width:27rem; color:#ad3946; }
-.signature-art--journey .signature-line__journey { stroke-width:2.2; }
-.signature-art__halo { fill:none; stroke:#d6a2a5; stroke-width:1; }
-.signature-art__milestone { fill:#fff8f3; stroke:#ad3946; stroke-width:2; }
 .signature-flourish { width:min(16.5rem,65%); margin:.9rem 0 -.75rem; color:#f6d7cd; }
 .signature-flourish .signature-line__draw { stroke-width:1.65; }
 .signature-divider-shell { display:grid; place-items:center; min-height:6.2rem; overflow:hidden; background:var(--color-surface); }
@@ -827,9 +844,6 @@ button, summary { cursor: pointer; }
   .motion-ready .signature-art__food--second { transition-delay:760ms; }
   .motion-ready .signature-art__food--third { transition-delay:920ms; }
   .motion-ready .signature-art__food--fourth { transition-delay:1080ms; }
-  .motion-ready .signature-art__point,.motion-ready .signature-art__halo,.motion-ready .signature-art__waypoint,.motion-ready .signature-art__milestone { opacity:0; transition:opacity 360ms ease; }
-  .motion-ready .signature-art--body.is-visible .signature-art__point,.motion-ready .signature-art--journey.is-visible :is(.signature-art__halo,.signature-art__milestone) { opacity:1; transition-delay:780ms; }
-  .motion-ready .signature-art--journey.is-visible .signature-art__waypoint { opacity:1; transition-delay:var(--point-delay,700ms); }
   .motion-ready .home-hero :is(.home-hero__scene img,.hero-eyebrow,h1 span,.home-hero__intro,.home-hero__actions,.home-hero__signature,.hero-facts) { opacity:0; }
   .motion-ready .home-hero .signature-flourish .signature-line__draw { stroke-dasharray:100 100; stroke-dashoffset:100; }
   .motion-ready .home-hero.is-arriving .home-hero__scene img { animation:hero-photo-in 1650ms cubic-bezier(.4,0,.15,1) both; }
