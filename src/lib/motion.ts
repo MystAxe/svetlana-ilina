@@ -103,6 +103,35 @@ function initHeaderState(): void {
   );
 }
 
+function initHomeHeroArrival(): void {
+  const hero = document.querySelector<HTMLElement>('.home-hero');
+  if (!hero) {
+    return;
+  }
+
+  const portrait = hero.querySelector<HTMLImageElement>('.home-hero__scene img');
+  let started = false;
+  const start = (): void => {
+    if (started) {
+      return;
+    }
+
+    started = true;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => hero.classList.add('is-arriving'));
+    });
+  };
+
+  if (portrait?.complete) {
+    start();
+    return;
+  }
+
+  portrait?.addEventListener('load', start, { once: true });
+  portrait?.addEventListener('error', start, { once: true });
+  window.setTimeout(start, 1800);
+}
+
 export function initSiteMotion(): void {
   const motionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
   const groups = prepareMotionGroups();
@@ -183,5 +212,6 @@ export function initSiteMotion(): void {
   });
 
   document.documentElement.classList.add('motion-ready');
+  initHomeHeroArrival();
   window.requestAnimationFrame(() => groups.forEach((group) => observer?.observe(group)));
 }

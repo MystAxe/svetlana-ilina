@@ -30,7 +30,7 @@ export function SignatureArt(variant: SignatureVariant): string {
 }
 
 export function SignatureFlourish(): string {
-  return `<div class='signature-flourish' data-motion-item aria-hidden='true'><svg viewBox='0 0 260 34' focusable='false'>${draw('M2 25 C58 25 93 25 132 23 C166 21 163 6 188 7 C207 8 211 28 194 29 C184 30 180 20 185 16 C193 9 209 19 258 19', 0)}</svg></div>`;
+  return `<div class='signature-flourish' aria-hidden='true'><svg viewBox='0 0 260 34' focusable='false'>${draw('M2 25 C58 25 93 25 132 23 C166 21 163 6 188 7 C207 8 211 28 194 29 C184 30 180 20 185 16 C193 9 209 19 258 19', 0)}</svg></div>`;
 }
 
 export function SignatureDivider(): string {

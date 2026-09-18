@@ -819,8 +819,8 @@ button, summary { cursor: pointer; }
   .signature-flourish { width:10rem; margin-top:.45rem; }
 }
 @media (prefers-reduced-motion:no-preference) {
-  .motion-ready .signature-art .signature-line__draw,.motion-ready .signature-flourish .signature-line__draw,.motion-ready .signature-divider .signature-line__draw { stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1200ms cubic-bezier(.34,.05,.18,1); transition-delay:var(--line-delay,0ms); }
-  .motion-ready .signature-art.is-visible .signature-line__draw,.motion-ready .signature-flourish.is-visible .signature-line__draw,.motion-ready .signature-divider.is-visible .signature-line__draw { stroke-dashoffset:0; }
+  .motion-ready .signature-art .signature-line__draw,.motion-ready .signature-divider .signature-line__draw { stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1200ms cubic-bezier(.34,.05,.18,1); transition-delay:var(--line-delay,0ms); }
+  .motion-ready .signature-art.is-visible .signature-line__draw,.motion-ready .signature-divider.is-visible .signature-line__draw { stroke-dashoffset:0; }
   .motion-ready .signature-art__food { opacity:0; transform:translateY(7px); transition:opacity 420ms ease,transform 540ms var(--ease-enter); }
   .motion-ready .signature-art--plate.is-visible .signature-art__food { opacity:1; transform:translateY(0); }
   .motion-ready .signature-art__food--first { transition-delay:600ms; }
@@ -830,8 +830,19 @@ button, summary { cursor: pointer; }
   .motion-ready .signature-art__point,.motion-ready .signature-art__halo,.motion-ready .signature-art__waypoint,.motion-ready .signature-art__milestone { opacity:0; transition:opacity 360ms ease; }
   .motion-ready .signature-art--body.is-visible .signature-art__point,.motion-ready .signature-art--journey.is-visible :is(.signature-art__halo,.signature-art__milestone) { opacity:1; transition-delay:780ms; }
   .motion-ready .signature-art--journey.is-visible .signature-art__waypoint { opacity:1; transition-delay:var(--point-delay,700ms); }
-  .home-hero__scene img { animation:home-portrait-arrive 1050ms ease-out both; }
-  @keyframes home-portrait-arrive { from { opacity:.72; } to { opacity:1; } }
+  .motion-ready .home-hero :is(.home-hero__scene img,.hero-eyebrow,h1 span,.home-hero__intro,.home-hero__actions,.home-hero__signature,.hero-facts) { opacity:0; }
+  .motion-ready .home-hero .signature-flourish .signature-line__draw { stroke-dasharray:100 100; stroke-dashoffset:100; }
+  .motion-ready .home-hero.is-arriving .home-hero__scene img { animation:hero-photo-in 1650ms cubic-bezier(.4,0,.15,1) both; }
+  .motion-ready .home-hero.is-arriving .hero-eyebrow { animation:hero-copy-in 900ms cubic-bezier(.22,.6,.2,1) 300ms both; }
+  .motion-ready .home-hero.is-arriving h1 span:first-child { animation:hero-copy-in 950ms cubic-bezier(.22,.6,.2,1) 470ms both; }
+  .motion-ready .home-hero.is-arriving h1 span:last-child { animation:hero-copy-in 950ms cubic-bezier(.22,.6,.2,1) 630ms both; }
+  .motion-ready .home-hero.is-arriving .home-hero__intro { animation:hero-copy-in 850ms cubic-bezier(.22,.6,.2,1) 850ms both; }
+  .motion-ready .home-hero.is-arriving .home-hero__actions { animation:hero-copy-in 850ms cubic-bezier(.22,.6,.2,1) 1050ms both; }
+  .motion-ready .home-hero.is-arriving .signature-flourish .signature-line__draw { animation:hero-line-draw 1750ms cubic-bezier(.3,0,.15,1) 1000ms both; }
+  .motion-ready .home-hero.is-arriving :is(.home-hero__signature,.hero-facts) { animation:hero-copy-in 850ms cubic-bezier(.22,.6,.2,1) 1250ms both; }
+  @keyframes hero-photo-in { from { opacity:0; } to { opacity:1; } }
+  @keyframes hero-copy-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes hero-line-draw { from { stroke-dashoffset:100; } to { stroke-dashoffset:0; } }
 }
 @media (prefers-reduced-motion:reduce) {
   .product-tile,.product-tile__trace,.product-tile__trace path,.product-tile .ui-button::after { transition:none; }

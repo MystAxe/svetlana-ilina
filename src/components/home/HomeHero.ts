@@ -123,7 +123,7 @@ export function HomeHero({
   facts,
 }: HomeHeroProps): string {
   const title = titleLines
-    .map((line) => `<span data-motion-item>${escapeHtml(line)}</span>`)
+    .map((line) => `<span>${escapeHtml(line)}</span>`)
     .join(' ');
 
   return `
@@ -134,12 +134,12 @@ export function HomeHero({
       ${Container({
         className: 'home-hero__inner',
         content: `
-          <div class="home-hero__copy" data-motion-group>
-            <p class="hero-eyebrow" data-motion-item><span aria-hidden="true"></span>${escapeHtml(eyebrow)}</p>
+          <div class="home-hero__copy">
+            <p class="hero-eyebrow"><span aria-hidden="true"></span>${escapeHtml(eyebrow)}</p>
             <h1 id="home-hero-title">${title}</h1>
             ${SignatureFlourish()}
-            <p class="home-hero__intro" data-motion-item>${escapeHtml(text)}</p>
-            <div class="home-hero__actions" data-motion-item>
+            <p class="home-hero__intro">${escapeHtml(text)}</p>
+            <div class="home-hero__actions">
               ${Button({ ...primaryAction })}
               ${Button({ ...secondaryAction, variant: 'inverse-outline' })}
             </div>
