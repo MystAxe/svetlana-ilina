@@ -8,6 +8,7 @@ import { Container } from '../components/ui/Container';
 import { formulaFeature } from '../data/home';
 import { dashaStory, polinaStory } from '../data/stories';
 import { escapeHtml } from '../lib/dom';
+import { SignatureArt, SignatureDivider } from '../components/decorations/SignatureLine';
 
 const action = { label: 'Получить свою «Формулу тела»', href: '#request' };
 const audience = [
@@ -60,6 +61,7 @@ export function formulaPage(): string {
     text: 'Разберём, что сейчас мешает вашему телу меняться и с чего начать именно вам.',
     outcome: 'Анкета до встречи · разбор 60–90 минут · персональная карта первых действий.',
     image: formulaFeature.image,
+    accentArt: SignatureArt('body'),
     primaryAction: action,
     secondaryAction: { label: 'Как это проходит', href: '#process' },
   });
@@ -75,6 +77,6 @@ export function formulaPage(): string {
   return PageShell({
     activePath: '/formula-tela/',
     mainClassName: 'formula-page product-page',
-    mainContent: [hero, recognition, difference, steps, topics, result, map, stories, mentorship, FAQ({ items: faq, id: 'formula-faq' }), price, LeadForm({ title: 'Заявка на «Формулу тела»', intro: 'Стоимость 4 900 ₽. Оставьте контакт, чтобы согласовать оплату и время встречи.' })].join(''),
+    mainContent: [hero, SignatureDivider(), recognition, difference, steps, topics, SignatureDivider(), result, map, stories, mentorship, FAQ({ items: faq, id: 'formula-faq' }), price, LeadForm({ title: 'Заявка на «Формулу тела»', intro: 'Стоимость 4 900 ₽. Оставьте контакт, чтобы согласовать оплату и время встречи.' })].join(''),
   });
 }
